@@ -1,0 +1,2 @@
+# dotfiles
+bash, tmux, nvim
