@@ -21,13 +21,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
     
     #install pre-requiste
-    yum -y install docker-io vim tmux zsh
-    service docker restart
-    chkconfig docker on
-
     yum -y install epel-release
     curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    yum -y install neovim jq
+    yum -y install docker-io vim tmux zsh bash-completion bash-completion-extras jq neovim
+    service docker restart
+    chkconfig docker on
 fi
 
 echo "Done. Reload your terminal."
