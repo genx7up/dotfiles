@@ -17,7 +17,7 @@ for file in $linkables; do
     target="$HOME/$filename"
     if [ -f $target ]; then
         echo "backing up $filename"
-        cp $target $BACKUP_DIR
+        mv $target $BACKUP_DIR
     else
         echo -e "$filename does not exist at this location or is a symlink"
     fi
