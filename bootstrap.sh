@@ -26,6 +26,22 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 	bash /usr/local/bin/volt.sh get git_rsa.pub > ~/.ssh/git_rsa.pub
 	bash /usr/local/bin/volt.sh get git_rsa > ~/.ssh/git_rsa
 	chmod 600 ~/.ssh/git_rsa
+	
+	if [[ $? == 0 && `cat "~/.ssh/git_rsa.pub"` == "Not found" ]]; then
+		echo 'No git keys found. Do you want to generate & add new keys? (y/n)'
+		read choice < /dev/tty
+		if [[ $choice == 'y' ]]; then
+			ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_rsa
+			if [[ -f ~/.ssh/git_rsa.pub ]]; then 
+				echo 'Save new keys to remote vault? (y/n)'
+				read choice < /dev/tty
+				if [[ $choice == 'y' ]]; then
+					bash /usr/local/bin/volt.sh set git_rsa.pub @/root/.ssh/git_rsa.pub
+					bash /usr/local/bin/volt.sh set git_rsa @/root/.ssh/git_rsa
+				fi
+			fi	
+		fi
+	fi
 fi
 source /usr/local/bin/volt.sh load
 
