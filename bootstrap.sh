@@ -29,6 +29,7 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 	chmod 600 ~/.ssh/git_rsa
 	
 	if [[ $? == 0 && `cat ~/.ssh/git_rsa.pub` == "Not found" ]]; then
+		rm -rf ~/.ssh/git_rsa*
 		echo 'No git keys found. Do you want to generate & add new keys? (y/n)'
 		read choice < /dev/tty
 		if [[ $choice == 'y' ]]; then
