@@ -24,6 +24,7 @@ formulas=(
     'macvim --with-override-system-vim'
     ack
     bash
+    bash-git-prompt
     diff-so-fancy
     fzf
     git
