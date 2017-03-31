@@ -117,7 +117,7 @@ gem install wbench
 # Install nerd fonts
 brew tap caskroom/fonts   
 brew cask install font-firacode-nerd-font-mono
-brew cask install font-devicons
+brew cask install font-droidsansmono-nerd-font-mono
  
 # Cleanup
 brew cleanup
