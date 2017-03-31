@@ -53,7 +53,7 @@ if [[ ! -d ~/.dotfiles ]]; then
 fi
 cd ~/.dotfiles && git pull
 
-./install/backup.sh
+./lib/backup.sh
 ./install.sh
 
 # Customize git
