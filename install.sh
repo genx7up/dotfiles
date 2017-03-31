@@ -32,6 +32,7 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-pro
 
 # add fonts
 tic xterm-256color-italic.terminfo
+tic tmux-256color-italic.terminfo
 
 # create symlinks
 source .dotfiles/lib/link.sh
