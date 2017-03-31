@@ -20,83 +20,10 @@ GIT_PROMPT_ONLY_IN_REPO=1
 
 source ~/.bash-git-prompt/gitprompt.sh
 
-# tells Readline to perform filename completion in a case-insensitive fashion
-bind "set completion-ignore-case on"
-
-# filename matching during completion will treat hyphens and underscores as equivalent
-bind "set completion-map-case on"
-
-# will get Readline to display all possible matches for an ambiguous pattern at the first <Tab> press instead of at the second
-bind "set show-all-if-ambiguous on"
-
-# no bell sound on error
-bind "set bell-style none"
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# save multi-line commands as one command
-shopt -s cmdhist
-
-# no need to type cd (works for .. but not -, although alias -- -='cd -' fixes it)
-shopt -s autocd 2>/dev/null
-
-# autocorrect minor spelling errors
-shopt -s dirspell 2>/dev/null
-shopt -s cdspell 2>/dev/null
-
-# check windows size if windows is resized
-shopt -s checkwinsize 2>/dev/null
-
-# use extra globing features. See man bash, search extglob.
-shopt -s extglob 2>/dev/null
-
-# include .files when globbing.
-shopt -s dotglob 2>/dev/null
-
-# case insensitive globbing
-shopt -s nocaseglob 2>/dev/null
-
-# can be useful to utilise the gnu style error message format
-shopt -s gnu_errfmt 2>/dev/null
-
-# ensure SIGHUP is sent to all jobs when an interactive login shell exits
-shopt -s huponexit 2>/dev/null
 
 # specify other paths to look inside of when autocompleting
 CDPATH=".:~/src"
 
-# application configuration
-export LSCOLORS="dxfxcxdxbxegedabagacad" # http://geoff.greer.fm/lscolors/
-export GREP_OPTIONS="--color=auto"
-export GREP_COLOR="1;32"
-export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
-export EDITOR="nvim"
-export HOMEBREW_NO_ANALYTICS=1
-export SSH_PUBLIC_KEY="$HOME/.ssh/git_rsa.pub"
-
-# git specific configurations
-export GIT_PS1_SHOWCOLORHINTS=true
-export GIT_PS1_SHOWDIRTYSTATE=true     # * for unstaged changes (+ staged but uncommitted changes)
-export GIT_PS1_SHOWSTASHSTATE=true     # $ for stashed changes
-export GIT_PS1_SHOWUNTRACKEDFILES=true # % for untracked files
-export GIT_PS1_SHOWUPSTREAM="auto"     # > for local commits on HEAD not pushed to upstream
-                                       # < for commits on upstream not merged with HEAD
-                                       # = HEAD points to same commit as upstream
-
-# history configuration
-history -a # record each line as it gets issued
-export HISTSIZE=500000
-export HISTFILESIZE=100000
-export HISTCONTROL="erasedups:ignoreboth" # avoid duplicate entries
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history" # don't record some commands
-export HISTTIMEFORMAT='%F %T ' # useful timestamp format
-
-# force colours
-export force_color_prompt=yes
-
-# use colour prompt
-export color_prompt=yes
 
 # \e indicates escape sequence (sometimes you'll see \033)
 # the m indicates you've provided a colour sequence
@@ -202,72 +129,6 @@ $ stashed changes
 = HEAD points to same commit as upstream
 EOF
 
-# Allow aliases to be with sudo
-alias sudo="sudo "
-
-# Easier navigation: .., ..., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ~="cd ~"
-alias -- -="cd -"
-
-# use `type <alias>` to see what is assigned to an alias/fn/builtin/keyword
-alias c="clear"
-alias l="ls -oG"
-# Order by last modified, long form no user group, color
-alias lt="ls -toG"
-# List all except . and ..., color, mark file types, long form no user group, file size
-alias la="ls -AGFoh"
-# List all except . and ..., color, mark file types, long form no use group, order by last modified, file size
-alias lat="ls -AGFoth"
-alias ls="ls -GpF"
-alias ll="ls -laGpFHh"
-alias r="source ~/.bashrc"
-
-# Concatenate and print content of files (add line numbers)
-alias catn="cat -n"
-
-# Open file in existing MacVim window
-alias gvim="open -a MacVim"
-alias mvim="open -a MacVim"
-
-# IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
-
-# Copy my public key to the pasteboard
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
-alias gitkey="more ~/.ssh/git_rsa.pub | pbcopy | printf '=> Git Public key copied to pasteboard.\n'"
-
-# Flush DNS cache
-alias flushdns="dscacheutil -flushcache"
-
-# Empty the Trash on all mounted volumes and the main HDD
-# Also, clear Apple’s System Logs to improve shell startup speed
-alias etrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
-alias getcommit="git log -1 | cut -d ' ' -f 2 | head -n 1 | pbcopy"
-
-alias cm="git checkout master"
-alias c-="git checkout -"
-alias gb="git branch"
-alias gbd="git branch -D"
-alias gcp="git cherry-pick -"
-alias gpr="git pull --rebase origin master"
-alias wat='echo "$git_icons"'
-alias wut='echo "$git_icons"'
-alias gitupstream="echo git branch -u origin/\<branch\>"
-alias sshconfig='nvim -c "norm 12ggVjjjgc" -c "wq" ~/.ssh/config && cat ~/.ssh/config | awk "/switch/ {for(i=0; i<=3; i++) {getline; print}}"'
-alias copy="tr -d '\n' | pbcopy" # e.g. echo $DEV_CERT_PATH | copy
-
-alias drm='docker rm $(docker ps -a -q)'
-alias drmi='docker rmi $(docker images -q)'
-alias dns="scutil --dns | grep 'nameserver\[[0-9]*\]'"
-alias nvimupdate="brew reinstall --HEAD neovim"
-alias pipall="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U"
-alias uid='echo $(uuidgen)'
-alias datesec='date +%s'
 
 # https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh
 source ~/.bash-preexec.sh
@@ -279,41 +140,3 @@ source ~/.bash-preexec.sh
 precmd() { prompt; }
 
 
-# bash_paths
-
-# Directories to be prepended to PATH
-declare -a dirs_to_prepend=(
-    "/usr/local/sbin"
-    "/usr/local/bin" # Ensure that this bin always takes precedence over `/usr/bin`
-)
-
-# Directories to be appended to PATH
-declare -a dirs_to_append=(
-    "/usr/sbin"
-    "/usr/bin"
-    "$HOME/bin"
-    "$HOME/.dotfiles/bin"
-    "$(brew --prefix coreutils)/libexec/gnubin" # Add brew-installed GNU core utilities bin
-)
-
-# Prepend directories to PATH
-for index in ${!dirs_to_prepend[*]}
-do
-    if [ -d ${dirs_to_prepend[$index]} ]; then
-        # If these directories exist, then prepend them to existing PATH
-        PATH="${dirs_to_prepend[$index]}:$PATH"
-    fi
-done
-
-# Append directories to PATH
-for index in ${!dirs_to_append[*]}
-do
-    if [ -d ${dirs_to_append[$index]} ]; then
-        # If these bins exist, then append them to existing PATH
-        PATH="$PATH:${dirs_to_append[$index]}"
-    fi
-done
-
-unset dirs_to_prepend dirs_to_append
-
-export PATH
