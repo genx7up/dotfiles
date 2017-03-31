@@ -50,4 +50,3 @@ if [[ "$RES" == "0" ]]; then
 fi
 
 printf "\n### Done. Exit & Relogin\n"
-if [[ -f ~/.bash_profile ]]; then source ~/.bash_profile; fi
