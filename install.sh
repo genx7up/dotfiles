@@ -25,7 +25,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install docker-io vim zsh bash-completion bash-completion-extras jq neovim
     sudo chkconfig docker on
     sudo service docker start
-    sudo bash tmux/install.sh
+    if [ -n "$(command -v tmux)" ]; then sudo bash tmux/install.sh; fi
 fi
 
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
