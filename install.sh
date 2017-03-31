@@ -27,10 +27,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo service docker start
 fi
 
-cd ~
-curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > .bash-preexec.sh
-curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > .git-prompt.sh
+curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt.sh
 
+# add fonts
+tic xterm-256color-italic.terminfo
+
+# create symlinks
 source .dotfiles/lib/link.sh
 
 echo "Done. Reload your terminal."
