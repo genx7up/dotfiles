@@ -23,6 +23,7 @@ formulas=(
     'coreutils'
     'macvim --with-override-system-vim'
     ack
+    bash
     diff-so-fancy
     fzf
     git
@@ -47,7 +48,6 @@ formulas=(
     wget
     z
     zsh
-    zsh-completions
 )
 
 for formula in "${formulas[@]}"; do
