@@ -32,6 +32,7 @@ load_dotfiles() {
         $HOME/.dotfiles/shell/bash_aliases # Aliases
         $HOME/.dotfiles/shell/bash_extras # Extras
         $HOME/.dotfiles/shell/bash_prompt # Custom bash prompt
+	$HOME/.dotfiles/shell/bash_functions # Functions
         $HOME/.dotfiles/shell/bash_paths # Path modifications
         $HOME/.bash_profile.local # Local and private settings not under version control (e.g. git credentials)
     )
