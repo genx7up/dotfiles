@@ -38,8 +38,8 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 				echo 'Save new keys to remote vault? (y/n)'
 				read choice < /dev/tty
 				if [[ $choice == 'y' ]]; then
-					bash /usr/local/bin/volt.sh set git_rsa.pub @/root/.ssh/git_rsa.pub
-					bash /usr/local/bin/volt.sh set git_rsa @/root/.ssh/git_rsa
+					bash /usr/local/bin/volt.sh set git_rsa.pub @$HOME/.ssh/git_rsa.pub
+					bash /usr/local/bin/volt.sh set git_rsa @$HOME/.ssh/git_rsa
 				fi
 			fi	
 		fi
