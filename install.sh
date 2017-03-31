@@ -22,9 +22,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    sudo yum -y install docker-io vim tmux zsh bash-completion bash-completion-extras jq neovim
+    sudo yum -y install docker-io vim zsh bash-completion bash-completion-extras jq neovim
     sudo chkconfig docker on
     sudo service docker start
+    sudo tmux/install.sh
 fi
 
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
