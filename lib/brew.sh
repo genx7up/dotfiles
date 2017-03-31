@@ -113,6 +113,10 @@ done
 
 # Development tools
 gem install wbench
+
+# Install nerd fonts
+brew tap caskroom/fonts   
+brew cask install font-hack-nerd-font
  
 # Cleanup
 brew cleanup
