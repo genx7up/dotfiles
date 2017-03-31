@@ -81,7 +81,6 @@ brew install zopfli
 formulas=(
     # flags should pass through the the `brew list check`
     'macvim --with-override-system-vim'
-    bash-git-prompt
     diff-so-fancy
     fzf
     gpg
