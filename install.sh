@@ -28,4 +28,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     chkconfig docker on
 fi
 
+cd ~
+git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
+
 echo "Done. Reload your terminal."
