@@ -49,7 +49,4 @@ load_dotfiles() {
 load_dotfiles
 unset load_dotfiles
 
-#volt integartion
-function volt() { bash ~/.volt.sh $@ && source ~/.volt.sh load; }
-if [[ -f ~/.volt.sh ]]; source ~/.volt.sh load; fi
 
