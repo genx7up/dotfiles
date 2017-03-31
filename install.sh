@@ -9,8 +9,6 @@ echo "Installing dotfiles."
 echo "Initializing submodule(s)"
 git submodule update --init --recursive
 
-source install/link.sh
-
 # only perform macOS-specific install
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
@@ -31,5 +29,7 @@ fi
 cd ~
 git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
 wget https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh
+
+source install/link.sh
 
 echo "Done. Reload your terminal."
