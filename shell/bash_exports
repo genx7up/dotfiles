@@ -2,27 +2,37 @@
 
 # bash_config
 
-# Make vim the default editor
-export EDITOR="vim"
 
-# Ignore duplicate commands in the history
-export HISTCONTROL=ignoredups
 
-# Increase the maximum number of lines contained in the history file
-# (default is 500)
-export HISTFILESIZE=10000
+# application configuration
+export LSCOLORS="dxfxcxdxbxegedabagacad" # http://geoff.greer.fm/lscolors/
+export GREP_OPTIONS="--color=auto"
+export GREP_COLOR="1;32"
+export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
+export EDITOR="nvim"
+export HOMEBREW_NO_ANALYTICS=1
+export SSH_PUBLIC_KEY="$HOME/.ssh/git_rsa.pub"
 
-# Increase the maximum number of commands to remember
-# (default is 500)
-export HISTSIZE=10000
+# git specific configurations
+export GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWDIRTYSTATE=true     # * for unstaged changes (+ staged but uncommitted changes)
+export GIT_PS1_SHOWSTASHSTATE=true     # $ for stashed changes
+export GIT_PS1_SHOWUNTRACKEDFILES=true # % for untracked files
+export GIT_PS1_SHOWUPSTREAM="auto"     # > for local commits on HEAD not pushed to upstream
+                                       # < for commits on upstream not merged with HEAD
+                                       # = HEAD points to same commit as upstream
 
-# Don't clear the screen after quitting a manual page
-export MANPAGER="less -X"
+# history configuration
+history -a # record each line as it gets issued
+export HISTSIZE=500000
+export HISTFILESIZE=100000
+export HISTCONTROL="erasedups:ignoreboth" # avoid duplicate entries
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history" # don't record some commands
+export HISTTIMEFORMAT='%F %T ' # useful timestamp format
 
-# Export PhantomJS bin location (be explicit in case Homebrew is not installed
-# in the default location)
-export PHANTOMJS_BIN="$(brew --prefix)/bin/phantomjs"
+# force colours
+export force_color_prompt=yes
 
-# Make new shells get the history lines from all previous
-# shells instead of the default "last window closed" history
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+# use colour prompt
+export color_prompt=yes
+
