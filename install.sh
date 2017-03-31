@@ -31,10 +31,10 @@ curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt.sh
 
 # add fonts
-tic xterm-256color-italic.terminfo
-tic tmux-256color-italic.terminfo
+tic resources/xterm-256color-italic.terminfo
+tic resources/tmux-256color-italic.terminfo
 
 # create symlinks
-source .dotfiles/lib/link.sh
+source lib/link.sh
 
 echo "Done. Reload your terminal."
