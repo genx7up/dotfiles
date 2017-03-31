@@ -23,6 +23,7 @@ fi
 bash /usr/local/bin/volt.sh login
 
 if [[ ! -f ~/.ssh/git_rsa.pub ]]; then 
+	mkdir -p ~/.ssh && chmod 660 ~/.ssh
 	bash /usr/local/bin/volt.sh get git_rsa.pub > ~/.ssh/git_rsa.pub
 	bash /usr/local/bin/volt.sh get git_rsa > ~/.ssh/git_rsa
 	chmod 600 ~/.ssh/git_rsa
