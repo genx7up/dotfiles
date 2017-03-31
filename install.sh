@@ -28,8 +28,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 cd ~
-git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > .bash-preexec.sh
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > /.git-prompt.sh
 
 source .dotfiles/install/link.sh
 
