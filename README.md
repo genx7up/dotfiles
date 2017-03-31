@@ -8,7 +8,7 @@ This is a collection of nvim, tmux, and bash configurations.
 
 First, you may want to backup any existing files that exist so this doesn't overwrite your work.
 
-Run `lib/backup.sh` to backup all symlinked files to a `~/dotfiles-backup` directory.
+Run `lib/backup.sh` to backup all symlinked files to a `~/.dotfiles-backup` directory.
 
 This will not delete any of these files, and the install scripts will not overwrite any existing. After the backup is complete, you can delete the files from your home directory to continue installation.
 
