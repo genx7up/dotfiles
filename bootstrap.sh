@@ -33,7 +33,7 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 		echo 'No git keys found. Do you want to generate & add new keys? (y/n)'
 		read choice < /dev/tty
 		if [[ $choice == 'y' ]]; then
-			ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_rsa
+			ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_rsa -q -N ""
 			if [[ -f ~/.ssh/git_rsa.pub ]]; then 
 				echo 'Save new keys to remote vault? (y/n)'
 				read choice < /dev/tty
