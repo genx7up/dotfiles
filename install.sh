@@ -30,5 +30,6 @@ fi
 
 cd ~
 git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
+wget https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh
 
 echo "Done. Reload your terminal."
