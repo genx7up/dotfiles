@@ -64,6 +64,10 @@ gem install wbench
 # Cleanup
 brew cleanup
 rm -f -r /Library/Caches/Homebrew/*
+
+#upgrade bash shell
+echo /usr/local/bin/bash | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/bash
  
 echo "All done! Phew!"
 
