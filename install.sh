@@ -13,8 +13,8 @@ git submodule update --init --recursive
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
-    source install/brew.sh
-    source install/osx.sh
+    source lib/brew.sh
+    source lib/osx.sh
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
@@ -31,6 +31,6 @@ cd ~
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > .bash-preexec.sh
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > /.git-prompt.sh
 
-source .dotfiles/install/link.sh
+source .dotfiles/lib/link.sh
 
 echo "Done. Reload your terminal."
