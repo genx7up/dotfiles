@@ -19,8 +19,12 @@ shopt -s histappend
 # save multi-line commands as one command
 shopt -s cmdhist
 
-# no need to type cd (works for .. but not -, although alias -- -='cd -' fixes it)
-shopt -s autocd 2>/dev/null
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+	shopt -s "$option" 2> /dev/null;
+done;
 
 # autocorrect minor spelling errors
 shopt -s dirspell 2>/dev/null
