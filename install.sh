@@ -24,7 +24,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
     sudo yum -y install docker-io vim tmux zsh bash-completion bash-completion-extras jq neovim
     sudo chkconfig docker on
-    sudo service docker restart
+    sudo service docker start
 fi
 
 cd ~
