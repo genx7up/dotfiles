@@ -31,6 +31,9 @@ setw -g aggressive-resize on
 # make delay shorter
 set -sg escape-time 0
 
+# Messages are displayed for 3 seconds
+set -g display-time 3000
+
 # tile all windows
 unbind =
 bind = select-layout tiled
@@ -130,7 +133,10 @@ set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-sidebar'
+set -g @plugin 'tmux-plugins/tmux-yank' # yanking helpers
+set -g @plugin 'tmux-plugins/tmux-sessionist' # session helpers prefix + C (new session)
+set -g @plugin 'tmux-plugins/tmux-battery' # Batter percentage
+set -g @plugin 'tmux-plugins/tmux-online-status' # Online status
 
 set -g @resurrect-processes 'ssh'
 
