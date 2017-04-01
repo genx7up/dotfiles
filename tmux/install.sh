@@ -21,7 +21,6 @@ make
 sudo make install
 cd ..
 
-# pkill tmux
-# close your terminal window (flushes cached tmux executable)
-# open new shell and check tmux version
-tmux -V
+#cleanup
+rm -rf libevent*
+rm -rf tmux-2.3*
