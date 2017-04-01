@@ -86,6 +86,15 @@ bind -r L resize-pane -R 10
 setw -g mouse on
 # set-option -g -q mouse on
 
+# Enable mouse
+set -g mode-mouse on
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+set -g mouse-select-window on
+
+# Focus events enabled for terminals that support them
+set -g focus-events on
+
 bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
 bind-key -t vi-copy PPage page-up
 bind-key -t vi-copy NPage page-down
