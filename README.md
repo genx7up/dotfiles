@@ -59,5 +59,7 @@ Tmux is a terminal multiplexor which lets you create windows and splits in the t
 
 When tmux starts up, [login-shell](bin/login-shell) will be run and if it determines you are running this on macOS, it will call reattach-to-user-namespace, to fix the system clipboard for use inside of tmux.
 
-Sourced from:
+Credits:
+
 https://github.com/nicknisi/dotfiles
+https://github.com/martin-svk/dot-files
