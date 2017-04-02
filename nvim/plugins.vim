@@ -77,6 +77,53 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in v
 Plug 'fatih/vim-go', { 'for': 'go' } " go support
 Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
 
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-scripts/grep.vim'
+Plug 'vim-scripts/CSApprox'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/syntastic'
+Plug 'avelino/vim-bootstrap-updater'
+Plug 'sheerun/vim-polyglot'
+Plug 'honza/vim-snippets'
+
+"" Vim-Session
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+
+"*****************************************************************************
+"" Custom bundles
+"*****************************************************************************
+
+" go
+"" Go Lang Bundle
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+
+" html
+"" HTML Bundle
+Plug 'gorodinskiy/vim-coloresque'
+
+" javascript
+"" Javascript Bundle
+Plug 'jelera/vim-javascript-syntax'
+
+
+" lua
+"" Lua Bundle
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'xolox/vim-lua-inspect'
+
+
+" php
+"" PHP Bundle
+Plug 'arnaud-lb/vim-php-namespace'
+
+
+" python
+"" Python Bundle
+Plug 'davidhalter/jedi-vim'
+
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Language agnostic plugins {{{
@@ -295,6 +342,11 @@ Plug 'EinfachToll/DidYouMean'
 " Codi interactive REPL like editing
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 "}}}
+
+"" Include user's extra bundle
+if filereadable(expand("~/.config/nvim/local_bundles.vim"))
+  source ~/.config/nvim/local_bundles.vim
+endif
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " 1.2 End of plugin declaration
