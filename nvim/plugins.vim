@@ -25,6 +25,59 @@ call plug#begin('~/.config/nvim/plugged')
 " 1.1 Plugin list
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" colorschemes
+Plug 'joshdick/onedark.vim'
+
+" utilities
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
+Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
+Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
+Plug 'tpope/vim-endwise' " automatically add end in ruby
+Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+Plug 'benmills/vimux' " tmux integration for vim
+Plug 'vim-airline/vim-airline' " fancy statusline
+Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+Plug 'garbas/vim-snipmate' " snippet manager
+Plug 'editorconfig/editorconfig-vim' " .editorconfig support
+Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
+Plug 'tomtom/tlib_vim' " utility functions for vim
+Plug 'sotte/presenting.vim', { 'for': 'markdown' } " a simple tool for presenting slides in vim based on text files
+Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+Plug 'tpope/vim-vinegar' " netrw helper
+Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
+Plug 'sickill/vim-pasta' " context-aware pasting
+
+" html / templates
+Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mustache/vim-mustache-handlebars' " mustach support
+Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] } " pug / jade support
+
+" JavaScript
+Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
+Plug 'moll/vim-node', { 'for': 'javascript' } " node support
+Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond syntax
+
+" styles
+Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
+Plug 'groenewege/vim-less', { 'for': 'less' } " less support
+Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
+
+" markdown
+if (has('osx'))
+    Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' } " Open markdown files in Marked.app - mapped to <leader>m
+endif
+
+" language-specific plugins
+Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
+Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
+Plug 'fatih/vim-go', { 'for': 'go' } " go support
+Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
+
+
 " ---------------------------------------------------------------------------------------------------------------------
 " Language agnostic plugins {{{
 " ---------------------------------------------------------------------------------------------------------------------
@@ -136,7 +189,7 @@ Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
 " ---------------------------------------------------------------------------------------------------------------------
 
 " Nerdtree file browser
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'
 " Lightline (simple status line)
 Plug 'itchyny/lightline.vim'
 " Buffers tabline
