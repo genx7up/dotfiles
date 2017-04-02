@@ -22,7 +22,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    sudo yum -y install docker-io vim zsh bash-completion bash-completion-extras jq neovim
+    sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim
     sudo chkconfig docker on
     sudo service docker start
     if [ ! -n "$(command -v tmux)" ]; then sudo bash tmux/install.sh; fi
