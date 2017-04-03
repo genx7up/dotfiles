@@ -455,18 +455,7 @@ set wildignore+=*.gem
 set wildignore+=tmp/**
 "}}}
 
-" ---------------------------------------------------------------------------------------------------------------------
-" 2.10 Neovim specific settings {{{
-" ---------------------------------------------------------------------------------------------------------------------
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1                   " Set an environment variable to use the t_SI/t_EI hack
-  let g:loaded_python_provider=0                        " Enable python 2 interface
-  let g:python_host_skip_check=0                        " Dont Skip python 2 host check
-  let g:python_host_prog = '/usr/bin/python'
-  "let g:python3_host_prog='/usr/local/bin/python3'      " Set python 3 host program
-  set inccommand=nosplit                                " Live preview of substitutes and other similar commands
-endif
-"}}}
+let g:python_host_prog = '/usr/bin/python'
 
 " -----------------------------------------------------
 " 2.11 Ctags settings {{{
