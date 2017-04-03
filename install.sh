@@ -41,4 +41,7 @@ tic resources/tmux-256color-italic.terminfo
 # create symlinks
 source lib/link.sh
 
+#install vim plugins
+nvim +PlugInstall +qall +silent
+
 echo "Done. Reload your terminal."
