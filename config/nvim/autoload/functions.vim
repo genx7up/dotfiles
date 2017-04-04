@@ -1,5 +1,5 @@
 " recursively search up from dirname, sourcing all .vimrc.local files along the way
-function! applylocalsettings#ApplyLocalSettings(dirname)
+function! functions#ApplyLocalSettings(dirname)
     " convert windows paths to unix style
     let l:curDir = substitute(a:dirname, '\\', '/', 'g')
 
