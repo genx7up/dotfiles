@@ -97,7 +97,7 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 let s:base_mid = 68750
 
-function! hiinterestingword#HiInterestingWord(n)
+function! functions#HiInterestingWord(n)
     " Save our location.
     normal! mz
 
