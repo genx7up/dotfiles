@@ -891,7 +891,7 @@ let g:NERDTreeRespectWildIgnore=1
 " -----------------------------------------------------
 " 4.4 Ultisnips settings {{{
 " -----------------------------------------------------
-let g:UltiSnipsUsePythonVersion=2
+let g:UltiSnipsUsePythonVersion=3
 "}}}
 
 " -----------------------------------------------------
