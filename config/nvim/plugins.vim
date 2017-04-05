@@ -118,7 +118,9 @@ Plug 'xolox/vim-lua-inspect'
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
 
-
+" python		
+"" Python Bundle		
+Plug 'davidhalter/jedi-vim'
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Language agnostic plugins {{{
