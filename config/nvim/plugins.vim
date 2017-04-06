@@ -127,7 +127,7 @@ Plug 'arnaud-lb/vim-php-namespace'
 " ---------------------------------------------------------------------------------------------------------------------
 
 " Asynchronous maker and linter (needs linters to work)
-Plug 'benekastah/neomake', { 'on': ['Neomake'] }
+Plug 'neomake/neomake'
 " Autocomplete
 Plug 'Shougo/deoplete.nvim'
 " Automatically closing pair stuff
