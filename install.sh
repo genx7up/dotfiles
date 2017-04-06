@@ -22,7 +22,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xsel
+    sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xsel ncurses-term
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
     sudo pip install neovim
@@ -39,9 +39,18 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-pro
 pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.otf && popd
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf && popd
 
-# add fonts
+# add term colors
 tic resources/xterm-256color-italic.terminfo
 tic resources/tmux-256color-italic.terminfo
+
+cat <<EOF|tic -x -
+tmux|tmux terminal multiplexer,
+  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
+  use=xterm+tmux, use=screen,
+
+tmux-256color|tmux with 256 colors,
+  use=xterm-256color, use=tmux,
+EOF
 
 # create symlinks
 source lib/link.sh
