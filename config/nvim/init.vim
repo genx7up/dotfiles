@@ -356,7 +356,7 @@ let g:SuperTabCrMapping = 0
 " ======================================================================================================================
 "{{{
 
-set shell=/bin/zsh                          " Setting shell to zsh
+set shell=/bin/bash                          " Setting shell to bash
 set number                                  " Line numbers on
 set showmode                                " Always show mode
 set showcmd                                 " Show commands as you type them
