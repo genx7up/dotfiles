@@ -10,4 +10,4 @@
 #
 tmux-256color-italic|tmux with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
-  use=xterm-256color,
+  use=tmux-256color,
