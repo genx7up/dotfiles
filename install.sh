@@ -40,9 +40,6 @@ pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf && popd
 
 # add term colors
-tic resources/xterm-256color-italic.terminfo
-tic resources/tmux-256color-italic.terminfo
-
 cat <<EOF|tic -x -
 tmux|tmux terminal multiplexer,
   ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
@@ -51,6 +48,9 @@ tmux|tmux terminal multiplexer,
 tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
 EOF
+
+tic resources/xterm-256color-italic.terminfo
+tic resources/tmux-256color-italic.terminfo
 
 # create symlinks
 source lib/link.sh
