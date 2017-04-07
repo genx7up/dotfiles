@@ -123,9 +123,9 @@ bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'y' copy-selection
 
-# Buffers to/from Mac clipboard, yay tmux book from pragprog
-bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+# move x clipboard into tmux paste buffer
+bind C-c run "tmux set-buffer \"$(xsel -o)\"; tmux paste-buffer"
+bind C-v run "tmux show-buffer | xsel -i"
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-copycat'
@@ -145,6 +145,7 @@ if "test ! -d ~/.tmux/plugins/tpm" \
    "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'"
 run-shell ~/.tmux/plugins/tpm/tpm
 
+if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux_osx.conf'
 if "[ -e ~/.tmux_local.conf ]" "source-file ~/.tmux_local.conf"
 
 ##############################
