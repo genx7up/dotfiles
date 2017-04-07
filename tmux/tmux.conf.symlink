@@ -17,7 +17,7 @@ set -g prefix C-a
 bind C-a send-prefix
 
 # for nested tmux sessions
-bind-key a send-prefix
+bind-key M-Space send-prefix
 
 # Activity Monitoring
 setw -g monitor-activity off
