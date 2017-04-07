@@ -136,7 +136,7 @@ set -g @resurrect-processes 'ssh'
 
 # initialize Tmux Plugin Manager
 if "test ! -d ~/.tmux/plugins/tpm" \
-   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'"
+   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
 run-shell ~/.tmux/plugins/tpm/tpm
 
 if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux_osx.conf'
