@@ -55,4 +55,4 @@ tm_host="#[fg=$tm_color_feature,bold]#h"
 tm_session_name="#[fg=$tm_color_feature,bold]$tm_icon #S"
 
 set -g status-left $tm_session_name' '
-set -g status-right ' '$tm_date' '$tm_host
+set -g status-right 'Online: #{online_status} '$tm_date' '$tm_host
