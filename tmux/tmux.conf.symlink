@@ -15,9 +15,10 @@ set -g renumber-windows on
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
+bind C-M-Space send-prefix
 
 # for nested tmux sessions
-bind-key M-Space send-prefix
+bind-key a send-prefix
 
 # Activity Monitoring
 setw -g monitor-activity off
