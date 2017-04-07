@@ -21,10 +21,6 @@ make
 sudo make install
 cd ..
 
-#install tpm plugins
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-~/.tmux/plugins/tpm/bin/install_plugins
-
 #cleanup
 rm -rf libevent*
 rm -rf tmux-2.3*
