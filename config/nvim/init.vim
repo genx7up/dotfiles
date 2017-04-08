@@ -969,57 +969,6 @@ let g:vcoolor_lowercase=1
 " 5.0 Plugin mappings
 " ======================================================================================================================
 "{{{
-" -----------------------------------------------------
-" 5.1 Unite and extensions {{{
-" -----------------------------------------------------
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <silent> <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <silent> <buffer> <C-k> <Plug>(unite_select_previous_line)
-  " Runs 'splits' action by <C-s> and <C-v>
-  imap <silent> <buffer> <expr> <C-s> unite#do_action('split')
-  imap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-  " Exit with escape
-  nmap <silent> <buffer> <ESC> <Plug>(unite_exit)
-  " Mark candidates
-  vmap <silent> <buffer> m <Plug>(unite_toggle_mark_selected_candidates)
-  nmap <silent> <buffer> m <Plug>(unite_toggle_mark_current_candidate)
-endfunction
-
-" Search files recursively ([o]pen file)
-nnoremap <silent> <leader>o :call utils#uniteFileRec()<CR>
-" Browse [f]iles in CWD
-nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
-" [U]nite sources
-nnoremap <silent> <leader>u :call utils#uniteSources()<CR>
-" Search between open files - [b]uffers
-nnoremap <silent> <leader>b :call utils#uniteBuffers()<CR>
-" Search in current file ou[t]line (tags in current file)
-nnoremap <silent> <leader>t :call utils#uniteTags()<CR>
-" Search in [l]ines on current buffer
-nnoremap <silent> <leader>l :call utils#uniteLineSearch()<CR>
-" Search in [y]ank history
-nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
-" Search in outlines
-nnoremap <silent> <leader>r :call utils#uniteOutline()<CR>
-" Search in registers
-nnoremap <silent> <leader>" :call utils#uniteRegisters()<CR>
-" Search in opened [w]indow splits
-nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
-" Search in ultisnips [s]nippets
-nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
-" Search in latest [j]ump positions
-nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
-" Search in my custom unite [m]enu with my commands
-nnoremap <silent> <leader>m :call utils#uniteCustomMenu()<CR>
-" Seach in help menu for commands
-nnoremap <silent> <leader>hc :call utils#uniteCommands()<CR>
-" Seach in help menu for mappings
-nnoremap <silent> <leader>hm :call utils#uniteMappings()<CR>
-"}}}
 
 " -----------------------------------------------------
 " 5.2 Ultisnips {{{
