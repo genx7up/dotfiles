@@ -190,14 +190,6 @@ function! g:utils#annotateFile() abort
   endif
 endfunction
 
-" Mode function for Lightline statusline
-function! g:utils#lightLineMode() abort
-  let l:fname = expand('%:t')
-  return l:fname =~? 'NERD_tree' ? 'NT' :
-        \ &filetype ==? 'unite' ? 'Unite' :
-        \ winwidth(0) > 70 ? g:lightline#mode() : ''
-endfunction
-
 " File format function for Lightline statusline
 function! g:utils#lightLineFileformat() abort
   return winwidth(0) > 70 ? &fileformat : ''
@@ -211,14 +203,6 @@ endfunction
 " File encoding function for Lightline statusline
 function! g:utils#lightLineFileencoding() abort
   return winwidth(0) > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
-endfunction
-
-" File name function for Lightline statusline
-function! g:utils#lightLineFilename() abort
-  let l:fname = expand('%:t')
-  return l:fname =~? 'NERD_tree' ? 'NERDTree' :
-        \ &filetype ==? 'unite' ? g:unite#get_status_string() :
-        \ ('' !=# l:fname ? l:fname : '[No Name]')
 endfunction
 
 " Howdoi integration
