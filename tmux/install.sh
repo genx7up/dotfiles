@@ -21,6 +21,11 @@ make
 sudo make install
 cd ..
 
+wget https://github.com/junegunn/fzf-bin/releases/download/0.16.5/fzf-0.16.5-linux_amd64.tgz
+tar xvf fzf-0.16.5-linux_amd64.tgz
+mv fzf /usr/local/bin/
+
 #cleanup
 rm -rf libevent*
 rm -rf tmux-2.3*
+rm -rf fzf-0.16*
