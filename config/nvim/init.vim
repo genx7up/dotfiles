@@ -210,7 +210,7 @@ nnoremap <leader>/ "fyiw :/<c-r>f<cr>
 " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 map <leader>r :call RunCustomCommand()<cr>
-" map <leader>s :call SetCustomCommand()<cr>
+map <leader>s :call SetCustomCommand()<cr>
 let g:silent_custom_command = 0
 
 " helpers for dealing with other people's code
@@ -274,7 +274,6 @@ else
     nmap <silent> <leader>t :FZF<cr>
 endif
 
-nmap <silent> <leader>r :Buffers<cr>
 nmap <silent> <leader>e :FZF<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
