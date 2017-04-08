@@ -264,6 +264,7 @@ let NERDTreeDirArrowExpandable = '▷'
 let NERDTreeDirArrowCollapsible = '▼'
 
 let g:fzf_layout = { 'down': '~25%' }
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
