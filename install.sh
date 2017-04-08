@@ -22,7 +22,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term
+    sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
     sudo pip install neovim
