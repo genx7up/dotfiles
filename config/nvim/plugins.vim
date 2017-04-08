@@ -212,18 +212,8 @@ Plug 'keith/tmux.vim'
 Plug 'honza/dockerfile.vim'
 "}}}
 
-" ---------------------------------------------------------------------------------------------------------------------
-" Unite fuzzy searcher {{{
-" ---------------------------------------------------------------------------------------------------------------------
-
-" Unite files, buffers, etc. sources
-Plug 'Shougo/unite.vim'
-" Outline source
-Plug 'Shougo/unite-outline'
 " History/yank source
 Plug 'Shougo/neoyank.vim'
-" Tag source
-Plug 'tsukkee/unite-tag'
 " Ag wrapper (Unite grep alternative) search and edit
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
 "}}}
