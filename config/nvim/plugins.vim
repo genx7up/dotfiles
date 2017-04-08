@@ -29,8 +29,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 
 " utilities
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } Plug 'junegunn/fzf.vim'
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
