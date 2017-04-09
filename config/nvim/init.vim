@@ -22,6 +22,7 @@ abbr fitler filter
 set nocompatible            " not compatible with vi
 set autoread                " detect when a file is changed
 set history=1000            " change history to 1000
+set shortmess=a
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
