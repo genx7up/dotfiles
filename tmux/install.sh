@@ -32,10 +32,10 @@ rm -rf fzf-0.16*
 
 #install plugins
 # start a server but don't attach to it
-tmux start-server
+/usr/local/bin/tmux start-server
 # create a new session but don't attach to it either
-tmux new-session -d
+/usr/local/bin/tmux new-session -d
 # install the plugins
 ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 # killing the server is not required, I guess
-tmux kill-server
+/usr/local/bin/tmux kill-server
