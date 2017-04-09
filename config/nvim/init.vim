@@ -1104,14 +1104,6 @@ nnoremap <leader>d :JsDoc<CR>
 syntax on
 "}}}
 
-" Color scheme based on time {{{
-if strftime("%H") < 19
-  colorscheme badwolf
-else
-  colorscheme iceberg
-endif
-"}}}
-
 " Highlight VCS conflict markers {{{
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 "}}}
