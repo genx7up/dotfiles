@@ -63,5 +63,6 @@ source lib/link.sh
 
 #install vim plugins
 nvim +PlugInstall +qall +silent
+nvim +UpdateRemotePlugins +qall +silent
 
 echo "Done. Reload your terminal."
