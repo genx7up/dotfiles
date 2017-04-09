@@ -71,6 +71,7 @@ if [[ "$RES" == "0" ]]; then
 fi
 
 printf "\n### Done. Reload your terminal\n"
-read -t 10 -p "Exiting terminal in 10s ... ^C to abort" ; exit
+read -t 10 -p "Exiting terminal in 10s ... ^C to abort" || echo $?
+exit
 
 
