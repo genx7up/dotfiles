@@ -4,6 +4,8 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+read -t 10 -p "Creating/Syncing IDE environment. Starting in 10s. Hit ENTER to begin now or ^C to abort";
+
 echo "Installing dotfiles."
 
 echo "Initializing submodule(s)"
@@ -76,5 +78,4 @@ bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 /usr/local/bin/tmux kill-server
 
 echo "Done. Reload your terminal."
-
-read -t 5 -p "^C to abort; Else exiting in ten seconds ..." ; exit
+read -t 10 -p "Exiting terminal in 10s ... ^C to abort" ; exit
