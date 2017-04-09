@@ -737,7 +737,7 @@ command! Notes :call utils#openNotes()
 
 " Run current file
 command! Run :call utils#runCurrentFile()
-nnoremap <silent> <leader>r :Run<CR>
+" nnoremap <silent> <leader>r :Run<CR>
 
 " Reformat whole or selection from file
 command! Format :call utils#formatFile()
