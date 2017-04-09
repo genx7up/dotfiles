@@ -57,7 +57,7 @@ fi
 cd ~/.dotfiles && git pull
 
 ./lib/backup.sh
-./install.sh
+./install.sh || echo $?
 
 # Customize git
 RES=$(git config --global user.name | wc -l)
@@ -70,4 +70,7 @@ if [[ "$RES" == "0" ]]; then
 	set +x
 fi
 
-printf "\n### Done. Exit & Relogin\n"
+printf "\n### Done. Reload your terminal\n"
+read -t 10 -p "Exiting terminal in 10s ... ^C to abort" ; exit
+
+
