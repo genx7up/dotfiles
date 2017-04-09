@@ -6,7 +6,7 @@ if [[ ${@: -1} == '--debug' ]];then
 fi
 
 echo "Creating/Syncing IDE environment ..."
-read -t 10 -p "Running 'idesync' in 10s. Hit ENTER to begin now or ^C to abort";
+read -t 5 -p "Running 'idesync' in 5s ... ^C to abort" || echo $?
 
 SRC_DIR=~/src
 mkdir -p "$SRC_DIR"
