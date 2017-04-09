@@ -76,3 +76,5 @@ bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 /usr/local/bin/tmux kill-server
 
 echo "Done. Reload your terminal."
+
+read -t 5 -p "^C to abort; Else exiting in ten seconds ..." ; exit
