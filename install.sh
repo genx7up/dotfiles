@@ -4,6 +4,7 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+CURR_USER=`whoami`
 echo "Installing dotfiles."
 
 echo "Initializing submodule(s)"
@@ -61,8 +62,21 @@ tic resources/tmux-256color-italic.terminfo
 # create symlinks
 source lib/link.sh
 
+# exit to normal shell
+sudo -u $CURR_USER bash
+
 #install vim plugins
 nvim +PlugInstall +qall +silent
 nvim +UpdateRemotePlugins +qall +silent
+
+#install tmux plugins
+# start a server but don't attach to it
+/usr/local/bin/tmux start-server
+# create a new session but don't attach to it either
+/usr/local/bin/tmux new-session -d
+# install the plugins
+bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+# killing the server is not required, I guess
+/usr/local/bin/tmux kill-server
 
 echo "Done. Reload your terminal."
