@@ -74,6 +74,6 @@ fi
 
 printf "\n### Done. Reload your terminal ###\n\n"
 read -t 10 -p "Exiting terminal in 10s ... ^C to abort" || echo $?
-kill -9 $PPID
+
 
 
