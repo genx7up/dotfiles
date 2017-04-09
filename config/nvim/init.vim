@@ -204,9 +204,6 @@ nnoremap <silent> k gk
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
-" search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<cr>
-
 " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 map <leader>r :call RunCustomCommand()<cr>
@@ -257,7 +254,7 @@ augroup END
 " Toggle NERDTree
 nmap <silent> <leader>k :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
-nmap <silent> <leader>y :NERDTreeFind<cr>
+nmap <silent> <leader>o :NERDTreeFind<cr>
 
 let NERDTreeShowHidden=1
 let NERDTreeDirArrowExpandable = '▷'
@@ -597,7 +594,7 @@ xnoremap >  >gv
 " Terminal mode mappings
 if has('nvim')
   tnoremap <ESC> <C-\><C-n>
-  tnoremap ,<ESC> <ESC>
+  tnoremap <leader><ESC> <ESC>
 endif
 
 " Stay down after creating fold
@@ -612,15 +609,15 @@ xnoremap . :norm.<CR>
 " -----------------------------------------------------
 
 " Quick save and close buffer
-nnoremap ,w :w<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <silent> ,c :Sayonara!<CR>
 nnoremap <silent> ,q :Sayonara<CR>
 
 " Yank and paste from clipboard
-nnoremap ,y "+y
-vnoremap ,y "+y
-nnoremap ,yy "+yy
-nnoremap ,p "+p
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>yy "+yy
+nnoremap <leader>p "+p
 
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
@@ -629,8 +626,8 @@ vnoremap K :m '<-2<CR>gv=gv
 " CTags generation / navigation (:tselect to select from menu)
 nnoremap ]t :tn<CR>
 nnoremap [t :tp<CR>
-nnoremap ,ts :ts<CR>
-nnoremap ,tg :GTags<CR>
+nnoremap <leader>ts :ts<CR>
+nnoremap <leader>tg :GTags<CR>
 
 " QuickFix navigation
 nnoremap ]q :cnext<CR>
@@ -654,19 +651,21 @@ nnoremap J mzJ`z
 nnoremap S mzi<CR><ESC>`z
 
 " Easier fold toggling
-nnoremap ,z za
+nnoremap <leader>z za
 
 " Start substitute on current word under the cursor
-nnoremap ,s :%s///gc<Left><Left><Left>
+nnoremap <leader>s :%s///gc<Left><Left><Left>
 
 " Start search on current word under the cursor
-nnoremap ,/ /<CR>
+" search for word under the cursor
+nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+" nnoremap <leader>/ /<CR>
 
 " Start reverse search on current word under the cursor
-nnoremap ,? ?<CR>
+nnoremap <leader>? ?<CR>
 
 " Faster sort
-vnoremap ,s :!sort<CR>
+vnoremap <leader>s :!sort<CR>
 
 " Fix spelling error on the go
 inoremap <C-l> <C-g>u<ESC>[s1z=`]a<C-g>u
@@ -976,8 +975,8 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 " -----------------------------------------------------
 " 5.3 Isolate {{{
 " -----------------------------------------------------
-vnoremap ,i :Isolate<CR>
-nnoremap ,u :UnIsolate<CR>
+vnoremap <leader>i :Isolate<CR>
+nnoremap <leader>u :UnIsolate<CR>
 "}}}
 
 " -----------------------------------------------------
@@ -985,8 +984,8 @@ nnoremap ,u :UnIsolate<CR>
 " -----------------------------------------------------
 nnoremap [h :GitGutterPrevHunk<CR>
 nnoremap ]h :GitGutterNextHunk<CR>
-nnoremap ,hs :GitGutterStageHunk<CR>
-nnoremap ,hr :GitGutterRevertHunk<CR>
+nnoremap <leader>hs :GitGutterStageHunk<CR>
+nnoremap <leader>hr :GitGutterRevertHunk<CR>
 "}}}
 
 " -----------------------------------------------------
@@ -1080,7 +1079,7 @@ nnoremap <leader>gd :Gvdiff<CR>
 " -----------------------------------------------------
 " 5.13 BufOnly -> [C]lose all {{{
 " -----------------------------------------------------
-nnoremap ,C :Bonly<CR>
+nnoremap <leader>CC :Bonly<CR>
 "}}}
 
 " -----------------------------------------------------
@@ -1092,13 +1091,13 @@ nnoremap <leader>gh :Gitv!<CR>
 " -----------------------------------------------------
 " 5.15 Tabularize -> [a]lign {{
 " -----------------------------------------------------
-vnoremap ,a :Tabularize /
+vnoremap <leader>a :Tabularize /
 "}}}
 
 " -----------------------------------------------------
 " 5.16 JsDoc {{
 " -----------------------------------------------------
-nnoremap ,d :JsDoc<CR>
+nnoremap <leader>d :JsDoc<CR>
 "}}}
 
 "}}}
