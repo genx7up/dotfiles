@@ -25,6 +25,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install docker-io tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
+    sudo pip install --upgrade pip
     sudo pip install neovim
     sudo pip3.5 install neovim
     
@@ -40,6 +41,7 @@ sudo bash -c "curl https://raw.githubusercontent.com/git/git/master/contrib/diff
 sudo chmod +x /usr/local/bin/diff-so-fancy
 sudo chmod +x /usr/local/bin/diff-highlight
 
+mkdir -p ~/.local/share/fonts
 pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.otf && popd
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf && popd
 
