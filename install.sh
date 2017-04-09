@@ -4,7 +4,8 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
-read -t 10 -p "Creating/Syncing IDE environment. Starting in 10s. Hit ENTER to begin now or ^C to abort";
+echo "Creating/Syncing IDE environment ..."
+read -t 10 -p "Running 'idesync' in 10s. Hit ENTER to begin now or ^C to abort";
 
 echo "Installing dotfiles."
 
