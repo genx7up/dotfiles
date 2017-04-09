@@ -38,7 +38,9 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 		if [[ $choice == 'y' ]]; then
 			ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_rsa -q -N ""
 			if [[ -f ~/.ssh/git_rsa.pub ]]; then 
-				echo 'Save new keys to remote vault? (y/n)'
+				echo 'Copy/Paste the following public key to your git profile.'
+				cat ~/.ssh/git_rsa.pub
+				echo 'Reusability - Save new keys to remote vault? (y/n)'
 				read choice < /dev/tty
 				if [[ $choice == 'y' ]]; then
 					bash /usr/local/bin/volt.sh set git_rsa.pub @$HOME/.ssh/git_rsa.pub
