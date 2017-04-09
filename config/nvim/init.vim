@@ -90,7 +90,7 @@ set foldnestmax=10          " deepest fold is 10 levels
 set nofoldenable            " don't fold by default
 set foldlevel=1
 
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 set ttyfast                 " faster redrawing
 set diffopt+=vertical
@@ -360,7 +360,6 @@ set cmdheight=1                             " Command line height
 set pumheight=10                            " Completion window max size
 set noswapfile                              " New buffers will be loaded without creating a swapfile
 set hidden                                  " Enables to switch between unsaved buffers and keep undo history
-set clipboard+=unnamed                      " Allow to use system clipboard
 set lazyredraw                              " Don't redraw while executing macros (better performance)
 set showmatch                               " Show matching brackets when text indicator is over them
 set matchtime=2                             " How many tenths of a second to blink when matching brackets
