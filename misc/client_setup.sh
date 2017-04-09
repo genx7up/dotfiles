@@ -1,3 +1,14 @@
+#!/bin/bash
+set -e
+
+if [[ ${@: -1} == '--debug' ]];then
+	set -x
+fi
+
+######################## Run sudo
+[ `whoami` = root ] || exec sudo -E -u root $0 $@
+######################## Run sudo
+
 # Client setup
 curl -sSL https://raw.githubusercontent.com/genx7up/dotfiles/master/misc/volt.sh -o /usr/local/bin/volt.sh
 echo 'function volt() { bash /usr/local/bin/volt.sh $@ && source /usr/local/bin/volt.sh load; }' >> /etc/profile
