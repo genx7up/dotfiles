@@ -90,7 +90,6 @@ formulas=(
     hub
     httpie
     jq
-    karabiner
     keybase
     nano
     neovim/neovim/neovim
