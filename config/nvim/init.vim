@@ -610,8 +610,8 @@ xnoremap . :norm.<CR>
 
 " Quick save and close buffer
 nnoremap <leader>w :w<CR>
-nnoremap <silent> ,c :Sayonara!<CR>
-nnoremap <silent> ,q :Sayonara<CR>
+nnoremap <silent> <leader>c :Sayonara!<CR>
+nnoremap <silent> <leader>q :Sayonara<CR>
 
 " Yank and paste from clipboard
 nnoremap <leader>y "+y
@@ -737,15 +737,15 @@ command! Notes :call utils#openNotes()
 
 " Run current file
 command! Run :call utils#runCurrentFile()
-nnoremap <silent> ,r :Run<CR>
+nnoremap <silent> <leader>r :Run<CR>
 
 " Reformat whole or selection from file
 command! Format :call utils#formatFile()
-nnoremap <silent> ,f :Format<CR>
+nnoremap <silent> <leader>f :Format<CR>
 
 " Annotate file (show values in special # => comments)
 command! Annotate :call utils#annotateFile()
-nnoremap <silent> ,A :Annotate<CR>
+nnoremap <silent> <leader>A :Annotate<CR>
 
 " Profile
 command! Profile :call utils#profile()
@@ -973,13 +973,6 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 "}}}
 
 " -----------------------------------------------------
-" 5.3 Isolate {{{
-" -----------------------------------------------------
-vnoremap <leader>i :Isolate<CR>
-nnoremap <leader>u :UnIsolate<CR>
-"}}}
-
-" -----------------------------------------------------
 " 5.4 Gitgutter {{{
 " -----------------------------------------------------
 nnoremap [h :GitGutterPrevHunk<CR>
@@ -1063,7 +1056,7 @@ let g:ctrlsf_mapping = {
       \ "loclist" : "",
       \ }
 
-nnoremap <silent> ,g :call utils#searchCurrentWordWithAg()<CR>
+nnoremap <silent> <leader>g :call utils#searchCurrentWordWithAg()<CR>
 "}}}
 
 " -----------------------------------------------------
