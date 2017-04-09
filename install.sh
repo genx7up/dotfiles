@@ -4,7 +4,6 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
-CURR_USER=`whoami`
 echo "Installing dotfiles."
 
 echo "Initializing submodule(s)"
@@ -61,9 +60,6 @@ tic resources/tmux-256color-italic.terminfo
 
 # create symlinks
 source lib/link.sh
-
-# exit to normal shell
-sudo -u $CURR_USER bash
 
 #install vim plugins
 nvim +PlugInstall +qall +silent
