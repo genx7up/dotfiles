@@ -213,7 +213,7 @@ Plug 'honza/dockerfile.vim'
 "}}}
 
 " History/yank source
-Plug 'Shougo/neoyank.vim'
+" Plug 'Shougo/neoyank.vim'
 " Ag wrapper (Unite grep alternative) search and edit
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
 "}}}
