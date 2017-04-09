@@ -95,7 +95,6 @@ formulas=(
     neovim/neovim/neovim
     reattach-to-user-namespace
     ripgrep
-    seil
     the_silver_searcher
     tmux
     unison
