@@ -14,7 +14,7 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
     source lib/brew.sh
-    source lib/osx.sh
+    #source lib/osx.sh
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
