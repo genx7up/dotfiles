@@ -883,7 +883,8 @@ let g:deoplete#sources.html = ['buffer', 'member', 'file', 'omni', 'ultisnips']
 " -----------------------------------------------------
 " 4.12 Ctrl-SF settings {{{
 " -----------------------------------------------------
-let g:ctrlsf_default_root='project'
+" let g:ctrlsf_default_root='project'
+let g:ctrlsf_default_root='cwd'
 let g:ctrlsf_populate_qflist=0
 let g:ctrlsf_position='bottom'
 let g:ctrlsf_winsize = '30%'
