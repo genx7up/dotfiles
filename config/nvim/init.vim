@@ -46,6 +46,10 @@ endif
 let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
 
+let base16colorspace=256
+set bg=light
+colorscheme tender
+
 syntax on
 
 " make the highlighting of tabs and other non-text less annoying
