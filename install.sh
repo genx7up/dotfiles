@@ -79,6 +79,11 @@ source lib/link.sh
 nvim +PlugInstall +qall +silent
 nvim +UpdateRemotePlugins +qall +silent
 
+#local overrides
+touch ~/.vimrc.local
+touch ~/.bash_profile.local
+touch ~/.dotfilesrc
+
 #install tmux plugins
 # start a server but don't attach to it
 /usr/local/bin/tmux start-server
