@@ -15,6 +15,11 @@ if [ "$(uname)" == "Darwin" ]; then
 
     source lib/brew.sh
     #source lib/osx.sh
+    
+    sudo gem install wbench
+    sudo gem install neovim
+    pip install neovim
+    pip3 install neovim
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
