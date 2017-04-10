@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
 
+# print available colors and their numbers
+function colours() {
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}m colour${i}"
+        if (( $i % 5 == 0 )); then
+            printf "\n"
+        else
+            printf "\t"
+        fi
+    done
+}
+
 # Create a new directory and enter it
-function mkd() {
-	mkdir -p "$@" && cd "$_";
+function md() {
+    mkdir -p "$@" && cd "$@"
+}
+
+function hist() {
+    history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
+}
+
+# find shorthand
+function f() {
+    find . -name "$1"
 }
 
 # Change working directory to the top-most Finder window location
