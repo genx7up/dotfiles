@@ -14,6 +14,7 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
     source lib/brew.sh
+    sudo rm -f -r /Library/Caches/Homebrew/*
     #source lib/osx.sh
     
     sudo gem install wbench
