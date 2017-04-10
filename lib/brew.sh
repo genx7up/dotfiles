@@ -96,9 +96,6 @@ for formula in "${formulas[@]}"; do
     fi
 done
 
-# Development tools
-sudo gem install wbench
-
 # Install nerd fonts
 brew tap caskroom/fonts   
 brew cask install font-firacode-nerd-font-mono
