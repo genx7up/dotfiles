@@ -18,8 +18,8 @@ if [ "$(uname)" == "Darwin" ]; then
     
     sudo gem install wbench
     sudo gem install neovim
-    pip install neovim
-    pip3 install neovim
+    pip install --user neovim
+    pip3 install --user neovim
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
