@@ -13,7 +13,7 @@ mkdir -p "$SRC_DIR"
 
 if [ "$(uname)" == "Darwin" ]; then
     # Do something under Mac OS X platform        
-    xcode-select --install
+    xcode-select --install && echo $?
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
