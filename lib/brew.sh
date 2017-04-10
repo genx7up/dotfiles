@@ -46,6 +46,7 @@ brew install woff2
 
 formulas=(
     ack
+    chromedriver
     dark-mode
     findutils
     fzf
