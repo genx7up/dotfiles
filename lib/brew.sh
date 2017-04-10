@@ -105,7 +105,6 @@ brew cask install keybase
 
 # Cleanup
 brew cleanup
-rm -f -r /Library/Caches/Homebrew/*
 
 echo "Software updated ..."
 
