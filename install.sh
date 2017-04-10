@@ -21,6 +21,13 @@ if [ "$(uname)" == "Darwin" ]; then
     sudo gem install neovim
     pip install --user neovim
     pip3 install --user neovim
+    
+    # add term colors
+    cat <<EOF|tic -x -
+tmux-256color|tmux with 256 colors,
+  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m,
+  use=xterm-256color, use=screen-256color,
+EOF
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
@@ -38,7 +45,21 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo chkconfig docker on
     sudo service docker start
     if [ ! -n "$(command -v tmux)" ]; then sudo bash tmux/install.sh; fi
+    
+    # add term colors
+    cat <<EOF|tic -x -
+tmux|tmux terminal multiplexer,
+  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
+  use=xterm+tmux, use=screen,
+
+tmux-256color|tmux with 256 colors,
+  use=xterm-256color, use=tmux,
+EOF
+
 fi
+
+tic resources/xterm-256color-italic.terminfo
+tic resources/tmux-256color-italic.terminfo
 
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt.sh
@@ -50,19 +71,6 @@ sudo chmod +x /usr/local/bin/diff-highlight
 mkdir -p ~/.local/share/fonts
 pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.otf && popd
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf && popd
-
-# add term colors
-cat <<EOF|tic -x -
-tmux|tmux terminal multiplexer,
-  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
-  use=xterm+tmux, use=screen,
-
-tmux-256color|tmux with 256 colors,
-  use=xterm-256color, use=tmux,
-EOF
-
-tic resources/xterm-256color-italic.terminfo
-tic resources/tmux-256color-italic.terminfo
 
 # create symlinks
 source lib/link.sh
