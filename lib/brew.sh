@@ -72,6 +72,7 @@ formulas=(
     rename
     ripgrep
     rhino
+    ruby
     speedtest_cli
     ssh-copy-id
     testssl
