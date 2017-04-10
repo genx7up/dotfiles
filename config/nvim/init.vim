@@ -461,6 +461,8 @@ if has('nvim')
   let g:python_host_skip_check=1                        " Skip python 2 host check		
   let g:python_host_prog = '/usr/bin/python'		
   let g:python3_host_prog='/usr/bin/python3.5'      " Set python 3 host program		
+  if (has('osx'))
+    let g:python3_host_prog='/usr/local/bin/python3'      " Set python 3 host program		
   set inccommand=nosplit                                " Live preview of substitutes and other similar commands		
 endif		
 "}}}
