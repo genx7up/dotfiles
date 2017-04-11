@@ -24,11 +24,7 @@ if [ "$(uname)" == "Darwin" ]; then
     pip3 install --user neovim
     
     # add term colors
-    cat <<EOF|tic -x -
-tmux-256color|tmux with 256 colors,
-  ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m,
-  use=xterm-256color, use=screen-256color,
-EOF
+    tic resources/tmux-256color.terminfo
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
@@ -77,7 +73,9 @@ pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono
 source lib/link.sh
 
 #install vim plugins
+sed -i 's/^colorscheme tender$/#\0/' config/nvim/init.vim
 nvim +PlugInstall +qall +silent
+git checkout -- config/nvim/init.vim
 nvim +UpdateRemotePlugins +qall +silent
 
 #local overrides
