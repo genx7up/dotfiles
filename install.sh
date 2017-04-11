@@ -19,6 +19,7 @@ if [ "$(uname)" == "Darwin" ]; then
     
     sudo gem install wbench
     sudo gem install neovim
+    sudo easy_install pip
     pip install --user neovim
     pip3 install --user neovim
     
