@@ -1216,9 +1216,16 @@ autocmd BufWritePost *.vim Neomake vint
 " 2. Make a list of improvements based on other editors.
 "}}}
 
+let g:titlecase_map_keys = 0
+nmap <leader>et <Plug>Titlecase
+vmap <leader>et <Plug>Titlecase
+nmap <leader>eT <Plug>TitlecaseLine
+
 " -----------------------------------------------------
 " 8.2 Notes {{{
 " -----------------------------------------------------
 "}}}
 
 "}}}
+
+
