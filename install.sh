@@ -28,7 +28,7 @@ if [ "$(uname)" == "Darwin" ]; then
     tic resources/tmux-256color.terminfo
     
     # terraform
-    if [[ ! -f /usr/local/bin/terraform ]]; then
+    if [[ ! -f "/usr/local/bin/terraform" ]]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_darwin_amd64.zip
         unzip terraform_$TF_VER_darwin_amd64.zip -d /usr/local/bin/
         rm -rf terraform_$TF_VER_darwin_amd64.zip
@@ -62,7 +62,7 @@ tmux-256color|tmux with 256 colors,
 EOF
 
     # terraform
-    if [[ ! -f /usr/local/bin/terraform ]]; then
+    if [[ ! -f "/usr/local/bin/terraform" ]]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_linux_amd64.zip
         unzip terraform_$TF_VER_linux_amd64.zip -d /usr/local/bin/
         rm -rf terraform_$TF_VER_linux_amd64.zip
