@@ -4,6 +4,7 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+TF_VER=0.9.3
 echo "Installing dotfiles."
 
 echo "Initializing submodule(s)"
@@ -25,6 +26,13 @@ if [ "$(uname)" == "Darwin" ]; then
     
     # add term colors
     tic resources/tmux-256color.terminfo
+    
+    # terraform
+    if [[ ! -f /usr/local/bin/terraform ]]; then
+        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_darwin_amd64.zip
+        unzip terraform_$TF_VER_darwin_amd64.zip -d /usr/local/bin/
+        rm -rf terraform_$TF_VER_darwin_amd64.zip
+    fi
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
@@ -53,6 +61,12 @@ tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
 EOF
 
+    # terraform
+    if [[ ! -f /usr/local/bin/terraform ]]; then
+        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_linux_amd64.zip
+        unzip terraform_$TF_VER_linux_amd64.zip -d /usr/local/bin/
+        rm -rf terraform_$TF_VER_linux_amd64.zip
+    fi
 fi
 
 tic resources/xterm-256color-italic.terminfo
