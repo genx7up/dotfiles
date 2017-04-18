@@ -29,9 +29,9 @@ if [ "$(uname)" == "Darwin" ]; then
     
     # terraform
     if [[ ! -f "/usr/local/bin/terraform" ]]; then
-        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_darwin_amd64.zip
-        unzip terraform_$TF_VER_darwin_amd64.zip -d /usr/local/bin/
-        rm -rf terraform_$TF_VER_darwin_amd64.zip
+        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_darwin_amd64.zip
+        unzip terraform_${TF_VER}_darwin_amd64.zip -d /usr/local/bin/
+        rm -rf terraform_${TF_VER}_darwin_amd64.zip
     fi
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -63,9 +63,9 @@ EOF
 
     # terraform
     if [[ ! -f "/usr/local/bin/terraform" ]]; then
-        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_$TF_VER_linux_amd64.zip
-        unzip terraform_$TF_VER_linux_amd64.zip -d /usr/local/bin/
-        rm -rf terraform_$TF_VER_linux_amd64.zip
+        wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip
+        unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/
+        rm -rf terraform_${TF_VER}_linux_amd64.zip
     fi
 fi
 
