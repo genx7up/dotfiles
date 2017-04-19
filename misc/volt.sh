@@ -180,6 +180,15 @@ elif [[ $1 == 'ht' || $1 == 'host_token' ]];then
 	curlx "$VAULT_HTTPS/issue_token_host" "-H X-Vault-Token:$VTOKEN"
 	echo 'Host token: ' $OUT
 
+elif [[ $1 == 'host_token_raw' ]];then
+        VTOKEN=0
+        if [ -f ~/.vault_token ];then
+                VTOKEN=$(cat ~/.vault_token | cut -d',' -f1)
+        fi
+
+        curlx "$VAULT_HTTPS/issue_token_host_raw" "-H X-Vault-Token:$VTOKEN"
+        echo 'Host token: ' $OUT
+
 elif [[ $1 == 'get' ]];then
 	VTOKEN=0
 	if [ -f ~/.vault_token ];then
