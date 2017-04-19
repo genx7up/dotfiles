@@ -1090,6 +1090,8 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit --verbose<CR>
 nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gp :Git push<CR>
 "}}}
 
 " -----------------------------------------------------
