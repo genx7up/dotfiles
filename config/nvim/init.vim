@@ -23,8 +23,8 @@ set nocompatible            " not compatible with vi
 set autoread                " detect when a file is changed
 set history=1000            " change history to 1000
 set shortmess=a
-:let g:session_autosave = 'yes' 
-:let g:session_autoload = 'yes' 
+:let g:session_autosave = 'yes'
+:let g:session_autoload = 'yes'
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -457,19 +457,19 @@ set wildignore+=tmp/**
 "}}}
 
 " ---------------------------------------------------------------------------------------------------------------------		 +let g:python_host_prog = '/usr/bin/python'
-" 2.10 Neovim specific settings {{{		
-" ---------------------------------------------------------------------------------------------------------------------		
-if has('nvim')		
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1                   " Set an environment variable to use the t_SI/t_EI hack		
-  let g:loaded_python_provider=1                        " Disable python 2 interface		
-  let g:python_host_skip_check=1                        " Skip python 2 host check		
-  let g:python_host_prog = '/usr/bin/python'		
-  let g:python3_host_prog='/usr/bin/python3.5'      " Set python 3 host program		
+" 2.10 Neovim specific settings {{{
+" ---------------------------------------------------------------------------------------------------------------------
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1                   " Set an environment variable to use the t_SI/t_EI hack
+  let g:loaded_python_provider=1                        " Disable python 2 interface
+  let g:python_host_skip_check=1                        " Skip python 2 host check
+  let g:python_host_prog = '/usr/bin/python'
+  let g:python3_host_prog='/usr/bin/python3.5'      " Set python 3 host program
   if (has('mac'))
-    let g:python3_host_prog='/usr/local/bin/python3'      " Set python 3 host program		
-  endif  
-  set inccommand=nosplit                                " Live preview of substitutes and other similar commands		
-endif		
+    let g:python3_host_prog='/usr/local/bin/python3'      " Set python 3 host program
+  endif
+  set inccommand=nosplit                                " Live preview of substitutes and other similar commands
+endif
 "}}}
 
 " -----------------------------------------------------
@@ -505,15 +505,29 @@ nnoremap <left> <NOP>
 nnoremap <right> <NOP>
 nnoremap <bs> <NOP>
 nnoremap <delete> <NOP>
-inoremap <up> <NOP>
-inoremap <down> <NOP>
-inoremap <left> <NOP>
-inoremap <right> <NOP>
+"inoremap <up> <NOP>
+"inoremap <down> <NOP>
+"inoremap <left> <NOP>
+"inoremap <right> <NOP>
 nnoremap <Space> <NOP>
 inoremap <F1> <NOP>
 nnoremap <F1> <NOP>
 nnoremap Q <NOP>
 "}}}
+
+" shift+arrow selection
+nmap <S-Up> v<Up>
+nmap <S-Down> v<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+imap <S-Up> <Esc>v<Up>
+imap <S-Down> <Esc>v<Down>
+imap <S-Left> <Esc>v<Left>
+imap <S-Right> <Esc>v<Right>
 
 " -----------------------------------------------------
 " 3.3 Vim defaults overriding {{{
@@ -1220,6 +1234,9 @@ let g:titlecase_map_keys = 0
 nmap <leader>et <Plug>Titlecase
 vmap <leader>et <Plug>Titlecase
 nmap <leader>eT <Plug>TitlecaseLine
+
+" auto open NERDTree
+autocmd vimenter * NERDTreeToggle
 
 " -----------------------------------------------------
 " 8.2 Notes {{{

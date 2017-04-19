@@ -139,11 +139,13 @@
     branch = auto
     interactive = auto
     ui = auto
+	
 [color "branch"]
     current = green bold
     local = green
     remote = red bold
 [color "diff"]
+    context = white dim
     meta = yellow bold
     frag = magenta bold
     old = red bold
@@ -183,7 +185,7 @@
     extendRegexp = true
     lineNumber = true
 [credential]
-	helper = osxkeychain
+	helper = cache
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [mergetool "Kaleidoscope"]
