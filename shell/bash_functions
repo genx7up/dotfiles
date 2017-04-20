@@ -306,3 +306,9 @@ function hl() {
 
     echo $src | highlight -O rtf --syntax $1 --font Inconsoloata --style $style --line-number --font-size 24 | pbcopy
 }
+
+#clean ssh to machines with default user
+function tsh() {
+	volt sign
+	TERM=xterm-256 ssh user01@$1 
+}
