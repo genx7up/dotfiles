@@ -134,7 +134,7 @@ set -g @plugin 'tmux-plugins/tmux-sessionist' # session helpers prefix + C (new 
 set -g @plugin 'tmux-plugins/tmux-battery' # Batter percentage
 set -g @plugin 'tmux-plugins/tmux-online-status' # Online status
 
-set -g @resurrect-processes 'ssh'
+set -g @resurrect-processes 'ssh tsh'
 set -g @continuum-restore 'on'
 
 # initialize Tmux Plugin Manager
