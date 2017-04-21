@@ -68,7 +68,7 @@ bind - split-window -v -c "#{pane_current_path}"
 
 # synchronize all panes in a window
 bind m setw synchronize-panes
-bing G setw synchronize-panes \; send-keys "Enter" \; send-keys 'c && g s' \; send-keys "Enter" \; setw synchronize-panes
+bind G setw synchronize-panes \; send-keys "Enter" \; send-keys "clear && git s" \; send-keys "Enter" \; setw synchronize-panes
 
 # pane movement shortcuts
 bind h select-pane -L
