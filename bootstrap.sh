@@ -23,7 +23,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 #get personal git keys
-curl -sSL https://raw.githubusercontent.com/genx7up/dotfiles/master/misc/volt.sh -o /usr/local/bin/volt.sh
+sudo rm -rf /usr/local/bin/volt.sh
+sudo curl -sSL https://raw.githubusercontent.com/genx7up/dotfiles/master/misc/volt.sh -o /usr/local/bin/volt.sh
 bash /usr/local/bin/volt.sh login
 
 if [[ ! -f ~/.ssh/git_rsa.pub ]]; then 

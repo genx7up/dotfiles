@@ -188,5 +188,4 @@ alias trs='tmux rename-session -t'
 # Killing
 alias tks='tmux kill-session -t'
 
-alias cs='clear;g s;'
 alias gd='git diff'
