@@ -134,7 +134,7 @@ EOF
 source ~/.bash-preexec.sh
 
 # preexec executes just BEFORE a command is executed
-# preexec() { echo "just typed $1"; }
+preexec() { :;  }
 
 # precmd executes just AFTER a command is executed, but before the prompt is shown
 precmd() { prompt; }
@@ -147,8 +147,8 @@ export REPORTTIME=10
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
-if [[ -d ~/code ]]; then
-    export CODE_DIR=~/code
+if [[ -d ~/src ]]; then
+    export CODE_DIR=~/src
 fi
 
 # alias git to hub
@@ -158,3 +158,4 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag -g ""'
+

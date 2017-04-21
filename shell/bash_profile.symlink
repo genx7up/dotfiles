@@ -52,5 +52,6 @@ load_dotfiles() {
 
 load_dotfiles
 unset load_dotfiles
+unset command_exists
 
 
