@@ -18,8 +18,11 @@ if [ "$(uname)" == "Darwin" ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
     
-    #install pre-requiste
-	sudo yum -y install git
+    ###### Install latest git from Rackspace repo
+    RELEASEVER=$(rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release))
+    BASEARCH=$(uname -m)
+    sudo yum -y install "https://centos${RELEASEVER}.iuscommunity.org/ius-release.rpm"
+    sudo yum -y install git2u
 fi
 
 #get personal git keys
