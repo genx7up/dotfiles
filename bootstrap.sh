@@ -21,7 +21,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     ###### Install latest git from Rackspace repo
     RELEASEVER=$(rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release))
     BASEARCH=$(uname -m)
-    sudo yum -y install "https://centos${RELEASEVER}.iuscommunity.org/ius-release.rpm"
+    sudo yum -y install "https://centos${RELEASEVER}.iuscommunity.org/ius-release.rpm" | cat
     sudo yum -y install git2u
 fi
 
