@@ -48,17 +48,16 @@ function curlx()
 function ensureSSHAgent()
 {
 	set +e
-	#ssh-add -l &>/dev/null
-	#if [ "$?" == 2 ]; then
-	  test -r ~/.ssh-agent && \
-	    eval "$(<~/.ssh-agent)" >/dev/null
-
-	  ssh-add -l &>/dev/null
-	  if [ "$?" == 2 ]; then
-	    (umask 066; ssh-agent -t 4000 > ~/.ssh-agent)
-	    eval "$(<~/.ssh-agent)" >/dev/null
-	  fi
-	#fi
+	if [ ! -r ~/.ssh-agent ]; then
+            (umask 066; ssh-agent -t 4000 > ~/.ssh-agent)
+        fi
+        eval "$(<~/.ssh-agent)" >/dev/null
+        ssh-add &>/dev/null
+        if [ "$?" == 2 ]; then
+            (umask 066; ssh-agent -t 4000 > ~/.ssh-agent)
+            eval "$(<~/.ssh-agent)" >/dev/null
+            ssh-add
+        fi
 	
 	#Configure ssh-agent
 	ssh-add -D &> /dev/null
