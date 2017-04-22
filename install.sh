@@ -64,7 +64,7 @@ EOF
     # terraform
     if [[ ! -f "/usr/local/bin/terraform" ]]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip
-        unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/
+        sudo unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/
         rm -rf terraform_${TF_VER}_linux_amd64.zip
     fi
 fi
