@@ -310,5 +310,5 @@ function hl() {
 #clean ssh to machines with default user
 function tsh() {
 	volt sign
-	TERM=xterm ssh user01@$1 
+	TERM=xterm ssh user01@$1 ${@:2} 
 }
