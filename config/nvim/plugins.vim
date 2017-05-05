@@ -227,7 +227,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] } | Plug 
 " Lightline (simple status line)
 Plug 'itchyny/lightline.vim'
 " Buffers tabline
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 "}}}
 
 " ---------------------------------------------------------------------------------------------------------------------
