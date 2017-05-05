@@ -23,10 +23,11 @@ set nocompatible            " not compatible with vi
 set autoread                " detect when a file is changed
 set history=1000            " change history to 1000
 set shortmess=a
-:let g:session_autosave = 'yes'
-:let g:session_autoload = 'yes'
-:let g:session_autosave_periodic = 'yes'
-:let g:session_default_to_last = 'yes'
+
+:let g:session_autosave='yes'
+:let g:session_autoload='yes'
+:let g:session_autosave_periodic='yes'
+:let g:session_default_to_last='yes'
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
