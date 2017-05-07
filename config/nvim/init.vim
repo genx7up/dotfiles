@@ -1246,6 +1246,8 @@ autocmd vimenter * NERDTreeToggle
 map <leader>ss :SaveSession! default<cr>
 map <leader>rr :source ~/.vim/sessions/default.vim<cr>
 
+cmap w!! w !sudo tee > /dev/null %
+
 " -----------------------------------------------------
 " 8.2 Notes {{{
 " -----------------------------------------------------
