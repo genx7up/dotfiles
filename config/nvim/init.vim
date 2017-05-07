@@ -1248,6 +1248,15 @@ map <leader>rr :source ~/.vim/sessions/default.vim<cr>
 
 cmap w!! w !sudo tee > /dev/null %
 
+"Builders
+map <leader>vl :call VimuxRunLastCommand()
+map <leader>vc :call VimuxSendKeys('C-c')
+map <leader>vx :call VimuxCloseRunner()
+map <leader>vo :call VimuxOpenRunner()
+
+"docker build current dockerfile
+map <leader>v1 :call VimuxRunCommand('cd '. shellescape(expand('%:p:h'), 1) .' && sudo docker build --rm=true -t="`dirname '. shellescape(expand('%:p:h'), 1) .' | xargs dirname | xargs basename`" .')
+
 " -----------------------------------------------------
 " 8.2 Notes {{{
 " -----------------------------------------------------
