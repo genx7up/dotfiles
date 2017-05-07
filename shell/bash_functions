@@ -312,3 +312,9 @@ function tsh() {
 	volt sign
 	TERM=xterm ssh user01@$1 ${@:2} 
 }
+
+#x11forwarding ssh to machines with default user
+function xsh() {
+	volt sign
+	ssh -X user01@$1 ${@:2} 
+}
