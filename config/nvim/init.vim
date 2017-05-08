@@ -1255,7 +1255,7 @@ map <leader>vx :call VimuxCloseRunner() <cr>
 map <leader>vo :call VimuxOpenRunner() <cr>
 
 "docker build current dockerfile
-map <leader>v1 <esc>:w<cr>:call VimuxRunCommand("cd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .") <cr>
+map <leader>v1 <esc>:w<cr>:call VimuxRunCommand("clear; cd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .") <cr>
 
 " -----------------------------------------------------
 " 8.2 Notes {{{
