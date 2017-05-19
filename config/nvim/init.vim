@@ -1238,10 +1238,10 @@ nmap <leader>eT <Plug>TitlecaseLine
 " auto open NERDTree
 autocmd vimenter * NERDTreeToggle
 
-:let g:session_autosave='yes'
-:let g:session_autoload='yes'
-:let g:session_autosave_periodic='yes'
-:let g:session_default_to_last='yes'
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+let g:session_autosave_periodic='yes'
+let g:session_default_to_last='yes'
 
 map <leader>ss :SaveSession! default<cr>
 map <leader>rr :source ~/.vim/sessions/default.vim<cr>
@@ -1256,6 +1256,10 @@ map <leader>vo :call VimuxOpenRunner() <cr>
 
 "docker build current dockerfile
 map <leader>v1 <esc>:w<cr>:call VimuxRunCommand("clear; cd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .") <cr>
+
+"turn off auto wrap
+set nowrap
+set tw=0
 
 " -----------------------------------------------------
 " 8.2 Notes {{{
