@@ -202,6 +202,20 @@ elif [[ $1 == 'register_device' ]];then
 		exit 1
 	fi	
 
+elif [[ $1 == 'unregister_device' ]];then
+	VTOKEN=0
+	if [ -f ~/.vault_token ];then
+		VTOKEN=$(cat ~/.vault_token | cut -d',' -f1)
+	fi
+
+	if [[ "$2" != "" ]]; then
+		curlx "$VAULT_HTTPS/unregister_device?id=$2" "-H X-Vault-Token:$VTOKEN -X POST"
+		echo 'OK'
+	else
+		echo 'No input'
+		exit 1
+	fi	
+
 elif [[ $1 == 'get' ]];then
 	VTOKEN=0
 	if [ -f ~/.vault_token ];then
