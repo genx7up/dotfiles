@@ -188,6 +188,20 @@ elif [[ $1 == 'host_token_raw' ]];then
         curlx "$VAULT_HTTPS/issue_token_host_raw" "-H X-Vault-Token:$VTOKEN"
         echo 'Host token: ' $OUT
 
+elif [[ $1 == 'register_device' ]];then
+	VTOKEN=0
+	if [ -f ~/.vault_token ];then
+		VTOKEN=$(cat ~/.vault_token | cut -d',' -f1)
+	fi
+
+	if [[ "$2" != "" && "$3" != "" && "$4" != "" ]]; then
+		curlx "$VAULT_HTTPS/register_device?id=$2&role=$3&hw_serial=$4" "-H X-Vault-Token:$VTOKEN -X POST"
+		echo 'OK'
+	else
+		echo 'No input'
+		exit 1
+	fi	
+
 elif [[ $1 == 'get' ]];then
 	VTOKEN=0
 	if [ -f ~/.vault_token ];then
