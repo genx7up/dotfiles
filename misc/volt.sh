@@ -170,6 +170,20 @@ elif [[ $1 == 'login' ]];then
 		bash /usr/local/bin/volt.sh
 	fi
 
+elif [[ $1 == 'ct' || $1 == 'callhome_token' ]];then
+	VTOKEN=0
+	if [ -f ~/.vault_token ];then
+		VTOKEN=$(cat ~/.vault_token | cut -d',' -f1)
+	fi
+
+	if [[ "$2" != "" && "$3" != "" ]]; then
+		curlx "$VAULT_HTTPS/issue_token_callhome?id=$2&ipv4=$3" "-H X-Vault-Token:$VTOKEN -X POST"
+		echo 'Callhome token: ' $OUT
+	else
+		echo 'No input'
+		exit 1
+	fi
+
 elif [[ $1 == 'ht' || $1 == 'host_token' ]];then
 	VTOKEN=0
 	if [ -f ~/.vault_token ];then
