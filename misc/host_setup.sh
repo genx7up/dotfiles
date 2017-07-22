@@ -47,7 +47,7 @@ VTOKEN=$OUT
 # sign host keys
 IDENTITY="$(hostname --fqdn) host key"
 EXT_IP=$(curl -sS http://checkip.amazonaws.com)
-HOSTNAMES="$(HOSTNAMES),$(hostname),$(hostname --fqdn),$(hostname --fqdn).$DOMAIN,$EXT_IP,$(hostname -I|tr ' ' ',')"
+HOSTNAMES="$HOSTNAMES,$(hostname),$(hostname --fqdn),$(hostname --fqdn).$DOMAIN,$EXT_IP,$(hostname -I|tr ' ' ',')"
 
 for i in /etc/ssh/ssh_host_*_key.pub; do
 	curlx "$VAULT_HTTPS/sign_hostkey?i=$IDENTITY&n=$HOSTNAMES" "-H X-Vault-Token:$VTOKEN -X POST -H Content-Type:text/xml --data @$i"
