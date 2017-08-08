@@ -23,6 +23,7 @@ if [ "$(uname)" == "Darwin" ]; then
     sudo easy_install pip
     pip install --user neovim
     pip3 install --user neovim
+    pip3 install --user --upgrade neovim
     
     # add term colors
     tic resources/tmux-256color.terminfo
@@ -47,6 +48,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pip install --upgrade pip
     sudo pip install neovim
     sudo pip3.5 install neovim
+    sudo pip3.5 install --upgrade neovim
     
     sudo chkconfig docker on
     sudo service docker start
