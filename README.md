@@ -1,6 +1,6 @@
 # Dotfiles
 
-This is a collection of nvim, tmux, and bash configurations.
+This is a collection of git, bash, tmux, nvim, docker, terraform, drone configurations.
 
 ## Credits
 

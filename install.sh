@@ -5,6 +5,9 @@ command_exists() {
 }
 
 TF_VER=0.9.3
+DRONE_VER=0.8.5
+COMPOSE_VER=1.22.0
+
 echo "Installing dotfiles."
 
 echo "Initializing submodule(s)"
@@ -17,17 +20,17 @@ if [ "$(uname)" == "Darwin" ]; then
     source lib/brew.sh
     sudo rm -f -r /Library/Caches/Homebrew/*
     #source lib/osx.sh
-    
+
     sudo gem install wbench
     sudo gem install neovim
     sudo easy_install pip
     pip install --user neovim
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
-    
+
     # add term colors
     tic resources/tmux-256color.terminfo
-    
+
     # terraform
     if [[ ! -f "/usr/local/bin/terraform" ]]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_darwin_amd64.zip
@@ -35,13 +38,19 @@ if [ "$(uname)" == "Darwin" ]; then
         rm -rf terraform_${TF_VER}_darwin_amd64.zip
     fi
 
+    #Drone
+    if [[ ! -f "/usr/local/bin/drone" ]]; then
+      curl -L https://github.com/drone/drone-cli/releases/download/v${DRONE_VER}/drone_darwin_amd64.tar.gz | tar zx
+      sudo cp drone /usr/local/bin
+    fi
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
-    
+
     #install pre-requiste
     sudo yum -y install epel-release
-    sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo 
-    sudo yum -y install wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils
+    sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
+    sudo yum -y install wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini
     sudo yum -y install docker-io
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
@@ -49,11 +58,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pip install neovim
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
-    
+
     sudo chkconfig docker on
     sudo service docker start
     if [ ! -n "$(command -v tmux)" ]; then sudo bash tmux/install.sh; fi
-    
+
     # add term colors
     cat <<EOF|tic -x -
 tmux|tmux terminal multiplexer,
@@ -64,12 +73,29 @@ tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
 EOF
 
+    #docker-compose
+    if [[ ! -f "/usr/local/bin/docker-compose" ]]; then
+      sudo curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VER}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      sudo chmod +x /usr/local/bin/docker-compose
+    fi
+
     # terraform
     if [[ ! -f "/usr/local/bin/terraform" ]]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip
         sudo unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/
         rm -rf terraform_${TF_VER}_linux_amd64.zip
     fi
+
+    #Drone
+    if [[ ! -f "/usr/local/bin/drone" ]]; then
+      curl -L https://github.com/drone/drone-cli/releases/download/v${DRONE_VER}/drone_linux_amd64.tar.gz | tar zx
+      sudo install -t /usr/local/bin drone
+
+      # drop permissions for docker
+      crudini --set /etc/sysconfig/selinux '' SELINUX permissive
+      setenforce permissive
+    fi
+
 fi
 
 tic resources/xterm-256color-italic.terminfo
@@ -85,6 +111,12 @@ sudo chmod +x /usr/local/bin/diff-highlight
 mkdir -p ~/.local/share/fonts
 pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.otf && popd
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf && popd
+
+# Drone docker files
+cp -R drone /etc/
+SECRET=`openssl rand -hex 32`
+crudini --set /etc/drone/agent.env '' DRONE_SECRET $SECRET
+crudini --set /etc/drone/server.env '' DRONE_SECRET $SECRET
 
 # create symlinks
 cd ~/.dotfiles

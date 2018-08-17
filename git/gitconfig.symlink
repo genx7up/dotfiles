@@ -92,7 +92,7 @@
     # check out a local copy of a PR. https://gist.github.com/gnarf/5406589
     pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
     pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
-    
+
     # `git remote prune origin`: remove remote-tracking branches that were deleted from the remote repo
     # `git gc`: cleanup unnecessary files and optimize the local repository
     # `git clean -df`: remove untracked files and directories from the working tree
@@ -132,14 +132,14 @@
     # Find out who is currently active on the repository
     # Displays committers in descending order of number of commits
     who = shortlog --numbered --summary --email --no-merges --since="3 months"
-    
+
 [color]
     diff = auto
     status = auto
     branch = auto
     interactive = auto
     ui = auto
-	
+
 [color "branch"]
     current = green bold
     local = green
@@ -204,6 +204,3 @@
     # ref: http://linux.die.net/man/1/git-log
     # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
     nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
-[user]
-	email = genx7up@users.noreply.github.com
-	name = genx7up
