@@ -43,7 +43,7 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 		if [[ $choice == 'y' ]]; then
 			ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_rsa -q -N ""
 			if [[ -f ~/.ssh/git_rsa.pub ]]; then
-				echo 'Copy/Paste the following public key to your git profile.'
+				echo 'Copy/Paste the following public key to your git profile at github, bitbucket etc.'
 				cat ~/.ssh/git_rsa.pub
 				echo 'Reusability - Save new keys to remote vault? (y/n)'
 				read choice < /dev/tty
@@ -62,6 +62,10 @@ if [[ ! -d ~/.dotfiles ]]; then
 	git clone https://github.com/genx7up/dotfiles.git ~/.dotfiles
 fi
 cd ~/.dotfiles && git pull
+
+ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+git remote set-url origin git@github.com:genx7up/dotfiles.git
+git pull || echo "Your key is not registered with Github. You will not be able to update dotfiles."
 
 ./lib/backup.sh
 ./install.sh || echo $?
