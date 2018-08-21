@@ -59,9 +59,6 @@ set-option -g set-titles-string "#T - #W"
 # reload config file
 bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
 
-# quickly open a new window
-bind N new-window
-
 # split window and fix path for tmux 1.9
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
@@ -89,25 +86,9 @@ bind -r L resize-pane -R 10
 
 # enable mouse support for switching panes/windows
 setw -g mouse on
-# set-option -g -q mouse on
 
 # Focus events enabled for terminals that support them
 set -g focus-events on
-
-bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
-bind-key -t vi-copy PPage page-up
-bind-key -t vi-copy NPage page-down
-
-bind -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
-bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; send-keys -M"
-bind-key -t vi-copy WheelUpPane halfpage-up
-bind-key -t vi-copy WheelDownPane halfpage-down
-
-# maximizing and restoring windows
-unbind Up
-bind Up new-window -d -n fullscreen \; swap-pane -s fullscreen.1 \; select-window -t fullscreen
-unbind Down
-bind Down last-window \; swap-pane -s fullscreen.1 \; kill-window -t fullscreen
 
 # set vi mode for copy mode
 setw -g mode-keys vi
@@ -116,8 +97,8 @@ unbind [
 bind Escape copy-mode
 unbind p
 bind p paste-buffer
-bind -t vi-copy 'v' begin-selection
-bind -t vi-copy 'y' copy-selection
+bind -Tcopy-mode-vi 'v' send -X begin-selection
+bind -Tcopy-mode-vi 'y' send -X copy-pipe-and-cancel "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # move x clipboard into tmux paste buffer
 bind C-c run "tmux show-buffer | xclip -i"
@@ -147,7 +128,7 @@ run-shell ~/.tmux/plugins/tpm/tpm
 ### Color & Style Settings ###
 ##############################
 
-source ~/.dotfiles/tmux/theme.sh
+source ~/.dotfiles/tmux/base16.sh
 
 if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux_osx.conf'
 if "[ -e ~/.tmux_local.conf ]" "source-file ~/.tmux_local.conf"

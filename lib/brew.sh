@@ -63,6 +63,7 @@ formulas=(
     jq
     lua
     'macvim --with-override-system-vim'
+    mas
     moreutils
     nano
     neovim/neovim/neovim
@@ -97,7 +98,7 @@ for formula in "${formulas[@]}"; do
 done
 
 # Install nerd fonts
-brew tap caskroom/fonts   
+brew tap caskroom/fonts
 brew cask install font-firacode-nerd-font-mono
 brew cask install font-droidsansmono-nerd-font-mono
 

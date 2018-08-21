@@ -1,12 +1,10 @@
 #### COLOUR
 
-tm_icon="🙊"
-# tm_icon="🤡"
-tm_color_active=colour120
+tm_color_active=colour32
 tm_color_inactive=colour241
-tm_color_feature=colour13
-tm_color_music=colour147
-tm_active_border_color=colour198
+tm_color_feature=colour206
+tm_color_music=colour215
+tm_active_border_color=colour240
 
 # separators
 tm_separator_left_bold="◀"
@@ -52,7 +50,7 @@ set-window-option -g clock-mode-colour $tm_color_active
 
 tm_date="#[fg=$tm_color_inactive] %R %d %b"
 tm_host="#[fg=$tm_color_feature,bold]#h"
-tm_session_name="#[fg=$tm_color_feature,bold]$tm_icon #S"
+tm_session_name="#[fg=$tm_color_feature,bold]#S"
 
 set -g status-left $tm_session_name' '
 set -g status-right 'Online: #{online_status} '$tm_date' '$tm_host

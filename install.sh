@@ -15,7 +15,7 @@ git submodule update --init --recursive
 
 # only perform macOS-specific install
 if [ "$(uname)" == "Darwin" ]; then
-    echo -e "\n\nRunning on OSX"
+    echo -e "\\n\\nRunning on OSX"
 
     source lib/brew.sh
     sudo rm -f -r /Library/Caches/Homebrew/*
