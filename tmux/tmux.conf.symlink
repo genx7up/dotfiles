@@ -129,6 +129,7 @@ run-shell ~/.tmux/plugins/tpm/tpm
 ##############################
 
 source ~/.dotfiles/tmux/base16.sh
+source ~/.dotfiles/tmux/theme.sh
 
 if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux_osx.conf'
 if "[ -e ~/.tmux_local.conf ]" "source-file ~/.tmux_local.conf"
