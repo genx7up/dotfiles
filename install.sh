@@ -24,9 +24,10 @@ if [ "$(uname)" == "Darwin" ]; then
     sudo gem install wbench
     sudo gem install neovim
     sudo easy_install pip
-    pip install --user neovim
+    pip install --user neovim pre-commit ruamel.yaml
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
+    npm install --global prettier
 
     # add term colors
     tic resources/tmux-256color.terminfo
@@ -53,18 +54,22 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
-    sudo yum -y install wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini
-    sudo yum -y install docker-io
+    sudo yum -y install wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint
+    sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+    sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    sudo yum install -y docker-ce
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
     sudo pip install --upgrade pip
-    sudo pip install neovim
+    sudo pip install neovim pre-commit ruamel.yaml
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
+    sudo npm install --global prettier
 
     sudo chkconfig docker on
     sudo service docker start
     if [ ! -n "$(command -v tmux)" ]; then sudo bash tmux/install.sh; fi
+    if [ ! -n "$(command -v salt-call)" ]; then sudo bash salt/install.sh; fi
 
     # add term colors
     cat <<EOF|tic -x -
@@ -149,4 +154,3 @@ touch ~/.dotfilesrc
 bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 # killing the server is not required, I guess
 /usr/local/bin/tmux kill-server
-

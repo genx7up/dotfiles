@@ -605,8 +605,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     " ALE {{{
         Plug 'w0rp/ale' " Asynchonous linting engine
-        let g:ale_set_highlights = 0
-        let g:ale_change_sign_column_color = 0
+        let g:ale_set_highlights = 1
+        let g:ale_change_sign_column_color = 1
         let g:ale_sign_column_always = 1
         let g:ale_sign_error = '✖'
         let g:ale_sign_warning = '⚠'
@@ -616,16 +616,19 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:ale_linters = {
         \   'javascript': ['eslint', 'tsserver'],
+        \   'yaml': ['yamllint'],
         \   'typescript': ['tsserver', 'tslint'],
         \   'html': []
         \}
-        let g:ale_fixers = {}
+        let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
         let g:ale_fixers['javascript'] = ['prettier']
+        let g:ale_fixers['yaml'] = ['prettier']
         let g:ale_fixers['typescript'] = ['prettier', 'tslint']
         let g:ale_fixers['json'] = ['prettier']
         let g:ale_fixers['css'] = ['prettier']
         let g:ale_javascript_prettier_use_local_config = 1
-        let g:ale_fix_on_save = 0
+		let g:ale_yaml_yamllint_options = "-d relaxed"
+        let g:ale_fix_on_save = 1
     " }}}
 
     " UltiSnips {{{
@@ -1885,7 +1888,7 @@ map <leader>vx :call VimuxCloseRunner() <cr>
 map <leader>vo :call VimuxOpenRunner() <cr>
 
 "docker build current dockerfile
-map <leader>v1 <esc>:w<cr>:call VimuxRunCommand("clear; cd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .") <cr>
+map <leader>b1 <esc>:w<cr>:call VimuxRunCommand("clear; pushd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .; popd") <cr>
 
 "turn off auto wrap
 set nowrap

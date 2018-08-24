@@ -66,6 +66,7 @@ formulas=(
     mas
     moreutils
     nano
+    npm
     neovim/neovim/neovim
     p7zip
     pigz
@@ -85,6 +86,7 @@ formulas=(
     vbindiff
     webkit2png
     'wget --with-iri'
+    yamllint
     z
     zopfli
 )
@@ -108,4 +110,3 @@ brew cask install keybase
 brew cleanup
 
 echo "Software updated ..."
-
