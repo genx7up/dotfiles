@@ -32,9 +32,9 @@ EOF
   #################################### Configure Salt Minion
   yum -y install salt-minion at
 
-  ### Add Grains file
+  ### Add Grains file - temp disabled
   mkdir -p /etc/salt
-  cat > /etc/salt/grains <<EOF
+  cat > /etc/salt/grains_1 <<EOF
 main_role: ide
 roles:
   - ide

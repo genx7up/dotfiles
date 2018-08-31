@@ -76,6 +76,7 @@ formulas=(
     ripgrep
     rhino
     ruby
+    shellcheck
     speedtest_cli
     ssh-copy-id
     testssl

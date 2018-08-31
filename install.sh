@@ -27,7 +27,7 @@ if [ "$(uname)" == "Darwin" ]; then
     pip install --user neovim pre-commit ruamel.yaml
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
-    npm install --global prettier
+    npm install --global prettier bash-language-server
 
     # add term colors
     tic resources/tmux-256color.terminfo
@@ -54,7 +54,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
-    sudo yum -y install wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint
+    sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint ShellCheck
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
@@ -64,7 +64,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pip install neovim pre-commit ruamel.yaml
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
-    sudo npm install --global prettier
+    sudo npm install --global prettier bash-language-server
 
     sudo chkconfig docker on
     sudo service docker start
