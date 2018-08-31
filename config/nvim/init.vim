@@ -840,6 +840,7 @@ Plug 'honza/dockerfile.vim'
 " Plug 'Shougo/neoyank.vim'
 " Ag wrapper (Unite grep alternative) search and edit
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
+
 "}}}
 
 " ---------------------------------------------------------------------------------------------------------------------
@@ -1544,6 +1545,13 @@ let g:ctrlsf_position='bottom'
 let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_auto_close=0
 let g:ctrlsf_regex_pattern=0
+let g:ctrlsf_extra_backend_args = {
+    \ 'ag': '--follow --hidden'
+    \ }
+let g:ctrlsf_auto_focus = {
+    \ "at": "done",
+    \ "duration_less_than": 1000
+    \ }
 "}}}
 
 " -----------------------------------------------------
@@ -1892,8 +1900,9 @@ map <leader>vo :call VimuxOpenRunner() <cr>
 map <leader>b1 <esc>:w<cr>:call VimuxRunCommand("clear; pushd ". shellescape(expand('%:p:h'), 1) ." && sudo docker build --rm=true -t=\"`dirname ". shellescape(expand('%:p:h'), 1) ." \| xargs dirname \| xargs basename`\" .; popd") <cr>
 
 "turn off auto wrap
-set nowrap
-set tw=0
+set wrap
+set textwidth=0 wrapmargin=0
+
 
 " -----------------------------------------------------
 " 8.2 Notes {{{
