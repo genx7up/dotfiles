@@ -116,6 +116,10 @@ EOF
 
 fi
 
+# Auto-clean docker images
+crontab -l | { cat; echo "0 * * * * /usr/bin/docker system prune -f"; } | crontab -
+crontab -l | { cat; echo "0 0 * * * /usr/bin/docker system prune -af"; } | crontab -
+
 tic resources/xterm-256color-italic.terminfo
 tic resources/tmux-256color-italic.terminfo
 
