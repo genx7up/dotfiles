@@ -24,7 +24,7 @@ if [ "$(uname)" == "Darwin" ]; then
     sudo gem install wbench
     sudo gem install neovim
     sudo easy_install pip
-    pip install --user neovim pre-commit ruamel.yaml
+    pip install --user neovim pre-commit ruamel.yaml runlike
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
     npm install --global prettier bash-language-server
@@ -48,6 +48,9 @@ if [ "$(uname)" == "Darwin" ]; then
       popd
     fi
 
+    # Container diff tool
+    curl -LO https://storage.googleapis.com/container-diff/latest/container-diff-darwin-amd64 && chmod +x container-diff-darwin-amd64 && sudo mv container-diff-darwin-amd64 /usr/local/bin/codiff
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
 
@@ -61,7 +64,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
     sudo pip install --upgrade pip
-    sudo pip install neovim pre-commit ruamel.yaml
+    sudo pip install neovim pre-commit ruamel.yaml runlike
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
     sudo npm install --global prettier bash-language-server
@@ -107,6 +110,9 @@ EOF
       crudini --set /etc/sysconfig/selinux '' SELINUX permissive
       setenforce permissive
     fi
+
+    # Container diff tool
+    curl -LO https://storage.googleapis.com/container-diff/latest/container-diff-linux-amd64 && chmod +x container-diff-linux-amd64 && sudo mv container-diff-linux-amd64 /usr/local/bin/codiff
 
 fi
 
