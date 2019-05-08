@@ -56,7 +56,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
     #install pre-requiste
     sudo yum -y install epel-release
-    sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
     sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint ShellCheck
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
