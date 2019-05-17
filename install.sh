@@ -4,7 +4,8 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
-TF_VER=0.9.3
+TF_VER=0.11.14
+PACKER_VER=1.4.1
 DRONE_VER=0.8.5
 COMPOSE_VER=1.22.0
 
@@ -37,6 +38,13 @@ if [ "$(uname)" == "Darwin" ]; then
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_darwin_amd64.zip
         unzip terraform_${TF_VER}_darwin_amd64.zip -d /usr/local/bin/
         rm -rf terraform_${TF_VER}_darwin_amd64.zip
+    fi
+
+    # packer
+    if [[ ! -f "/usr/local/bin/packer" ]]; then
+        wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_darwin_amd64.zip
+        unzip packer_${PACKER_VER}_darwin_amd64.zip -d /usr/local/bin/
+        rm -rf packer_${PACKER_VER}_darwin_amd64.zip
     fi
 
     #Drone
@@ -94,6 +102,13 @@ EOF
         wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip
         sudo unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/
         rm -rf terraform_${TF_VER}_linux_amd64.zip
+    fi
+
+    # packer
+    if [[ ! -f "/usr/local/bin/packer" ]]; then
+        wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip
+        sudo unzip packer_${PACKER_VER}_linux_amd64.zip -d /usr/local/bin/
+        rm -rf packer_${PACKER_VER}_linux_amd64.zip
     fi
 
     #Drone
