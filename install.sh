@@ -109,6 +109,9 @@ EOF
         wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip
         sudo unzip packer_${PACKER_VER}_linux_amd64.zip -d /usr/local/bin/
         rm -rf packer_${PACKER_VER}_linux_amd64.zip
+        
+        # Remove conflicting link
+        unlink /usr/sbin/packer
     fi
 
     #Drone
