@@ -6,7 +6,7 @@ command_exists() {
 
 TF_VER=0.11.14
 PACKER_VER=1.4.1
-DRONE_VER=1.2.0
+DRONE_VER=1.1.1
 COMPOSE_VER=1.22.0
 
 echo "Installing dotfiles."
