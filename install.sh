@@ -149,6 +149,7 @@ tic resources/tmux-256color-italic.terminfo
 
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt.sh
+curl https://raw.githubusercontent.com/github/hub/master/etc/hub.bash_completion.sh > ~/.hub.bash_completion.sh
 sudo mkdir /usr/local/bin/lib
 sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/diff-so-fancy > /usr/local/bin/diff-so-fancy"
 sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/lib/DiffHighlight.pm > /usr/local/bin/lib/DiffHighlight.pm"
