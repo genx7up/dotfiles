@@ -159,3 +159,7 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
+# Adding hub
+if [ -f ~/hub.bash_completion.sh ]; then
+  . ~/hub.bash_completion.sh
+fi
