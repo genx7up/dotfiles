@@ -8,6 +8,7 @@ TF_VER=0.11.14
 PACKER_VER=1.4.1
 DRONE_VER=1.1.1
 COMPOSE_VER=1.22.0
+HUB_VER=2.12.1
 
 echo "Installing dotfiles."
 
@@ -130,6 +131,12 @@ EOF
 
     # Container diff tool
     curl -LO https://storage.googleapis.com/container-diff/latest/container-diff-linux-amd64 && chmod +x container-diff-linux-amd64 && sudo mv container-diff-linux-amd64 /usr/local/bin/codiff
+    
+    # Hub tool
+    if [[ ! -f "/usr/local/bin/hub" ]]; then
+      curl -L https://github.com/github/hub/releases/download/v${HUB_VER}/hub-linux-amd64-${HUB_VER}.tgz -o /usr/local/bin/hub
+      sudo chmod +x /usr/local/bin/hub
+    fi
 
 fi
 
