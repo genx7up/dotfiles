@@ -195,3 +195,7 @@ alias dron="docker-compose -f /etc/drone/docker-compose.yaml up -d"
 alias drof="docker-compose -f /etc/drone/docker-compose.yaml down"
 alias dps="docker ps"
 alias dim="docker images"
+
+#Adding hub alias
+eval "$(hub alias -s)"
+
