@@ -41,3 +41,5 @@ config/nvim/autoload/plug.vim
 config/nvim/plugged/*
 config/nvim/tmp/*
 config/nvim/.netrwhist
+config/nvim/ftdetect/pullrequest.vim
+config/nvim/syntax/pullrequest.vim

@@ -54,8 +54,6 @@
     undo = reset --soft HEAD~1
     amend = commit -a --amend
 
-    cleanup = "!git remote prune origin && git gc && git clean -df && git stash clear"
-
     # rebase the current branch with changes from upstream remote
     update = !git fetch upstream && git rebase upstream/`git rev-parse --abbrev-ref HEAD`
 
@@ -106,6 +104,9 @@
     # `git stash clear`: remove all stashed states
     trim = !git remote prune origin && git gc
     cleanup = !git clean -df && git stash clear
+
+    # creates new feature branch
+    new-task = "!f() { git fetch origin --prune && git checkout master && git merge origin/master && git checkout -b feature/$1; }; f"
 
     # Add untracked, remove deleted, and show status
     adda = !git add -A && git status
@@ -212,3 +213,7 @@
     # ref: http://linux.die.net/man/1/git-log
     # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
     nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
+[user]
+    name = genx7up
+    email = genx7up@noreply.users.github.com
+
