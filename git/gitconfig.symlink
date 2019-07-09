@@ -131,6 +131,7 @@
     logst = log --stat
     # Short format diffstat log
     logsf = log --stat --format=oneline --abbrev-commit
+    logg = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
     # Fetch and checkout a GitHub Pull Request from a remote (defaults to `origin`)
     # Use: `git gh-pr 123` or `git gh-pr 123 upstream`
