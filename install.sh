@@ -26,7 +26,7 @@ if [ "$(uname)" == "Darwin" ]; then
     sudo gem install wbench
     sudo gem install neovim
     sudo easy_install pip
-    pip install --user neovim pre-commit ruamel.yaml runlike
+    pip install --user neovim pre-commit ruamel.yaml runlike awscli
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
     npm install --global prettier bash-language-server
@@ -72,7 +72,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
     sudo pip install --upgrade pip
-    sudo pip install neovim pre-commit ruamel.yaml runlike
+    sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
     sudo npm install --global prettier bash-language-server
