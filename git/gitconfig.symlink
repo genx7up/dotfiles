@@ -109,7 +109,7 @@
     new-task = "!f() { git fetch origin --prune && git checkout master && git merge origin/master && git checkout -b feature/$1; }; f"
 
     # creates new hotfix branch from release
-    hotfix = "!f() { git fetch origin --prune && git checkout release && git merge origin/release && git checkout -b updates/hotfix-$1; }; f"
+    hotfix = "!f() { git fetch origin --prune && git checkout release && git merge origin/release && git checkout -b feature/hotfix-$1; }; f"
 
     # Add untracked, remove deleted, and show status
     adda = !git add -A && git status
