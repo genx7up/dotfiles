@@ -19,10 +19,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
 
     ###### Install latest git from Rackspace repo
-    RELEASEVER=$(rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release))
-    BASEARCH=$(uname -m)
-    sudo yum -y install "https://centos${RELEASEVER}.iuscommunity.org/ius-release.rpm" | cat
-    sudo yum -y install git2u
+    sudo yum -y install https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    sudo yum -y install git222
 fi
 
 #get personal git keys
