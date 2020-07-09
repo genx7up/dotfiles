@@ -29,7 +29,7 @@ if [ "$(uname)" == "Darwin" ]; then
     pip install --user neovim pre-commit ruamel.yaml runlike awscli
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
-    npm install --global prettier bash-language-server
+    npm install --global prettier bash-language-server eslint
 
     # add term colors
     tic resources/tmux-256color.terminfo
@@ -75,7 +75,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
-    sudo npm install --global prettier bash-language-server
+    sudo npm install --global prettier bash-language-server eslint
 
     sudo chkconfig docker on
     sudo service docker start
