@@ -218,5 +218,5 @@
     nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
 [user]
     name = genx7up
-    email = genx7up@noreply.users.github.com
+	email = genx7up@users.noreply.github.com
 
