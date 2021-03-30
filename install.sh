@@ -71,7 +71,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum install -y docker-ce
     sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     sudo yum -y install python35u python35u-pip
-    sudo pip install --upgrade pip
+    sudo pip install --upgrade 'pip<21'
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3.5 install neovim
     sudo pip3.5 install --upgrade neovim
