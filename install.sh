@@ -73,8 +73,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install python36u python36u-pip
     sudo pip install --upgrade 'pip<21'
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
-    sudo pip3.5 install neovim
-    sudo pip3.5 install --upgrade neovim
+    sudo pip3 install neovim
+    sudo pip3 install --upgrade neovim
     sudo npm install --global prettier bash-language-server eslint
 
     sudo chkconfig docker on
