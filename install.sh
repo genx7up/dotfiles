@@ -65,12 +65,21 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
     #install pre-requiste
     sudo yum -y install epel-release
-    sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq neovim xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint ShellCheck
+    sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini npm yamllint ShellCheck
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
     sudo yum -y install https://repo.ius.io/ius-release-el7.rpm
     sudo yum -y install python36u python36u-pip
+    
+    #Install neovim from snap store
+    export PATH="/snap/bin:$PATH"
+    sudo yum install snapd
+    sudo systemctl enable --now snapd.socket
+    sudo ln -s /var/lib/snapd/snap /snap
+    sudo systemctl restart snapd
+    sudo snap install nvim --classic
+    
     sudo pip install --upgrade 'pip<21'
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3 install neovim
