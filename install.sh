@@ -83,7 +83,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3 install neovim
     sudo pip3 install --upgrade neovim
-    sudo npm install --global prettier bash-language-server eslint
+    sudo npm install --global prettier bash-language-server eslint neovim
 
     sudo chkconfig docker on
     sudo service docker start
