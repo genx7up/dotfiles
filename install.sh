@@ -69,8 +69,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
-    sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-    sudo yum -y install python35u python35u-pip
+    sudo yum -y install https://repo.ius.io/ius-release-el7.rpm
+    sudo yum -y install python36u python36u-pip
     sudo pip install --upgrade 'pip<21'
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3.5 install neovim
@@ -160,7 +160,7 @@ sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/mast
 sudo chmod +x /usr/local/bin/diff-so-fancy
 
 mkdir -p ~/.local/share/fonts
-pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.otf && popd
+pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.ttf && popd
 pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf && popd
 
 # Drone docker files
