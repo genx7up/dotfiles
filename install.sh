@@ -73,8 +73,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install python36u python36u-pip
     
     #Install neovim from snap store
-    export PATH="/snap/bin:$PATH"
-    sudo yum install snapd
+    sudo yum -y install snapd
     sudo systemctl enable --now snapd.socket
     sudo ln -s /var/lib/snapd/snap /snap
     sudo systemctl restart snapd
@@ -184,9 +183,9 @@ source lib/link.sh
 
 #install vim plugins
 sed -i 's/^colorscheme tender$/" \0/' config/nvim/init.vim
-nvim +PlugInstall +qall +silent
+/snap/bin/nvim +PlugInstall +qall +silent
 git checkout -- config/nvim/init.vim
-nvim +UpdateRemotePlugins +qall +silent
+/snap/bin/nvim +UpdateRemotePlugins +qall +silent
 
 #local overrides
 touch ~/.vimrc.local
