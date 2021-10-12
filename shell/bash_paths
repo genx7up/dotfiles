@@ -6,6 +6,7 @@
 declare -a dirs_to_prepend=(
     "/usr/local/sbin"
     "/usr/local/bin" # Ensure that this bin always takes precedence over `/usr/bin`
+    "/snap/bin"
 )
 
 # Directories to be appended to PATH
