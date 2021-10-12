@@ -186,9 +186,9 @@ source lib/link.sh
 #install vim plugins
 export XDG_CONFIG_HOME=/root/.config
 sed -i 's/^colorscheme tender$/" \0/' config/nvim/init.vim
-/snap/bin/nvim +PlugInstall +qall +silent
+/snap/bin/nvim +PlugInstall +qall
 git checkout -- config/nvim/init.vim
-/snap/bin/nvim +UpdateRemotePlugins +qall +silent
+/snap/bin/nvim +UpdateRemotePlugins +qall
 
 #local overrides
 touch ~/.vimrc.local
