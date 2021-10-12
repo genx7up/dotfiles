@@ -182,6 +182,7 @@ cd ~/.dotfiles
 source lib/link.sh
 
 #install vim plugins
+export XDG_CONFIG_HOME=/root/.config
 sed -i 's/^colorscheme tender$/" \0/' config/nvim/init.vim
 /snap/bin/nvim +PlugInstall +qall +silent
 git checkout -- config/nvim/init.vim
