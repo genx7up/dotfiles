@@ -14,7 +14,7 @@ if [ "$IS_CENTOS" = 1 ]; then
   BASEARCH=$(uname -m)
 
   #################################### Setup Salt Repo
-  curl -o SALTSTACK-GPG-KEY.pub "https://archive.repo.saltstack.com/yum/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub"
+  curl -o SALTSTACK-GPG-KEY.pub "https://archive.repo.saltproject.io/yum/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub"
   rpm --import SALTSTACK-GPG-KEY.pub
   rm -f SALTSTACK-GPG-KEY.pub
 
@@ -23,7 +23,7 @@ if [ "$IS_CENTOS" = 1 ]; then
 # Enable SaltStack's package repository
 [saltstack-repo]
 name=SaltStack repo for Red Hat Enterprise Linux \$releasever
-baseurl=https://archive.repo.saltstack.com/yum/redhat/\$releasever/\$basearch/latest
+baseurl=https://archive.repo.saltproject.io/yum/redhat/\$releasever/\$basearch/latest
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/SALTSTACK-GPG-KEY.pub
