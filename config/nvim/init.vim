@@ -621,7 +621,7 @@ call plug#begin('~/.config/nvim/plugged')
         \   'sh': ['language_server'],
         \   'html': []
         \}
-        let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+        let g:ale_fixers = {'*': ['remove_trailing_lines']}
         let g:ale_fixers['javascript'] = ['prettier']
         let g:ale_fixers['yaml'] = ['prettier']
         let g:ale_fixers['typescript'] = ['prettier', 'tslint']
