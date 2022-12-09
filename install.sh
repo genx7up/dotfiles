@@ -77,6 +77,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Install latest gcc
     sudo yum -y install centos-release-scl-rh
     sudo yum -y install devtoolset-11-gcc-c++
+    sudo scl enable devtoolset-11 bash
 
     #Install neovim from snap store
     sudo yum -y install snapd
