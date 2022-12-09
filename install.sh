@@ -68,6 +68,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #install pre-requiste
     sudo yum -y install epel-release
     sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck bzip2
+    sudo yum -y install gcc kernel-devel make ncurses-devel
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
     sudo yum install -y nodejs
@@ -89,12 +90,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         sudo ln -fs /var/lib/snapd/snap /snap
         sudo systemctl restart snapd
         sudo snap install nvim --classic
+        
+        sudo pip install --upgrade 'pip<21'
+        sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     else
         sudo yum -y install python3 python3-pip python3-devel
     fi
     
-    sudo pip install --upgrade 'pip<21'
-    sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     sudo pip3 install neovim
     sudo pip3 install --upgrade neovim
     sudo npm install --global prettier bash-language-server eslint neovim
