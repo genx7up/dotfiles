@@ -89,7 +89,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         sudo systemctl enable --now snapd.socket
         sudo ln -fs /var/lib/snapd/snap /snap
         sudo systemctl restart snapd
-        sudo snap install nvim --classic
+        # sudo snap install nvim --classic
         
         sudo pip install --upgrade 'pip<21'
         sudo pip install neovim pre-commit ruamel.yaml runlike awscli
@@ -200,9 +200,11 @@ source lib/link.sh
 #install vim plugins
 export XDG_CONFIG_HOME=/root/.config
 sed -i 's/^colorscheme tender$/" \0/' config/nvim/init.vim
-/snap/bin/nvim +PlugInstall +qall
+#/snap/bin/nvim +PlugInstall +qall
+nvim +PlugInstall +qall
 git checkout -- config/nvim/init.vim
-/snap/bin/nvim +UpdateRemotePlugins +qall
+#/snap/bin/nvim +UpdateRemotePlugins +qall
+nvim +UpdateRemotePlugins +qall
 
 #local overrides
 touch ~/.vimrc.local
