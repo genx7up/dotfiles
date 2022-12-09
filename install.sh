@@ -90,6 +90,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         sudo ln -fs /var/lib/snapd/snap /snap
         sudo systemctl restart snapd
         # sudo snap install nvim --classic
+        wget -L https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage -O /usr/local/bin/nvim
+        chmod +x /usr/local/bin/nvim
         
         sudo pip install --upgrade 'pip<21'
         sudo pip install neovim pre-commit ruamel.yaml runlike awscli
