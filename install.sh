@@ -73,7 +73,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum install -y docker-ce
     sudo yum -y install https://repo.ius.io/ius-release-el7.rpm
     sudo yum -y install python36u python36u-pip
-    
+
+    # Install latest gcc
+    sudo yum -y install centos-release-scl-rh
+    sudo yum -y install devtoolset-11-gcc-c++
+
     #Install neovim from snap store
     sudo yum -y install snapd
     sudo systemctl enable --now snapd.socket
