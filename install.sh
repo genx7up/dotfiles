@@ -67,26 +67,31 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
     #install pre-requiste
     sudo yum -y install epel-release
-    sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck
+    sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck bzip2
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
     sudo yum install -y nodejs
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
-    sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :
-    sudo yum -y install python36u python36u-pip python36u-devel
+    
+    if [ "$(rpm --eval '%{centos_ver}')" == "7" ]; then
+        sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :
+        sudo yum -y install python36u python36u-pip python36u-devel
+        
+        # Install latest gcc
+        sudo yum -y install centos-release-scl-rh
+        sudo yum -y install devtoolset-11-gcc-c++
+        export PATH=/opt/rh/devtoolset-11/root/bin/:$PATH
 
-    # Install latest gcc
-    sudo yum -y install centos-release-scl-rh
-    sudo yum -y install devtoolset-11-gcc-c++
-    export PATH=/opt/rh/devtoolset-11/root/bin/:$PATH
-
-    #Install neovim from snap store
-    sudo yum -y install snapd
-    sudo systemctl enable --now snapd.socket
-    sudo ln -fs /var/lib/snapd/snap /snap
-    sudo systemctl restart snapd
-    sudo snap install nvim --classic
+        #Install neovim from snap store
+        sudo yum -y install snapd
+        sudo systemctl enable --now snapd.socket
+        sudo ln -fs /var/lib/snapd/snap /snap
+        sudo systemctl restart snapd
+        sudo snap install nvim --classic
+    else
+        sudo yum -y install python3 python3-pip python3-devel
+    fi
     
     sudo pip install --upgrade 'pip<21'
     sudo pip install neovim pre-commit ruamel.yaml runlike awscli
