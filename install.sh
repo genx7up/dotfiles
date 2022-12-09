@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#set -xe
+
 command_exists() {
     type "$1" > /dev/null 2>&1
 }
@@ -77,7 +79,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Install latest gcc
     sudo yum -y install centos-release-scl-rh
     sudo yum -y install devtoolset-11-gcc-c++
-    sudo scl enable devtoolset-11 bash
+    export PATH=/opt/rh/devtoolset-11/root/bin/:$PATH
 
     #Install neovim from snap store
     sudo yum -y install snapd
@@ -169,7 +171,7 @@ tic resources/tmux-256color-italic.terminfo
 
 curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh > ~/.bash-preexec.sh
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt.sh
-sudo mkdir /usr/local/bin/lib
+sudo mkdir -p /usr/local/bin/lib
 sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/diff-so-fancy > /usr/local/bin/diff-so-fancy"
 sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/lib/DiffHighlight.pm > /usr/local/bin/lib/DiffHighlight.pm"
 sudo chmod +x /usr/local/bin/diff-so-fancy
