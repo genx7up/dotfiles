@@ -71,8 +71,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum install -y nodejs
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
-    sudo yum -y install https://repo.ius.io/ius-release-el7.rpm
-    sudo yum -y install python36u python36u-pip
+    sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :
+    sudo yum -y install python36u python36u-pip python36u-devel
 
     # Install latest gcc
     sudo yum -y install centos-release-scl-rh
@@ -82,7 +82,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     #Install neovim from snap store
     sudo yum -y install snapd
     sudo systemctl enable --now snapd.socket
-    sudo ln -s /var/lib/snapd/snap /snap
+    sudo ln -fs /var/lib/snapd/snap /snap
     sudo systemctl restart snapd
     sudo snap install nvim --classic
     
