@@ -515,7 +515,7 @@ call plug#begin('~/.config/nvim/plugged')
         let NERDTreeShowHidden=1
         " let NERDTreeDirArrowExpandable = '▷'
         " let NERDTreeDirArrowCollapsible = '▼'
-        let g:NERDTreeIndicatorMapCustom = {
+        let g:NERDTreeGitStatusIndicatorMapCustom = {
         \ "Modified"  : "✹",
         \ "Staged"    : "✚",
         \ "Untracked" : "✭",
@@ -1093,7 +1093,7 @@ set wildignore+=tmp/**
 " 2.10 Neovim specific settings {{{
 " ---------------------------------------------------------------------------------------------------------------------
 if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1                   " Set an environment variable to use the t_SI/t_EI hack
+  "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1                   " Set an environment variable to use the t_SI/t_EI hack
   let g:loaded_python_provider=1                        " Disable python 2 interface
   let g:python_host_skip_check=1                        " Skip python 2 host check
   let g:python_host_prog = '/usr/bin/python'
@@ -1522,17 +1522,18 @@ let g:vrc_output_buffer_name='__RESPONSE__.rest'
 " 4.11 Deoplete autocomplete settings {{{
 " -----------------------------------------------------
 let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_refresh_always=0
-let g:deoplete#file#enable_buffer_path=1
+call g:deoplete#custom#option("refresh_always", 0)
+call g:deoplete#custom#var("file", "enable_buffer_path", 1)
+call g:deoplete#custom#option("sources", {
+\ '_' : ['buffer', 'file', 'ultisnips'],
+\ 'ruby' : ['buffer', 'member', 'file', 'ultisnips'],
+\ 'vim' : ['buffer', 'member', 'file', 'ultisnips'],
+\ 'javascript.jsx' : ['buffer', 'file', 'ultisnips', 'ternjs'],
+\ 'css' : ['buffer', 'member', 'file', 'omni', 'ultisnips'],
+\ 'scss' : ['buffer', 'member', 'file', 'omni', 'ultisnips'],
+\ 'html' : ['buffer', 'member', 'file', 'omni', 'ultisnips'],
+\})
 
-let g:deoplete#sources={}
-let g:deoplete#sources._    = ['buffer', 'file', 'ultisnips']
-let g:deoplete#sources.ruby = ['buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources.vim  = ['buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
-let g:deoplete#sources.css  = ['buffer', 'member', 'file', 'omni', 'ultisnips']
-let g:deoplete#sources.scss = ['buffer', 'member', 'file', 'omni', 'ultisnips']
-let g:deoplete#sources.html = ['buffer', 'member', 'file', 'omni', 'ultisnips']
 "}}}
 
 " -----------------------------------------------------
@@ -1903,6 +1904,8 @@ map <leader>b1 <esc>:w<cr>:call VimuxRunCommand("clear; pushd ". shellescape(exp
 set wrap
 set textwidth=0 wrapmargin=0
 
+"shellcheck options
+let g:neomake_shellcheck_args=['-fgcc']
 
 " -----------------------------------------------------
 " 8.2 Notes {{{

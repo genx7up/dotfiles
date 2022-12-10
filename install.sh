@@ -71,14 +71,14 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install gcc kernel-devel make ncurses-devel
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
-    sudo yum install -y nodejs
+    sudo yum install -y nodejs gem
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
-    
+
     if [ "$(rpm --eval '%{centos_ver}')" == "7" ]; then
         sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :
         sudo yum -y install python36u python36u-pip python36u-devel
-        
+
         # Install latest gcc
         sudo yum -y install centos-release-scl-rh
         sudo yum -y install devtoolset-11-gcc-c++
@@ -92,15 +92,16 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         # sudo snap install nvim --classic
         wget -L https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage -O /usr/local/bin/nvim
         chmod +x /usr/local/bin/nvim
-        
+
         sudo pip install --upgrade 'pip<21'
         sudo pip install neovim pre-commit ruamel.yaml runlike awscli
     else
         sudo yum -y install python3 python3-pip python3-devel
     fi
-    
+
     sudo pip3 install neovim
     sudo pip3 install --upgrade neovim
+    sudo pip3 install vim-vint==0.3.21
     sudo npm install --global prettier bash-language-server eslint neovim
 
     sudo chkconfig docker on
@@ -136,7 +137,7 @@ EOF
         wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip
         sudo unzip packer_${PACKER_VER}_linux_amd64.zip -d /usr/local/bin/
         rm -rf packer_${PACKER_VER}_linux_amd64.zip
-        
+
         # Remove conflicting link
         unlink /usr/sbin/packer
     fi
@@ -157,7 +158,7 @@ EOF
 
     # Container diff tool
     curl -LO https://storage.googleapis.com/container-diff/latest/container-diff-linux-amd64 && chmod +x container-diff-linux-amd64 && sudo mv container-diff-linux-amd64 /usr/local/bin/codiff
-    
+
     # Hub tool
     if [[ ! -f "/usr/local/bin/hub" ]]; then
       curl -LO https://github.com/github/hub/releases/download/v${HUB_VER}/hub-linux-amd64-${HUB_VER}.tgz
