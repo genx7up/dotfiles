@@ -27,11 +27,13 @@ if [ "$(uname)" == "Darwin" ]; then
 
     sudo gem install wbench
     sudo gem install neovim
+    sudp gem install ruby-beautify starscope seeing_is_believing rubocop haml_lint  scss-lint mdl
     sudo easy_install pip
     pip install --user neovim pre-commit ruamel.yaml runlike awscli
     pip3 install --user neovim
     pip3 install --user --upgrade neovim
-    npm install --global prettier bash-language-server eslint
+    pip3 install --user vim-vint==0.3.21 pip_search howdoi
+    npm install --global prettier bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
 
     # add term colors
     tic resources/tmux-256color.terminfo
@@ -69,9 +71,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install epel-release
     sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck bzip2
     sudo yum -y install gcc kernel-devel make ncurses-devel
+    sudo yum -y install elixir tidy
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     sudo curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
     sudo yum install -y nodejs gem
+    sudo gem install wbench ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl || :
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
 
@@ -101,8 +105,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
     sudo pip3 install neovim
     sudo pip3 install --upgrade neovim
-    sudo pip3 install vim-vint==0.3.21
-    sudo npm install --global prettier bash-language-server eslint neovim
+    sudo pip3 install vim-vint==0.3.21 pip_search howdoi
+    sudo npm install --global prettier bash-language-server eslint neovim jsonlint tern flow-bin typescript js-beautify
 
     sudo chkconfig docker on
     sudo service docker start
