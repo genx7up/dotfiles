@@ -78,6 +78,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo gem install wbench ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl || :
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
+    
+    #github cli
+    sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+    sudo yum install -y gh
 
     if [ "$(rpm --eval '%{centos_ver}')" == "7" ]; then
         sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :
