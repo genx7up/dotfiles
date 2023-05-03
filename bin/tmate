@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+if [[ ${@: -1} == '--debug' ]];then
+	set -x
+fi
+
+TMATE_HOST=local.tio.mit.app
+TMATE_PORT=22822
+TMATE_CONFIG=/etc/tmate
+
+function server()
+{
+    printf "You may use the following settings this in your .tmate.conf:\n"
+    echo -n "
+set -g tmate-server-host $TMATE_HOST
+set -g tmate-server-port $TMATE_PORT
+set -g tmate-server-rsa-fingerprint `ssh-keygen -lf ${TMATE_CONFIG}/keys/ssh_host_rsa_key.pub | awk '{print $2;}'`
+set -g tmate-server-ed25519-fingerprint `ssh-keygen -lf ${TMATE_CONFIG}/keys/ssh_host_ed25519_key.pub | awk '{print $2;}'`
+"
+    printf "\n"
+    echo "Refreshing tmate server ..."
+
+    docker stop tmate-server || :
+    docker rm tmate-server || :
+    docker run -d --restart unless-stopped --name="tmate-server" --cap-add SYS_ADMIN -v /etc/tmate/keys:/keys -e SSH_KEYS_PATH=/keys -p $TMATE_PORT:$TMATE_PORT -e SSH_PORT_LISTEN=$TMATE_PORT -e SSH_HOSTNAME=$TMATE_HOST -e USE_PROXY_PROTOCOL=0 tmate/tmate-ssh-server:prod
+}
+
+function client()
+{
+    echo "Usage: tmate <session-key> <optional-host> <optional-port> --debug"
+    ssh -p${3:-$TMATE_PORT} ${1}@${2:-$TMATE_HOST}
+}
+
+function keys()
+{
+    mkdir -p $TMATE_CONFIG && cd $TMATE_CONFIG
+
+    # this command will download the create_keys script and create a "keys" folder in the directory
+    curl -s -q https://raw.githubusercontent.com/tmate-io/tmate-ssh-server/master/create_keys.sh | bash
+}
+
+if [[ $1 == 'server' ]];then
+    server
+elif [[ $1 == 'keys' ]];then
+    keys
+else
+    client $@
+fi

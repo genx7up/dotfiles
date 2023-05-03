@@ -196,4 +196,6 @@ alias drof="docker-compose -f /etc/drone/docker-compose.yaml down"
 alias dps="docker ps"
 alias dim="docker images"
 
-
+#Tmate
+alias tmate-server="tmate server"
+alias tmate-keys="tmate keys"

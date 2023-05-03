@@ -169,7 +169,7 @@
 [color "sh"]
     branch = yellow
 [pull]
-    rebase = preserve
+    rebase = merges
 [push]
     # push will only do the current branch, not all branches
     default = current
