@@ -11,6 +11,10 @@ TMATE_CONFIG=/etc/tmate
 
 function server()
 {
+    if [ ! -d ${TMATE_CONFIG}/keys ]; then
+        keys
+    fi
+
     printf "You may use the following settings this in your .tmate.conf:\n"
     echo -n "
 set -g tmate-server-host $TMATE_HOST
