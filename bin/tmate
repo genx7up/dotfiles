@@ -9,6 +9,9 @@ TMATE_HOST=local.tio.mit.app
 TMATE_PORT=22822
 TMATE_CONFIG=/etc/tmate
 
+#### prevent local tmate sessions from onerror trap in mono repo
+touch /stop
+
 function server()
 {
     if [ ! -d ${TMATE_CONFIG}/keys ]; then
