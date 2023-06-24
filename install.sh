@@ -9,7 +9,7 @@ command_exists() {
 TF_VER=0.11.14
 PACKER_VER=1.4.1
 DRONE_VER=1.1.1
-COMPOSE_VER=1.22.0
+COMPOSE_VER=v2.19.0
 HUB_VER=2.12.1
 
 echo "Installing dotfiles."
@@ -78,7 +78,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo gem install wbench ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl || :
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo yum install -y docker-ce
-    
+
     #github cli
     sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
     sudo yum install -y gh
