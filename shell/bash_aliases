@@ -199,3 +199,6 @@ alias dim="docker images"
 #Tmate
 alias tmate-server="tmate server"
 alias tmate-keys="tmate keys"
+
+# Minikube
+alias kubectl="minikube kubectl --"
