@@ -1,14 +1,23 @@
 #!/bin/bash
-set -e
+
+set -Eeuo pipefail
+if [ "$(echo "${DEBUG:-}" | tr '[:upper:]' '[:lower:]')" = "true" ]; then set -x; fi
 
 if [[ ${@: -1} == '--debug' ]];then
 	set -x
 fi
 
+UNIT_TEST=${UNIT_TEST:-false}
 DOMAIN=nclans.net
-VAULT_HTTPS="https://volt.nclans.net"
+
+if [[ "$UNIT_TEST" == "true" ]]; then
+	VAULT_HTTPS="http://127.0.0.1:3031"
+else
+	VAULT_HTTPS="https://volt.nclans.net"
+fi
+
 VTOKEN=$1
-HOSTNAMES=$2
+INPUT_HOSTNAMES=${2:-}
 
 ######################## Run sudo
 [ `whoami` = root ] || exec sudo -E -u root $0 $@
@@ -17,27 +26,28 @@ HOSTNAMES=$2
 function curlx()
 {
 	# get output, append HTTP status code in separate line, discard error message
-	OUT=$( curl -qSfsw '\n%{http_code}' $2 "$1") 2>/dev/null
-
-	# get exit code
-	RET=$?
-
-	if [[ $RET -ne 0 ]] ; then
-	    # if error exit code, print exit code
-	    echo "Error $RET"
-
-	    # print HTTP error
-	    echo "HTTP Error: $(echo "$OUT" | tail -n1 )"
+	if [[ "$UNIT_TEST" == "true" ]]; then
+		INSECURE_FLAG="-k"
 	else
-	    # otherwise print last line of output, i.e. HTTP status code
-	    #echo "Success, HTTP status is:"
-	    HTTP_CODE=$(echo "$OUT" | tail -n1)
-
-	    # and print all but the last line, i.e. the regular response
-	    #echo "Response is:"
-		N=1
-	    OUT=$(echo "$OUT" | sed -n -e ':a' -e "1,$N!{P;N;D;};N;ba")
+		INSECURE_FLAG=""
 	fi
+	
+	OUT=$(curl ${INSECURE_FLAG} -qSsw '\n%{http_code}' $2 "$1" 2>&1) || ( echo $OUT; exit 1 )
+
+	# otherwise print last line of output, i.e. HTTP status code
+	#echo "Success, HTTP status is:"
+	HTTP_CODE=$(echo "$OUT" | tail -n1)
+
+	if [[ $HTTP_CODE -ge 400 ]] ; then
+		# if error exit code, print exit code
+		echo "$OUT"
+		exit 1
+	else
+		# and print all but the last line, i.e. the regular response
+		#echo "Response is:"
+		N=1
+		OUT=$(echo "$OUT" | sed -n -e ':a' -e "1,$N!{P;N;D;};N;ba")
+	fi	
 }
 
 #unwrap token
@@ -45,21 +55,33 @@ curlx "$VAULT_HTTPS/unwrap" "-H X-Vault-Token:$VTOKEN"
 VTOKEN=$OUT
 
 # sign host keys
-IDENTITY="$(hostname --fqdn) host key"
+IDENTITY="$(hostname --fqdn)_hostkey"
 EXT_IP=$(curl -sS http://checkip.amazonaws.com)
-HOSTNAMES="$HOSTNAMES,$(hostname),$(hostname --fqdn),$(hostname --fqdn).$DOMAIN,$EXT_IP,$(hostname -I|tr ' ' ',')"
+HOSTNAMES="$(hostname),$(hostname --fqdn),$(hostname --fqdn).$DOMAIN,$EXT_IP,$(hostname -I|tr ' ' ',')"
+if [[ ${INPUT_HOSTNAMES:-} != "" ]]; then
+	HOSTNAMES="$INPUT_HOSTNAMES,$HOSTNAMES"
+fi
 
 for i in /etc/ssh/ssh_host_*_key.pub; do
 	curlx "$VAULT_HTTPS/sign_hostkey?i=$IDENTITY&n=$HOSTNAMES" "-H X-Vault-Token:$VTOKEN -X POST -H Content-Type:text/xml --data @$i"
 	CERT_FILE=$(echo $i | sed s/\.pub$/-cert.pub/)
-	echo $OUT > $CERT_FILE
-	echo "HostCertificate $CERT_FILE" >> /etc/ssh/sshd_config
+	if [[ "$UNIT_TEST" == "true" ]]; then
+		echo $OUT
+	else
+		echo $OUT > $CERT_FILE
+		echo "HostCertificate $CERT_FILE" >> /etc/ssh/sshd_config
+	fi
 done
 
 # prepare host for receving connections
 curlx "$VAULT_HTTPS/get_userca" "-H X-Vault-Token:$VTOKEN"
-echo $OUT > /etc/ssh/user_ca.pub
-echo "TrustedUserCAKeys /etc/ssh/user_ca.pub" >> /etc/ssh/sshd_config
+if [[ "$UNIT_TEST" == "true" ]]; then
+	echo $OUT
+	exit
+else
+	echo $OUT > /etc/ssh/user_ca.pub
+	echo "TrustedUserCAKeys /etc/ssh/user_ca.pub" >> /etc/ssh/sshd_config
+fi
 
 mkdir -p /etc/ssh/auth_principals
 echo "AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u" >> /etc/ssh/sshd_config
