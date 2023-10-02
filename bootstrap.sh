@@ -30,7 +30,7 @@ fi
 
 #get personal git keys
 sudo rm -rf /usr/local/bin/volt.sh
-sudo curl -sSL https://raw.githubusercontent.com/genx7up/dotfiles/master/misc/volt.sh -o /usr/local/bin/volt.sh
+sudo curl -sSL https://s7k-prod.s3.us-west-2.amazonaws.com/vault/nclans/client/volt.sh -o /usr/local/bin/volt.sh
 bash /usr/local/bin/volt.sh login
 
 if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
