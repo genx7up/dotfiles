@@ -35,8 +35,8 @@ bash /usr/local/bin/volt.sh login
 
 if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 	mkdir -p ~/.ssh && chmod 700 ~/.ssh
-	bash /usr/local/bin/volt.sh get git_rsa.pub > ~/.ssh/git_rsa.pub
-	bash /usr/local/bin/volt.sh get git_rsa > ~/.ssh/git_rsa
+	bash /usr/local/bin/volt.sh get misc/tokens/git_rsa.pub > ~/.ssh/git_rsa.pub
+	bash /usr/local/bin/volt.sh get misc/tokens/git_rsa > ~/.ssh/git_rsa
 	chmod 600 ~/.ssh/git_rsa
 
 	if [[ $? == 0 && `cat ~/.ssh/git_rsa.pub` == "Not found" ]]; then
@@ -51,8 +51,8 @@ if [[ ! -f ~/.ssh/git_rsa.pub ]]; then
 				echo 'Reusability - Save new keys to remote vault? (y/n)'
 				read choice < /dev/tty
 				if [[ $choice == 'y' ]]; then
-					bash /usr/local/bin/volt.sh set git_rsa.pub @$HOME/.ssh/git_rsa.pub
-					bash /usr/local/bin/volt.sh set git_rsa @$HOME/.ssh/git_rsa
+					bash /usr/local/bin/volt.sh set misc/tokens/git_rsa.pub @$HOME/.ssh/git_rsa.pub
+					bash /usr/local/bin/volt.sh set misc/tokens/git_rsa @$HOME/.ssh/git_rsa
 				fi
 			fi
 		fi
