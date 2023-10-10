@@ -6,11 +6,11 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
-TF_VER=0.11.14
-PACKER_VER=1.4.1
+TF_VER=1.6.1
+PACKER_VER=1.9.4
 DRONE_VER=1.1.1
-COMPOSE_VER=v2.19.0
-HUB_VER=2.12.1
+COMPOSE_VER=v2.22.0
+HUB_VER=2.14.2
 
 echo "Installing dotfiles."
 
@@ -72,12 +72,17 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo yum -y install gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth python-pip xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck bzip2
     sudo yum -y install gcc kernel-devel make ncurses-devel
     sudo yum -y install elixir tidy
-    sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-    sudo curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
-    sudo yum install -y nodejs gem
+    sudo yum -y install yum-utils device-mapper-persistent-data lvm2
+
+    # node
+    sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+    sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+    sudo yum -y install gem
     sudo gem install wbench ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl || :
+
+    #docker
     sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-    sudo yum install -y docker-ce
+    sudo yum -y install docker-ce
 
     #github cli
     sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
