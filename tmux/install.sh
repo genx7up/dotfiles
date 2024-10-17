@@ -1,11 +1,32 @@
-# Install tmux on rhel/centos 7
+#!/bin/bash
 
-LIBEVENT_VER=2.1.8
-TMUX_VER=2.7
-FZF_VER=0.17.4
+LIBEVENT_VER=2.1.12
+TMUX_VER=3.3a
+FZF_VER=0.42.0
 
-# install deps
-yum -y install gcc kernel-devel make ncurses-devel
+# Detect OS
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+elif [ "$(uname)" == "Darwin" ]; then
+    OS="macos"
+else
+    echo "Unsupported OS"
+    exit 1
+fi
+
+# Install dependencies
+case $OS in
+    "rhel"|"centos")
+        sudo yum -y install gcc kernel-devel make ncurses-devel
+        ;;
+    "debian")
+        sudo apt-get update && sudo apt-get install -y gcc make libncurses5-dev libevent-dev
+        ;;
+    "macos")
+        brew update && brew install gcc make ncurses libevent
+        ;;
+esac
 
 # DOWNLOAD SOURCES FOR LIBEVENT AND MAKE AND INSTALL
 curl -OL https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VER-stable/libevent-$LIBEVENT_VER-stable.tar.gz
@@ -25,12 +46,19 @@ make
 sudo make install
 cd ..
 
-wget https://github.com/junegunn/fzf-bin/releases/download/$FZF_VER/fzf-$FZF_VER-linux_amd64.tgz
-tar xvf fzf-$FZF_VER-linux_amd64.tgz
-mv fzf /usr/local/bin/
+# Install fzf
+case $OS in
+    "rhel"|"centos"|"debian")
+        wget https://github.com/junegunn/fzf/releases/download/$FZF_VER/fzf-$FZF_VER-linux_amd64.tar.gz
+        tar xvf fzf-$FZF_VER-linux_amd64.tar.gz
+        sudo mv fzf /usr/local/bin/
+        ;;
+    "macos")
+        brew install fzf
+        ;;
+esac
 
 #cleanup
 rm -rf libevent-$LIBEVENT_VER-stable*
 rm -rf tmux-$TMUX_VER*
 rm -rf fzf-$FZF_VER*
-

@@ -15,11 +15,16 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
-# Add some casks
-brew tap caskroom/cask
-brew tap homebrew/dupes
-brew tap homebrew/versions
-brew services list
+# Remove deprecated taps and commands
+# brew tap caskroom/cask  # Remove this line
+# brew tap homebrew/dupes  # Remove this line
+# brew tap homebrew/versions  # Remove this line
+
+# Update deprecated formula options
+brew install grep
+brew install gnu-sed
+brew install imagemagick
+brew install macvim
 
 # Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -102,10 +107,10 @@ done
 
 # Install nerd fonts
 brew tap caskroom/fonts
-brew cask install font-firacode-nerd-font-mono
-brew cask install font-droidsansmono-nerd-font-mono
+brew install --cask font-firacode-nerd-font-mono
+brew install --cask font-droidsansmono-nerd-font-mono
 
-brew cask install keybase
+brew install --cask keybase
 
 # Cleanup
 brew cleanup

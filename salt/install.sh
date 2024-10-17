@@ -4,21 +4,30 @@ set +e
 
 pushd salt
 
-IS_CENTOS=$(gawk -F= '/^NAME/{print $2}' /etc/os-release | grep -i centos -c)
+# Detect OS
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$NAME
+elif [ "$(uname)" == "Darwin" ]; then
+    OS="macOS"
+else
+    echo "Unsupported operating system"
+    exit 1
+fi
 
-if [ "$IS_CENTOS" = 1 ]; then
+# CentOS-specific setup
+if [[ "$OS" == *"CentOS"* ]]; then
+    #Centos specific
+    RHEL_REL=`rpm -q --whatprovides redhat-release`
+    RELEASEVER=`rpm -q --qf "%{VERSION}" $RHEL_REL`
+    BASEARCH=$(uname -m)
 
-  #Centos specific
-  RHEL_REL=`rpm -q --whatprovides redhat-release`
-  RELEASEVER=`rpm -q --qf "%{VERSION}" $RHEL_REL`
-  BASEARCH=$(uname -m)
+    #################################### Setup Salt Repo
+    curl -o SALTSTACK-GPG-KEY.pub "https://archive.repo.saltproject.io/yum/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub"
+    rpm --import SALTSTACK-GPG-KEY.pub
+    rm -f SALTSTACK-GPG-KEY.pub
 
-  #################################### Setup Salt Repo
-  curl -o SALTSTACK-GPG-KEY.pub "https://archive.repo.saltproject.io/yum/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub"
-  rpm --import SALTSTACK-GPG-KEY.pub
-  rm -f SALTSTACK-GPG-KEY.pub
-
-  cat > /etc/yum.repos.d/saltstack.repo <<EOF
+    cat > /etc/yum.repos.d/saltstack.repo <<EOF
 ####################
 # Enable SaltStack's package repository
 [saltstack-repo]
@@ -29,30 +38,61 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/SALTSTACK-GPG-KEY.pub
 EOF
 
-  #################################### Configure Salt Minion
-  yum -y install salt-minion at
+    #################################### Configure Salt Minion
+    yum -y install salt-minion at
 
-  ### Add Grains file - temp disabled
-  mkdir -p /etc/salt
-  cat > /etc/salt/grains_1 <<EOF
+# Debian-specific setup
+elif [[ "$OS" == *"Debian"* || "$OS" == *"Ubuntu"* ]]; then
+    # Update for Debian 12 (bookworm)
+    curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/debian/12/amd64/latest/salt-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=amd64] https://repo.saltproject.io/py3/debian/12/amd64/latest bookworm main" | tee /etc/apt/sources.list.d/salt.list
+
+    # Update and install Salt
+    apt-get update
+    apt-get install -y salt-minion at
+
+# macOS-specific setup
+elif [ "$OS" == "macOS" ]; then
+    # Add check for Apple Silicon
+    if [[ $(uname -m) == 'arm64' ]]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
+    # Install Salt
+    brew install salt
+else
+    echo "Unsupported operating system: $OS"
+    exit 1
+fi
+
+# Common configuration for all OSes
+#################################### Configure Salt Minion
+mkdir -p /etc/salt
+cat > /etc/salt/grains <<EOF
 main_role: ide
 roles:
   - ide
 EOF
 
+# Backup existing minion config
+if [ -f /etc/salt/minion ]; then
+    cp /etc/salt/minion /etc/salt/minion.bak
 fi
 
-\cp /etc/salt/minion /etc/salt/minion.bak
-#\cp minion_base /etc/salt/minion
-
+# Copy Salt configuration files
 mkdir -p /srv/salt /srv/pillar
 
-\cp -rpf ./* /srv/salt/
-\cp -rpf metadata.sls /srv/pillar/
-\cp -rpf pillar_top.sls /srv/pillar/top.sls
+cp -rpf ./* /srv/salt/
+cp -rpf metadata.sls /srv/pillar/
+cp -rpf pillar_top.sls /srv/pillar/top.sls
 
 # Apply states
-salt-call state.apply --local -l debug
+if [ "$OS" != "macOS" ]; then
+    salt-call state.apply --local -l debug
+else
+    salt-call --config-dir=/opt/homebrew/etc/salt state.apply --local -l debug
+fi
 
 set -e
 popd
