@@ -8,7 +8,6 @@ sudo apt-get update
 # Install essential packages
 sudo apt-get install -y \
     ack \
-    chromium-chromedriver \
     findutils \
     fzf \
     git \
@@ -40,7 +39,6 @@ sudo apt-get install -y \
     tree \
     unison \
     vbindiff \
-    webkit2png \
     wget \
     yamllint \
     zsh
@@ -59,9 +57,11 @@ sudo apt-get install -y \
     woff2
 
 # Install Nerd Fonts
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts && curl -fLo "Fira Code Regular Nerd Font Complete Mono.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
-cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf
+mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/DroidSansMono.tar.xz
+tar xvf DroidSansMono.tar.xz && rm DroidSansMono.tar.xz
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.tar.xz
+tar xvf FiraCode.tar.xz && rm FiraCode.tar.xz
 fc-cache -fv
 
 # Install GitHub CLI (replacing Hub)
