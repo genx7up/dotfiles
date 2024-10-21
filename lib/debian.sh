@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-set -xe
+set -e
+
+# Enable debug mode if '--debug' is the last argument
+[[ ${@: -1} == '--debug' ]] && set -x
 
 # Update package lists
 sudo apt-get update
@@ -30,6 +33,7 @@ sudo apt-get install -y \
     ripgrep \
     rhino \
     ruby \
+    ruby-dev \
     shellcheck \
     speedtest-cli \
     ssh \

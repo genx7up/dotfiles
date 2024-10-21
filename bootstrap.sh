@@ -83,7 +83,7 @@ git remote set-url origin git@github.com:genx7up/dotfiles.git
 git pull || echo "Your key is not registered with Github. You will not be able to update dotfiles."
 
 ./lib/backup.sh
-./install.sh || echo $?
+./install.sh
 
 # Configure git user if not set
 if [[ -z $(git config user.name) ]]; then

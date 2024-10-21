@@ -1,6 +1,9 @@
 #!/bin/bash
 
-set -xe  # Uncomment to enable debugging
+set -e
+
+# Enable debug mode if '--debug' is the last argument
+[[ ${@: -1} == '--debug' ]] && set -x
 
 LIBEVENT_VER=2.1.12
 TMUX_VER=3.3a

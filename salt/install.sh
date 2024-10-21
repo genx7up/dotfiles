@@ -1,6 +1,9 @@
 #!/bin/bash
 
-set -xe  # Uncomment to enable debugging
+set -e
+
+# Enable debug mode if '--debug' is the last argument
+[[ ${@: -1} == '--debug' ]] && set -x
 
 pushd salt
 
