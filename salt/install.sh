@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x
-set +e
+
+set -xe  # Uncomment to enable debugging
 
 pushd salt
 
@@ -44,8 +44,9 @@ EOF
 # Debian-specific setup
 elif [[ "$OS" == *"Debian"* || "$OS" == *"Ubuntu"* ]]; then
     # Update for Debian 12 (bookworm)
-    curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/debian/12/amd64/latest/salt-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=amd64] https://repo.saltproject.io/py3/debian/12/amd64/latest bookworm main" | tee /etc/apt/sources.list.d/salt.list
+    mkdir -p /etc/apt/keyrings
+    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/debian/12/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/debian/12/amd64/latest bookworm main" | sudo tee /etc/apt/sources.list.d/salt.list
 
     # Update and install Salt
     apt-get update
@@ -89,10 +90,10 @@ cp -rpf pillar_top.sls /srv/pillar/top.sls
 
 # Apply states
 if [ "$OS" != "macOS" ]; then
-    salt-call state.apply --local -l debug
+    salt-call state.apply --local -l debug || true
 else
-    salt-call --config-dir=/opt/homebrew/etc/salt state.apply --local -l debug
+    salt-call --config-dir=/opt/homebrew/etc/salt state.apply --local -l debug || true
 fi
 
-set -e
+echo "Salt installation done"
 popd

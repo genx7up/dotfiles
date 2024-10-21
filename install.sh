@@ -47,7 +47,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
     # Install global npm packages
     echo "Installing global npm packages..."
-    npm install --global prettier bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
+    npm install --global prettier neovim bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
 
     # Add terminal colors
     echo "Adding terminal colors..."
@@ -92,13 +92,41 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         source lib/debian.sh
 
         # Install development tools and utilities
-        sudo apt-get install -y wget unzip tree bash-completion jq x11-xauth xclip ncurses-term ack silversearcher-ag tcpdump dnsutils crudini yamllint shellcheck bzip2 elixir tidy
+        sudo apt-get install -y wget unzip tree bash-completion jq xclip ncurses-term ack silversearcher-ag tcpdump dnsutils crudini yamllint shellcheck bzip2 elixir tidy
+
+        # Install Docker
+        sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+        sudo rm -f /usr/share/keyrings/docker-archive-keyring.gpg /etc/apt/sources.list.d/docker.list && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+        # Add Current User to Docker Group   
+        if ! groups $USER | grep -q '\bdocker\b'; then
+            echo "User is not in the 'docker' group. Adding user to 'docker' group..."
+            sudo usermod -aG docker $USER
+        fi
+        if [ $(id -gn) != "docker" ]; then
+            exec sg docker "$0 $@"
+        fi
+        docker version    
+
+        # Configure Docker
+        sudo systemctl enable docker
+        sudo systemctl start docker
 
         # Install additional Python packages
         echo "Installing Python packages..."
-        pip3 install --user neovim pre-commit ruamel.yaml runlike awscli
-        pip3 install --user --upgrade neovim
-        pip3 install --user vim-vint==0.3.21 pip_search howdoi
+        # Create a virtual environment for other Python packages
+        python3 -m venv ~/.venv
+        # Activate the virtual environment
+        source ~/.venv/bin/activate
+        # Install Python packages in the virtual environment
+        pip install neovim pre-commit ruamel.yaml runlike awscli
+        pip install --upgrade neovim
+        pip install vim-vint==0.3.21 pip_search howdoi
+        # Deactivate the virtual environment
+        deactivate
 
         # Install additional Ruby gems
         echo "Installing Ruby gems..."
@@ -106,18 +134,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
         # Install additional global npm packages
         echo "Installing additional global npm packages..."
-        npm install --global prettier bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
-
-        # Install Docker
-        sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
-        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        sudo apt-get update
-        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
-        # Configure Docker
-        sudo systemctl enable docker
-        sudo systemctl start docker
+        sudo npm install --global prettier bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
 
         # Install tmux and salt if not present
         if ! command_exists tmux; then sudo bash tmux/install.sh; fi
@@ -133,6 +150,24 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
             python3 python3-pip python3-devel xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck \
             bzip2 gcc kernel-devel make ncurses-devel elixir tidy yum-utils device-mapper-persistent-data lvm2
 
+        # Install Docker
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum -y install docker-ce docker-ce-cli containerd.io
+
+        # Add Current User to Docker Group   
+        if ! groups $USER | grep -q '\bdocker\b'; then
+            echo "User is not in the 'docker' group. Adding user to 'docker' group..."
+            sudo usermod -aG docker $USER
+        fi
+        if [ $(id -gn) != "docker" ]; then
+            exec sg docker "$0 $@"
+        fi
+        docker version    
+
+        # Configure Docker
+        sudo systemctl enable docker
+        sudo systemctl start docker
+
         # Install Node.js
         sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
         sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
@@ -140,10 +175,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         # Install Ruby and gems
         sudo yum -y install ruby rubygems
         sudo gem install wbench ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl || :
-
-        # Install Docker
-        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-        sudo yum -y install docker-ce docker-ce-cli containerd.io
 
         # Install GitHub CLI
         sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
@@ -179,10 +210,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         # Install global npm packages
         sudo npm install --global prettier bash-language-server eslint neovim jsonlint tern flow-bin typescript js-beautify
 
-        # Configure Docker
-        sudo systemctl enable docker
-        sudo systemctl start docker
-
         # Install tmux and salt if not present
         if ! command_exists tmux; then sudo bash tmux/install.sh; fi
         if ! command_exists salt-call; then sudo bash salt/install.sh; fi
@@ -205,6 +232,15 @@ tmux|tmux terminal multiplexer,
 tmux-256color|tmux with 256 colors,
   use=xterm-256color, use=tmux,
 EOF
+
+    # Install Nerd Fonts
+    mkdir -p ~/.local/share/fonts && pushd ~/.local/share/fonts
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/DroidSansMono.tar.xz
+    tar xvf DroidSansMono.tar.xz && rm DroidSansMono.tar.xz
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.tar.xz
+    tar xvf FiraCode.tar.xz && rm FiraCode.tar.xz
+    fc-cache -fv
+    popd
 
     # Install Docker Compose
     if [[ ! -f "/usr/local/bin/docker-compose" ]]; then
@@ -268,8 +304,9 @@ EOF
         sudo rpm -Uvh minikube-latest.x86_64.rpm
         rm minikube-latest.x86_64.rpm
     fi
-    minikube start --force
 
+    minikube start
+    echo "minikube setup done"
 fi
 
 # Set up Docker auto-clean cron jobs
@@ -288,23 +325,18 @@ sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/mast
 sudo bash -c "curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/lib/DiffHighlight.pm > /usr/local/bin/lib/DiffHighlight.pm"
 sudo chmod +x /usr/local/bin/diff-so-fancy
 
-# Install Nerd Fonts
-mkdir -p ~/.local/share/fonts
-pushd ~/.local/share/fonts && curl -fLo "Firacode Retina Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete%20Mono.ttf && popd
-pushd ~/.local/share/fonts && curl -fLo "Droid Sans Mono Nerd Font Complete Mono.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf && popd
-
 # Set up Drone configuration
-cp -R drone /etc/
+cd ~/.dotfiles
+sudo cp -R drone /etc/
 SECRET=`openssl rand -hex 32`
-crudini --set /etc/drone/agent.env '' DRONE_SECRET $SECRET
-crudini --set /etc/drone/server.env '' DRONE_SECRET $SECRET
+sudo crudini --set /etc/drone/agent.env '' DRONE_SECRET $SECRET
+sudo crudini --set /etc/drone/server.env '' DRONE_SECRET $SECRET
 
 # Create symlinks for dotfiles
-cd ~/.dotfiles
 source lib/link.sh
 
 # Install Vim plugins
-export XDG_CONFIG_HOME=/root/.config
+export XDG_CONFIG_HOME=$HOME/.config
 sed -i 's/^colorscheme tender$/" \0/' config/nvim/init.vim
 #/snap/bin/nvim +PlugInstall +qall
 nvim +PlugInstall +qall
@@ -325,7 +357,7 @@ touch ~/.dotfilesrc
 # install the plugins
 bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 # killing the server is not required, I guess
-/usr/local/bin/tmux kill-server
+/usr/local/bin/tmux kill-server || :
 
 # Validate installations
 echo "Validating installations..."

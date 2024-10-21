@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -xe  # Uncomment to enable debugging
+
 LIBEVENT_VER=2.1.12
 TMUX_VER=3.3a
 FZF_VER=0.42.0

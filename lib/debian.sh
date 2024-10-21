@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
 # Update package lists
 sudo apt-get update
@@ -35,16 +35,17 @@ sudo apt-get install -y \
     ssh \
     testssl.sh \
     silversearcher-ag \
-    tmux \
     tree \
     unison \
     vbindiff \
     wget \
     yamllint \
-    zsh
+    zsh \
+    openssl \
+    libssl-dev
 
 # Install build essentials and Python
-sudo apt-get install -y gcc g++ make python3-pip python3-dev
+sudo apt-get install -y gcc g++ make python3-pip python3-dev python3-full
 
 # Install Node.js and npm
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -56,23 +57,19 @@ sudo apt-get install -y \
     woff-tools \
     woff2
 
-# Install Nerd Fonts
-mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/DroidSansMono.tar.xz
-tar xvf DroidSansMono.tar.xz && rm DroidSansMono.tar.xz
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.tar.xz
-tar xvf FiraCode.tar.xz && rm FiraCode.tar.xz
-fc-cache -fv
-
 # Install GitHub CLI (replacing Hub)
+cd ~/.dotfiles
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update
-sudo apt install gh
+sudo apt install gh -y
+gh auth login --with-token <<< "`cat ~/.github_patoken`"
+gh extension install github/gh-copilot
+gh copilot version
 
 # Install Keybase
 curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install ./keybase_amd64.deb
+sudo apt install ./keybase_amd64.deb -y
 rm keybase_amd64.deb
 
 echo "Software updated ..."
