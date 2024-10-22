@@ -11,41 +11,55 @@ sudo apt-get update
 # Install essential packages
 sudo apt-get install -y \
     ack \
+    apt-transport-https \
+    bash-completion \
+    bzip2 \
+    ca-certificates \
+    crudini \
+    curl \
+    dnsutils \
+    elixir \
     findutils \
     fzf \
     git \
     git-lfs \
     gnupg \
     gnupg-agent \
-    sed \
     grep \
     highlight \
     httpie \
     imagemagick \
     jq \
+    libssl-dev \
+    lsb-release \
     lua5.4 \
-    vim-gtk3 \
+    ncurses-term \
+    openssl \
     p7zip-full \
     pigz \
     pv \
     rename \
-    ripgrep \
     rhino \
+    ripgrep \
     ruby \
     ruby-dev \
+    sed \
     shellcheck \
+    silversearcher-ag \
     speedtest-cli \
     ssh \
+    tcpdump \
     testssl.sh \
-    silversearcher-ag \
+    tidy \
     tree \
     unison \
+    unzip \
     vbindiff \
+    vim-gtk3 \
     wget \
+    xclip \
     yamllint \
-    zsh \
-    openssl \
-    libssl-dev
+    zsh
 
 # Install build essentials and Python
 sudo apt-get install -y gcc g++ make python3-pip python3-dev python3-full

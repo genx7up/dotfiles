@@ -91,18 +91,24 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
     if [ -f /etc/debian_version ]; then
         # Debian/Ubuntu setup
-        echo -e "\\n\\nRunning on Debian"
+        echo -e "\\n\\nRunning on Debian/Ubuntu"
         source lib/debian.sh
 
-        # Install development tools and utilities
-        sudo apt-get install -y wget unzip tree bash-completion jq xclip ncurses-term ack silversearcher-ag tcpdump dnsutils crudini yamllint shellcheck bzip2 elixir tidy
-
         # Install Docker
-        sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
-        sudo rm -f /usr/share/keyrings/docker-archive-keyring.gpg /etc/apt/sources.list.d/docker.list && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        # Add Docker's official GPG key
+        sudo install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/$(. /etc/os-release && echo "$ID")/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+        # Set up the Docker repository
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$(. /etc/os-release && echo "$ID") \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        # Install Docker Engine
         sudo apt-get update
-        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
         # Add Current User to Docker Group   
         if ! groups $USER | grep -q '\bdocker\b'; then
@@ -389,3 +395,4 @@ packer --version
 nvim --version | head -n 1
 
 echo "Validation complete. Please review the output for any missing or incorrectly installed software."
+
