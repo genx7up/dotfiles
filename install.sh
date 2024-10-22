@@ -137,7 +137,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
         # Install additional global npm packages
         echo "Installing additional global npm packages..."
-        sudo npm install --global prettier bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
+        sudo npm install --global prettier neovim bash-language-server eslint jsonlint tern flow-bin typescript js-beautify
 
         # Install tmux and salt if not present
         if ! command_exists tmux; then sudo bash tmux/install.sh; fi
@@ -371,7 +371,7 @@ for tool in gcc python3 ruby node npm docker docker-compose gh nvim tmux terrafo
 done
 
 # Check for Nerd Fonts
-[ -d "$HOME/.local/share/fonts" ] && ls "$HOME/.local/share/fonts" | grep -q "Nerd Font" && echo "Nerd Fonts: OK" || echo "Nerd Fonts: Not found"
+[ -d "$HOME/.local/share/fonts" ] && ls "$HOME/.local/share/fonts" | grep -q "NerdFont" && echo "Nerd Fonts: OK" || echo "Nerd Fonts: Not found"
 
 # Check for tmux plugins
 [ -d "$HOME/.tmux/plugins" ] && [ "$(ls -A "$HOME/.tmux/plugins")" ] && echo "tmux plugins: OK" || echo "tmux plugins: Not found"
