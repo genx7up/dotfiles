@@ -112,11 +112,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         if [ $(id -gn) != "docker" ]; then
             exec sg docker "$0 $@"
         fi
-        docker version    
 
         # Configure Docker
         sudo systemctl enable docker
         sudo systemctl start docker
+        docker version    
 
         # Install additional Python packages
         echo "Installing Python packages..."
@@ -165,11 +165,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         if [ $(id -gn) != "docker" ]; then
             exec sg docker "$0 $@"
         fi
-        docker version    
-
+        
         # Configure Docker
         sudo systemctl enable docker
         sudo systemctl start docker
+        docker version    
 
         # Install Node.js
         sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
