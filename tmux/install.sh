@@ -25,7 +25,7 @@ case $OS in
     "rhel"|"centos")
         sudo yum -y install gcc kernel-devel make ncurses-devel
         ;;
-    "debian")
+    "debian"|"ubuntu")
         sudo apt-get update && sudo apt-get install -y gcc make libncurses5-dev libevent-dev
         ;;
     "macos")
@@ -53,7 +53,7 @@ cd ..
 
 # Install fzf
 case $OS in
-    "rhel"|"centos"|"debian")
+    "rhel"|"centos"|"debian"|"ubuntu")
         wget https://github.com/junegunn/fzf/releases/download/$FZF_VER/fzf-$FZF_VER-linux_amd64.tar.gz
         tar xvf fzf-$FZF_VER-linux_amd64.tar.gz
         sudo mv fzf /usr/local/bin/

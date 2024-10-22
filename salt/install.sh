@@ -44,12 +44,17 @@ EOF
     #################################### Configure Salt Minion
     yum -y install salt-minion at
 
-# Debian-specific setup
+# Debian and Ubuntu-specific setup
 elif [[ "$OS" == *"Debian"* || "$OS" == *"Ubuntu"* ]]; then
-    # Update for Debian 12 (bookworm)
+    # Update for Debian 12 (bookworm) and Ubuntu 22.04 (jammy)
     mkdir -p /etc/apt/keyrings
-    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/debian/12/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/debian/12/amd64/latest bookworm main" | sudo tee /etc/apt/sources.list.d/salt.list
+    if [[ "$OS" == *"Ubuntu"* && "$VERSION_ID" == "22.04" ]]; then
+        sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/latest jammy main" | sudo tee /etc/apt/sources.list.d/salt.list
+    else
+        sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/debian/12/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/debian/12/amd64/latest bookworm main" | sudo tee /etc/apt/sources.list.d/salt.list
+    fi
 
     # Update and install Salt
     apt-get update

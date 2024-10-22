@@ -25,7 +25,6 @@ sudo apt-get install -y \
     jq \
     lua5.4 \
     vim-gtk3 \
-    neovim \
     p7zip-full \
     pigz \
     pv \
@@ -51,7 +50,7 @@ sudo apt-get install -y \
 # Install build essentials and Python
 sudo apt-get install -y gcc g++ make python3-pip python3-dev python3-full
 
-# Install Node.js and npm
+# Install Node.js and npm (updated for Ubuntu 22.04)
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
@@ -75,5 +74,13 @@ gh copilot version
 curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
 sudo apt install ./keybase_amd64.deb -y
 rm keybase_amd64.deb
+
+# Install latest Neovim
+sudo apt-get install -y ninja-build gettext cmake unzip curl
+git clone https://github.com/neovim/neovim
+cd neovim && git checkout stable
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+cd .. && rm -rf neovim
 
 echo "Software updated ..."
