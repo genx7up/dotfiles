@@ -43,3 +43,4 @@ config/nvim/tmp/*
 config/nvim/.netrwhist
 config/nvim/ftdetect/pullrequest.vim
 config/nvim/syntax/pullrequest.vim
+config/nvim/pack/*
