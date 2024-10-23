@@ -109,6 +109,9 @@ echo "Setting up Docker..."
 if ! command_exists docker; then
     if [ "$(uname)" == "Darwin" ]; then
         brew install --cask docker
+    elif [ -f /etc/rocky-release ]; then
+        sudo dnf-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     else
         curl -fsSL https://get.docker.com | sudo sh
         # Install Docker Compose

@@ -22,7 +22,7 @@ install_package() {
 # Function to install EPEL repository
 install_epel() {
     echo "Installing EPEL repository..."
-    sudo $PKG_MANAGER check-update
+    sudo $PKG_MANAGER check-update || true
     sudo $PKG_MANAGER install -y 'dnf-command(config-manager)'
     install_package epel-release
     if [ "$VER" -ge 8 ]; then
@@ -49,11 +49,18 @@ install_or_update_neovim() {
     echo "Checking Neovim installation..."
     if ! command -v nvim &> /dev/null || [[ $(nvim --version | head -n1 | cut -d' ' -f2) < "0.5" ]]; then
         sudo $PKG_MANAGER install -y ninja-build gettext cmake unzip curl gcc-c++ make
+        if [ "$VER" -lt 8 ]; then
+            sudo $PKG_MANAGER remove cmake -y
+            sudo $PKG_MANAGER install cmake3 -y
+            sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
+        fi
         rm -rf neovim && git clone https://github.com/neovim/neovim
         pushd neovim && git checkout stable
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         sudo make install
         popd && rm -rf neovim
+    else
+        echo "Neovim is already installed and up to date."
     fi
 }
 
@@ -124,16 +131,21 @@ main() {
 
     # List of packages to install
     packages=(
-        gcc-c++ wget unzip tree bash-completion bash-completion-extras jq xorg-x11-xauth
+        gcc-c++ wget unzip tree bash-completion jq xorg-x11-xauth
         python3 python3-pip python3-devel xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck
-        bzip2 gcc kernel-devel make ncurses-devel elixir tidy yum-utils device-mapper-persistent-data lvm2
+        bzip2 gcc kernel-devel make ncurses-devel tidy device-mapper-persistent-data lvm2
     )
 
-    # Rocky 9 specific packages
-    if [ "$OS" = "Rocky Linux" ] && [ "$VER" -ge 9 ]; then
+    if [ "$VER" -ge 8 ]; then
+        packages+=(
+            dnf-utils
+            procps-ng  # Provides 'ps' command
+        )
+    else
         packages+=(
             yum-utils
-            procps-ng  # Provides 'ps' command
+            bash-completion-extras
+            elixir
         )
     fi
 
