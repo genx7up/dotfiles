@@ -22,8 +22,8 @@ install_git() {
         if [ -f /etc/debian_version ]; then
             sudo apt-get update
             sudo apt-get install -y git
-        elif [ -f /etc/redhat-release ]; then
-            if [ "$(rpm --eval '%{centos_ver}')" == "7" ]; then
+        elif [ -f /etc/redhat-release ] || [ -f /etc/rocky-release ]; then
+            if [ -f /etc/centos-release ] && grep -q "CentOS Linux release 7" /etc/centos-release; then
                 echo "Warning: CentOS 7 is deprecated. Consider upgrading to a newer OS."
                 # Install latest git from Rackspace repo
                 sudo yum -y install https://repo.ius.io/ius-release-el7.rpm || :

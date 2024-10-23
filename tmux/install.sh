@@ -51,12 +51,12 @@ install_dependencies() {
     local os=$1
     echo "Checking dependencies for $os..."
     case $os in
-        "rhel"|"centos")
+        "rhel"|"centos"|"rocky")
             if ! rpm -q gcc kernel-devel make ncurses-devel &>/dev/null; then
-                echo "Installing missing dependencies for RHEL/CentOS..."
+                echo "Installing missing dependencies for RHEL/CentOS/Rocky..."
                 sudo yum -y install gcc kernel-devel make ncurses-devel
             else
-                echo "Dependencies already installed for RHEL/CentOS"
+                echo "Dependencies already installed for RHEL/CentOS/Rocky"
             fi
             ;;
         "debian"|"ubuntu")
@@ -126,7 +126,7 @@ install_fzf() {
     if ! command -v fzf &> /dev/null || version_compare "$(fzf --version)" "$FZF_VER"; then
         echo "Installing fzf $FZF_VER..."
         case $os in
-            "rhel"|"centos"|"debian"|"ubuntu")
+            "rhel"|"centos"|"rocky"|"debian"|"ubuntu")
                 wget "https://github.com/junegunn/fzf/releases/download/${FZF_VER}/fzf-${FZF_VER}-linux_amd64.tar.gz"
                 tar xf "fzf-${FZF_VER}-linux_amd64.tar.gz"
                 sudo mv fzf /usr/local/bin/

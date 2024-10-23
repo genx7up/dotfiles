@@ -7,19 +7,14 @@ fi
 
 # Function to detect OS
 detect_os() {
-	if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-		if [ -f /etc/debian_version ]; then
-			echo "debian"
-		elif [ -f /etc/redhat-release ]; then
-			echo "redhat"
-		else
-			echo "unknown_linux"
-		fi
-	elif [[ "$OSTYPE" == "darwin"* ]]; then
-		echo "macos"
-	else
-		echo "unknown"
-	fi
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        echo "$ID"
+    elif [ "$(uname)" == "Darwin" ]; then
+        echo "macos"
+    else
+        echo "unsupported"
+    fi
 }
 
 # Function to install curl

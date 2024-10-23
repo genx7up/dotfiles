@@ -13,22 +13,26 @@ command_exists() {
 # Function to install a package if not already installed
 install_package() {
     if ! rpm -q "$1" > /dev/null 2>&1; then
-        sudo yum -y install "$1"
+        sudo $PKG_MANAGER -y install "$1"
     else
         echo "$1 already installed"
     fi
 }
 
-# Function to update package lists
-update_packages() {
-    echo "Updating package lists..."
-    sudo yum check-update
-}
-
 # Function to install EPEL repository
 install_epel() {
     echo "Installing EPEL repository..."
+    sudo $PKG_MANAGER check-update
+    sudo $PKG_MANAGER install -y 'dnf-command(config-manager)'
     install_package epel-release
+    if [ "$VER" -ge 8 ]; then
+        sudo $PKG_MANAGER install -y dnf-plugins-core
+        if [ "$OS" = "Rocky Linux" ]; then
+            sudo $PKG_MANAGER config-manager --set-enabled crb
+        else
+            sudo $PKG_MANAGER config-manager --set-enabled powertools
+        fi
+    fi
 }
 
 # Function to install packages from a list
@@ -42,20 +46,27 @@ install_packages() {
 
 # Function to install or update Neovim
 install_or_update_neovim() {
-    sudo yum install -y ninja-build gettext cmake unzip curl gcc-c++ make
-    git clone https://github.com/neovim/neovim
-    cd neovim && git checkout stable
-    make CMAKE_BUILD_TYPE=RelWithDebInfo
-    sudo make install
-    cd .. && rm -rf neovim
+    echo "Checking Neovim installation..."
+    if ! command -v nvim &> /dev/null || [[ $(nvim --version | head -n1 | cut -d' ' -f2) < "0.5" ]]; then
+        sudo $PKG_MANAGER install -y ninja-build gettext cmake unzip curl gcc-c++ make
+        git clone https://github.com/neovim/neovim
+        cd neovim && git checkout stable
+        make CMAKE_BUILD_TYPE=RelWithDebInfo
+        sudo make install
+        cd .. && rm -rf neovim
+    fi
 }
 
 # Function to install Node.js
 install_nodejs() {
     if ! command_exists node; then
         echo "Installing Node.js..."
-        sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
-        sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+        if [ "$VER" -ge 8 ]; then
+            sudo $PKG_MANAGER install nodejs -y
+        else
+            curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+            sudo $PKG_MANAGER install -y nodejs
+        fi
     else
         echo "Node.js already installed"
     fi
@@ -65,26 +76,27 @@ install_nodejs() {
 install_github_cli() {
     if ! command_exists gh; then
         echo "Installing GitHub CLI..."
-        VER=$(sed -n 's/.*release \([0-9]\+\).*/\1/p' /etc/redhat-release)
-        if [ "$VER" -lt 8 ]; then
-            LATEST_VERSION=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | grep tag_name | cut -d '"' -f 4)
-            sudo yum install -y "https://github.com/cli/cli/releases/download/v${LATEST_VERSION}/gh_${LATEST_VERSION}_linux_amd64.rpm"
-        else
-            sudo dnf install -y 'dnf-command(config-manager)'
-            sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-            sudo dnf install -y gh
-        fi
+        sudo $PKG_MANAGER config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+        sudo $PKG_MANAGER install -y gh
     else
         echo "GitHub CLI already installed"
     fi
 }
 
-# Install or update Neovim
-echo "Checking Neovim installation..."
-if ! command -v nvim &> /dev/null || [[ $(nvim --version | head -n1 | cut -d' ' -f2) < "0.5" ]]; then
-    echo "Installing or updating Neovim..."
-    install_or_update_neovim
-fi
+# Function to determine the OS and version
+get_os_info() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif [ -f /etc/redhat-release ]; then
+        OS=$(cat /etc/redhat-release | cut -d' ' -f1)
+        VER=$(sed -n 's/.*release \([0-9]\+\).*/\1/p' /etc/redhat-release)
+    else
+        echo "Unsupported OS" >&2
+        exit 1
+    fi
+}
 
 # Function to configure SELinux for Docker
 configure_selinux() {
@@ -100,7 +112,14 @@ configure_selinux() {
 
 # Main execution
 main() {
-    update_packages
+    get_os_info
+    
+    if [ "$VER" -ge 8 ]; then
+        PKG_MANAGER="dnf"
+    else
+        PKG_MANAGER="yum"
+    fi
+
     install_epel
 
     # List of packages to install
@@ -110,10 +129,21 @@ main() {
         bzip2 gcc kernel-devel make ncurses-devel elixir tidy yum-utils device-mapper-persistent-data lvm2
     )
 
-    install_packages "${packages[@]}"
+    # Rocky 9 specific packages
+    if [ "$OS" = "Rocky Linux" ] && [ "$VER" -ge 9 ]; then
+        packages+=(
+            yum-utils
+            procps-ng  # Provides 'ps' command
+        )
+    fi
+
+    for package in "${packages[@]}"; do
+        install_package "$package"
+    done
+
     install_nodejs
     install_github_cli
-    install_neovim
+    install_or_update_neovim
     configure_selinux
 
     echo "Software updated ..."

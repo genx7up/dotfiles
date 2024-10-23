@@ -20,26 +20,17 @@ detect_os() {
     fi
 }
 
-# Function to install Salt on CentOS
-install_salt_centos() {
-    RHEL_REL=$(rpm -q --whatprovides redhat-release)
-    RELEASEVER=$(rpm -q --qf "%{VERSION}" $RHEL_REL)
+# Function to install Salt on CentOS/Rocky
+install_salt_centos_rocky() {
+    # Get release version and base architecture
+    RELEASEVER=$(rpm -E %{rhel})
     BASEARCH=$(uname -m)
 
     # Setup Salt Repo
-    curl -o SALTSTACK-GPG-KEY.pub "https://archive.repo.saltproject.io/yum/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub"
-    rpm --import SALTSTACK-GPG-KEY.pub
-    rm -f SALTSTACK-GPG-KEY.pub
+    curl -fsSL -o /etc/yum.repos.d/salt.repo "https://repo.saltproject.io/salt/py3/redhat/$RELEASEVER/$BASEARCH/latest/salt-repo-latest-3.el$RELEASEVER.noarch.rpm"
+    rpm --import https://repo.saltproject.io/salt/py3/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub
 
-    cat > /etc/yum.repos.d/saltstack.repo <<EOF
-[saltstack-repo]
-name=SaltStack repo for Red Hat Enterprise Linux \$releasever
-baseurl=https://archive.repo.saltproject.io/yum/redhat/\$releasever/\$basearch/latest
-enabled=1
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/SALTSTACK-GPG-KEY.pub
-EOF
-
+    yum clean expire-cache
     yum -y install salt-minion at
 }
 
@@ -104,8 +95,8 @@ OS=$(detect_os)
 # Install Salt only if not already installed
 if ! command -v salt-minion &> /dev/null; then
     case "$OS" in
-        *"CentOS"*)
-            install_salt_centos
+        *"CentOS"* | *"Rocky"*)
+            install_salt_centos_rocky
             ;;
         *"Debian"* | *"Ubuntu"*)
             install_salt_debian_ubuntu

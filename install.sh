@@ -98,8 +98,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     if [ -f /etc/debian_version ]; then
         echo -e "\n\nRunning on Debian/Ubuntu"
         source lib/debian.sh
-    elif [ -f /etc/redhat-release ]; then
-        echo -e "\n\nRunning on Red Hat / CentOS / Fedora"
+    elif [ -f /etc/redhat-release ] || [ -f /etc/rocky-release ]; then
+        echo -e "\n\nRunning on Red Hat / CentOS / Fedora / Rocky"
         source lib/redhat.sh
     fi
 fi
