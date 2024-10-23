@@ -1,85 +1,83 @@
 #!/usr/bin/env bash
 
-# Check for Homebrew
-if test ! $(which brew)
-then
-  echo "  Installing Homebrew for you."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
+# Function to install a formula or cask
+install_brew_package() {
+    local package=$1
+    local type=$2
+    if ! brew list $type "$package" &> /dev/null; then
+        brew install $type "$package"
+    else
+        echo "$package already installed... skipping."
+    fi
+}
+
+# Function to install multiple packages
+install_packages() {
+    local type=$1
+    shift
+    local packages=("$@")
+    for package in "${packages[@]}"; do
+        install_brew_package "$package" "$type"
+    done
+}
+
+# Install Homebrew if not already installed
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install command-line tools using Homebrew.
-
-# Make sure we’re using the latest Homebrew.
+# Update and upgrade Homebrew
 brew update
-
-# Upgrade any already-installed formulae.
 brew upgrade
 
-# Remove deprecated taps and commands
-# brew tap caskroom/cask  # Remove this line
-# brew tap homebrew/dupes  # Remove this line
-# brew tap homebrew/versions  # Remove this line
+# Install GNU core utilities and Bash
+brew install coreutils bash bash-completion2
 
-# Update deprecated formula options
-brew install grep
-brew install gnu-sed
-brew install imagemagick
-brew install macvim
+# Switch to brew-installed bash as default shell
+if ! grep -q '/usr/local/bin/bash' /etc/shells; then
+    echo "Updating default shell to brew-installed bash (requires sudo)..."
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+    chsh -s /usr/local/bin/bash
+fi
 
-# Install GNU core utilities (those that come with macOS are outdated).
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
-brew install coreutils
-
-# Install Bash 4.
-# Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
-# running `chsh`.
-brew install bash
-brew install bash-completion2
-
-# Switch to using brew-installed bash as default shell
-if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
-  echo 'Will need sudo permissions to update your bash shell (twice)'
-  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
-  chsh -s /usr/local/bin/bash;
-fi;
-
-# Install font tools.
+# Install font tools
 brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+install_packages "" sfnt2woff sfnt2woff-zopfli woff2
 
+# Install formulas
 formulas=(
     ack
     chromedriver
     dark-mode
     findutils
     fzf
+    gh
     git
     git-lfs
     gpg
     gpg-agent
-    'gnu-sed --with-default-names'
-    'grep --with-default-names'
+    gnu-sed
+    grep
     highlight
     hub
     httpie
-    'imagemagick --with-webp'
+    imagemagick
     jq
     lua
-    'macvim --with-override-system-vim'
+    macvim
     mas
     moreutils
     nano
+    neovim
     npm
-    neovim/neovim/neovim
     p7zip
     pigz
     pv
     reattach-to-user-namespace
     rename
-    ripgrep
     rhino
+    ripgrep
     ruby
     shellcheck
     speedtest_cli
@@ -91,28 +89,25 @@ formulas=(
     unison
     vbindiff
     webkit2png
-    'wget --with-iri'
+    wget
     yamllint
     z
     zopfli
 )
+install_packages "" "${formulas[@]}"
 
-for formula in "${formulas[@]}"; do
-    if brew list "$formula" > /dev/null 2>&1; then
-        echo "$formula already installed... skipping."
-    else
-        brew install $formula
-    fi
-done
+# Install fonts
+brew tap homebrew/cask-fonts
+fonts=(
+    font-firacode-nerd-font-mono
+    font-droidsansmono-nerd-font-mono
+)
+install_packages "--cask" "${fonts[@]}"
 
-# Install nerd fonts
-brew tap caskroom/fonts
-brew install --cask font-firacode-nerd-font-mono
-brew install --cask font-droidsansmono-nerd-font-mono
-
-brew install --cask keybase
+# Install Keybase
+install_brew_package "keybase" "--cask"
 
 # Cleanup
 brew cleanup
 
-echo "Software updated ..."
+echo "Software update complete."
