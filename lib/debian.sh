@@ -43,7 +43,7 @@ packages=(
     httpie imagemagick jq libssl-dev lsb-release lua5.4 make ncurses-term openssl
     p7zip-full pigz pv python3-dev python3-full python3-pip rename rhino ripgrep ruby
     ruby-dev sed shellcheck silversearcher-ag speedtest-cli ssh tcpdump testssl.sh tidy
-    tree unison unzip vbindiff vim-gtk3 wget woff-tools woff2 xclip yamllint zsh
+    tree unison unzip vbindiff vim-gtk3 wget woff-tools woff2 xclip yamllint zsh locales
 )
 
 # Install packages
@@ -51,6 +51,23 @@ echo "Installing base packages..."
 for package in "${packages[@]}"; do
     install_if_missing "$package"
 done
+
+# Check if the locale en_US.UTF-8 is already generated
+locale_check=$(locale -a | grep en_US.utf8)
+if [ -z "$locale_check" ]; then
+    echo "en_US.UTF-8 locale not found, generating it..."
+    sudo locale-gen en_US.UTF-8
+else
+    echo "en_US.UTF-8 locale is already generated."
+fi
+# Check if LANG is set to en_US.UTF-8
+current_lang=$(locale | grep LANG=)
+if [[ "$current_lang" != "LANG=en_US.UTF-8" ]]; then
+    echo "Updating system locale to en_US.UTF-8..."
+    sudo update-locale LANG=en_US.UTF-8
+else
+    echo "System locale is already set to en_US.UTF-8."
+fi
 
 # Install Node.js and npm
 echo "Checking Node.js installation..."
