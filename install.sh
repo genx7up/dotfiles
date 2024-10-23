@@ -46,7 +46,7 @@ install_package() {
 # Function to install a Python package
 install_pip_package() {
     if ! pip3 list | grep -q "^$1 "; then
-        pip3 install --user "$1"
+        pip3 install "$1"
     else
         echo "$1 already installed"
     fi

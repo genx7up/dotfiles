@@ -6,6 +6,11 @@ set -e
 
 echo "Creating/Syncing IDE environment ..."
 
+# Function to check if a command exists
+command_exists() {
+    type "$1" > /dev/null 2>&1
+}
+
 SRC_DIR=~/src
 mkdir -p "$SRC_DIR"
 
