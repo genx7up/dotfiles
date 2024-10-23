@@ -49,11 +49,11 @@ install_or_update_neovim() {
     echo "Checking Neovim installation..."
     if ! command -v nvim &> /dev/null || [[ $(nvim --version | head -n1 | cut -d' ' -f2) < "0.5" ]]; then
         sudo $PKG_MANAGER install -y ninja-build gettext cmake unzip curl gcc-c++ make
-        git clone https://github.com/neovim/neovim
-        cd neovim && git checkout stable
+        rm -rf neovim && git clone https://github.com/neovim/neovim
+        pushd neovim && git checkout stable
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         sudo make install
-        cd .. && rm -rf neovim
+        popd && rm -rf neovim
     fi
 }
 
@@ -88,7 +88,7 @@ get_os_info() {
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         OS=$NAME
-        VER=$VERSION_ID
+        VER=$(echo $VERSION_ID | cut -d. -f1)
     elif [ -f /etc/redhat-release ]; then
         OS=$(cat /etc/redhat-release | cut -d' ' -f1)
         VER=$(sed -n 's/.*release \([0-9]\+\).*/\1/p' /etc/redhat-release)
@@ -114,7 +114,7 @@ configure_selinux() {
 main() {
     get_os_info
     
-    if [ "$VER" -ge 8 ]; then
+    if [ -n "$VER" ] && [ "$VER" -ge 8 ]; then
         PKG_MANAGER="dnf"
     else
         PKG_MANAGER="yum"
