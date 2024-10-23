@@ -268,6 +268,9 @@ nvim +PlugInstall +qall
 git checkout -- config/nvim/init.vim
 nvim +UpdateRemotePlugins +qall
 
+# Copilot setup for neovim
+git clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
+
 # Create local override files
 touch ~/.vimrc.local ~/.bash_profile.local ~/.dotfilesrc
 
