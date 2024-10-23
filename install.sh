@@ -55,7 +55,7 @@ install_pip_package() {
 # Function to install a Ruby gem
 install_gem() {
     if ! gem list | grep -q "^$1 "; then
-        gem install "$1"
+        sudo gem install "$1"
     else
         echo "$1 already installed"
     fi
@@ -64,7 +64,7 @@ install_gem() {
 # Function to install a global npm package
 install_npm_package() {
     if ! npm list -g "$1" > /dev/null 2>&1; then
-        npm install --global "$1"
+        sudo npm install --global "$1"
     else
         echo "$1 already installed"
     fi
@@ -144,7 +144,7 @@ docker-compose --version
 
 # Install essential packages
 echo "Installing essential packages..."
-essential_packages=(git curl wget unzip jq python3 python3-pip ruby rubygems nodejs npm)
+essential_packages=(git curl wget unzip jq python3 python3-pip python3-neovim xsel xclip ruby rubygems nodejs npm byacc)
 for package in "${essential_packages[@]}"; do
     install_package "$package"
 done
@@ -176,13 +176,13 @@ deactivate
 
 # Install additional tools
 echo "Installing additional tools..."
-install_tool "terraform" "$TF_VER" "wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip && unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/ && rm -rf terraform_${TF_VER}_linux_amd64.zip"
-install_tool "packer" "$PACKER_VER" "wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip && unzip packer_${PACKER_VER}_linux_amd64.zip -d /usr/local/bin/ && rm -rf packer_${PACKER_VER}_linux_amd64.zip"
-install_tool "drone" "$DRONE_VER" "curl -L https://github.com/drone/drone-cli/releases/download/v${DRONE_VER}/drone_linux_amd64.tar.gz | tar zx && sudo install -t /usr/local/bin drone"
+install_tool "terraform" "$TF_VER" "wget https://releases.hashicorp.com/terraform/$TF_VER/terraform_${TF_VER}_linux_amd64.zip && sudo unzip terraform_${TF_VER}_linux_amd64.zip -d /usr/local/bin/ && rm terraform_${TF_VER}_linux_amd64.zip*"
+install_tool "packer" "$PACKER_VER" "wget https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip && sudo unzip packer_${PACKER_VER}_linux_amd64.zip -d /usr/local/bin/ && rm packer_${PACKER_VER}_linux_amd64.zip*"
+install_tool "drone" "$DRONE_VER" "pushd drone && curl -L https://github.com/drone/drone-cli/releases/download/v${DRONE_VER}/drone_linux_amd64.tar.gz | tar zx && sudo install -t /usr/local/bin drone && rm drone && popd"
 install_tool "codiff" "" "curl -LO https://storage.googleapis.com/container-diff/latest/container-diff-linux-amd64 && chmod +x container-diff-linux-amd64 && sudo mv container-diff-linux-amd64 /usr/local/bin/codiff"
 
 # Setup Minikube
-install_tool "minikube" "" "curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube"
+install_tool "minikube" "" "curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64"
 if ! minikube status | grep -q "Running"; then
     minikube start
     echo "minikube setup done"
@@ -193,11 +193,12 @@ fi
 # Install Hub tool
 if ! command_exists hub; then
     echo "Installing Hub tool..."
+    mkdir -p hub && pushd hub
     curl -sSL "https://github.com/github/hub/releases/download/v${HUB_VER}/hub-linux-amd64-${HUB_VER}.tgz" | \
     tar xz --strip-components=1 && sudo install -m 755 bin/hub /usr/local/bin/hub
     cp -f etc/hub.bash_completion.sh ~/.hub.bash_completion.sh
     cp -rf share/vim/vimfiles/* ~/.dotfiles/config/nvim/
-    cd .. && rm -rf "hub-linux-amd64-${HUB_VER}"*
+    popd && rm -rf hub
 fi
 
 # Install tmux and salt
