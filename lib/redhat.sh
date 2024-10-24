@@ -156,14 +156,14 @@ main() {
 
     if [ "$VER" -lt 8 ]; then
         sudo yum install -y centos-release-scl
-        sudo cat <<EOF > /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+        sudo bash -c 'cat <<EOF > /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 [centos-sclo-rh]
 name=CentOS-7 - SCLo rh
 baseurl=https://vault.centos.org/centos/7/sclo/x86_64/rh/
 gpgcheck=1
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
-EOF
+EOF'
     fi
 
     install_nodejs
