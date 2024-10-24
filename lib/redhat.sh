@@ -133,7 +133,7 @@ main() {
     packages=(
         gcc-c++ wget unzip tree bash-completion jq xorg-x11-xauth
         python3 python3-pip python3-devel xclip ncurses-term ack the_silver_searcher tcpdump bind-utils crudini yamllint ShellCheck
-        bzip2 gcc kernel-devel make ncurses-devel tidy device-mapper-persistent-data lvm2
+        bzip2 gcc kernel-devel make ncurses-devel tidy device-mapper-persistent-data lvm2 ruby-devel
     )
 
     if [ "$VER" -ge 8 ]; then
@@ -157,6 +157,9 @@ main() {
     install_github_cli
     install_or_update_neovim
     configure_selinux
+
+    # Fix packer conflict from cracklib-dicts
+    sudo unlink /usr/sbin/packer
 
     echo "Software updated ..."
 }

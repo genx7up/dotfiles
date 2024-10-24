@@ -114,10 +114,10 @@ if ! command_exists docker; then
         sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     else
         curl -fsSL https://get.docker.com | sudo sh
-        # Install Docker Compose
-        sudo curl -sSL "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VER}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
     fi
+    # Install Docker Compose
+    sudo curl -sSL "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VER}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 else
     echo "Docker already installed"
 fi
@@ -147,7 +147,7 @@ docker-compose --version
 
 # Install essential packages
 echo "Installing essential packages..."
-essential_packages=(git curl cron wget unzip jq python3 python3-pip python3-neovim xsel xclip ruby rubygems nodejs npm byacc)
+essential_packages=(git curl wget unzip jq python3 python3-pip python3-neovim xsel xclip ruby rubygems nodejs npm byacc)
 for package in "${essential_packages[@]}"; do
     install_package "$package"
 done

@@ -38,7 +38,7 @@ sudo apt-get update
 
 # List of packages to install
 packages=(
-    ack apt-transport-https bash-completion bzip2 ca-certificates crudini curl dnsutils
+    ack apt-transport-https bash-completion bzip2 ca-certificates crudini cron curl dnsutils
     elixir findutils fontforge fzf g++ gcc git git-lfs gnupg gnupg-agent grep highlight
     httpie imagemagick jq libssl-dev lsb-release lua5.4 make ncurses-term openssl
     p7zip-full pigz pv python3-dev python3-full python3-pip rename rhino ripgrep ruby

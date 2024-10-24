@@ -27,11 +27,11 @@ install_salt_centos_rocky() {
     BASEARCH=$(uname -m)
 
     # Setup Salt Repo
-    curl -fsSL -o /etc/yum.repos.d/salt.repo "https://repo.saltproject.io/salt/py3/redhat/$RELEASEVER/$BASEARCH/latest/salt-repo-latest-3.el$RELEASEVER.noarch.rpm"
-    rpm --import https://repo.saltproject.io/salt/py3/redhat/$RELEASEVER/$BASEARCH/latest/SALTSTACK-GPG-KEY.pub
+    sudo rpm --import https://repo.saltproject.io/salt_rc/salt/py3/redhat/9/x86_64/latest/SALT-PROJECT-GPG-PUBKEY-2023.pub
+    curl -fsSL https://repo.saltproject.io/salt_rc/salt/py3/redhat/9/x86_64/latest.repo | sudo tee /etc/yum.repos.d/salt.repo
 
-    yum clean expire-cache
-    yum -y install salt-minion at
+    sudo yum clean expire-cache
+    sudo yum -y install salt-minion at
 }
 
 # Function to install Salt on Debian/Ubuntu
