@@ -47,6 +47,7 @@ install_package() {
 install_pip_package() {
     if ! pip3 list | grep -q "^$1 "; then
         pip3 install "$1"
+        pip3 install --upgrade "$1"
     else
         echo "$1 already installed"
     fi
@@ -154,6 +155,10 @@ done
 
 # Install language-specific packages
 echo "Installing language-specific packages..."
+if [ -f /etc/redhat-release ] && [ "$VER" -lt 8 ]; then
+    sudo yum install -y rh-ruby30
+    sudo source /opt/rh/rh-ruby30/enable
+fi
 # Ruby gems
 ruby_gems=(wbench neovim ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl)
 for gem in "${ruby_gems[@]}"; do
@@ -174,7 +179,7 @@ if [ ! -d "$HOME/.venv" ]; then
     python3 -m venv ~/.venv
 fi
 source ~/.venv/bin/activate
-python_packages=(neovim pre-commit ruamel.yaml runlike awscli "vim-vint==0.3.21" pip_search howdoi)
+python_packages=(neovim pre-commit ruamel.yaml runlike awscli vim-vint pynvim pip_search howdoi)
 for package in "${python_packages[@]}"; do
     install_pip_package "$package"
 done

@@ -53,15 +53,6 @@ install_or_update_neovim() {
             sudo $PKG_MANAGER remove cmake -y
             sudo $PKG_MANAGER install cmake3 -y
             sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
-            sudo yum install -y centos-release-scl
-            cat <<EOF | sudo tee /etc/yum.repos.d/CentOS-SCLo-scl.repo
-[centos-sclo-rh]
-name=CentOS-7 - SCLo rh
-baseurl=https://vault.centos.org/centos/7/sclo/x86_64/rh/
-gpgcheck=1
-enabled=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
-EOF
             sudo yum install -y devtoolset-11
             sudo source /opt/rh/devtoolset-11/enable
             gcc --version 
@@ -80,6 +71,7 @@ EOF
 install_nodejs() {
     if ! command_exists node; then
         echo "Installing Node.js..."
+        curl -fsSL https://rpm.nodesource.com/setup_current.x | sudo bash -
         sudo $PKG_MANAGER install -y nodejs
     else
         echo "Node.js already installed"
@@ -90,7 +82,7 @@ install_nodejs() {
 install_github_cli() {
     if ! command_exists gh; then
         echo "Installing GitHub CLI..."
-        sudo $PKG_MANAGER config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+        sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
         sudo $PKG_MANAGER install -y gh
     else
         echo "GitHub CLI already installed"
@@ -161,6 +153,18 @@ main() {
     for package in "${packages[@]}"; do
         install_package "$package"
     done
+
+    if [ "$VER" -lt 8 ]; then
+        sudo yum install -y centos-release-scl
+        sudo cat <<EOF > /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+[centos-sclo-rh]
+name=CentOS-7 - SCLo rh
+baseurl=https://vault.centos.org/centos/7/sclo/x86_64/rh/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+EOF
+    fi
 
     install_nodejs
     install_github_cli
