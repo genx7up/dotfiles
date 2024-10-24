@@ -80,12 +80,7 @@ EOF
 install_nodejs() {
     if ! command_exists node; then
         echo "Installing Node.js..."
-        if [ "$VER" -ge 8 ]; then
-            sudo $PKG_MANAGER install nodejs -y
-        else
-            curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
-            sudo $PKG_MANAGER install -y nodejs
-        fi
+        sudo $PKG_MANAGER install -y nodejs
     else
         echo "Node.js already installed"
     fi

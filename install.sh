@@ -147,7 +147,7 @@ docker-compose --version
 
 # Install essential packages
 echo "Installing essential packages..."
-essential_packages=(curl wget unzip jq xsel xclip ruby rubygems nodejs npm byacc fontconfig)
+essential_packages=(curl wget unzip jq xsel xclip ruby rubygems npm byacc fontconfig)
 for package in "${essential_packages[@]}"; do
     install_package "$package"
 done
