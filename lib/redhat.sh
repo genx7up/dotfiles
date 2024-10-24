@@ -54,7 +54,7 @@ install_or_update_neovim() {
             sudo $PKG_MANAGER install cmake3 -y
             sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
             sudo yum install -y devtoolset-11
-            sudo source /opt/rh/devtoolset-11/enable
+            source /opt/rh/devtoolset-11/enable
             gcc --version 
         fi
         rm -rf neovim && git clone https://github.com/neovim/neovim

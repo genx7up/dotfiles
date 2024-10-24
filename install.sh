@@ -157,7 +157,7 @@ done
 echo "Installing language-specific packages..."
 if [ -f /etc/redhat-release ] && [ "$VER" -lt 8 ]; then
     sudo yum install -y rh-ruby30
-    sudo source /opt/rh/rh-ruby30/enable
+    source /opt/rh/rh-ruby30/enable
 fi
 # Ruby gems
 ruby_gems=(wbench neovim ruby-beautify starscope seeing_is_believing rubocop haml_lint scss-lint mdl)
@@ -280,7 +280,11 @@ git checkout -- config/nvim/init.vim
 nvim +UpdateRemotePlugins +qall
 
 # Copilot setup for neovim
-git clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
+if [ ! -d ~/.config/nvim/pack/github/start/copilot.vim ]; then
+    git clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
+else
+    echo "Copilot for Neovim already installed"
+fi
 
 # Create local override files
 touch ~/.vimrc.local ~/.bash_profile.local ~/.dotfilesrc
