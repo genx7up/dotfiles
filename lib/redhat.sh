@@ -152,6 +152,8 @@ main() {
         packages+=(
             dnf-utils
             procps-ng  # Provides 'ps' command
+            git
+            python3-neovim
         )
     else
         packages+=(

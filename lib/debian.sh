@@ -41,7 +41,7 @@ packages=(
     ack apt-transport-https bash-completion bzip2 ca-certificates crudini cron curl dnsutils
     elixir findutils fontforge fzf g++ gcc git git-lfs gnupg gnupg-agent grep highlight
     httpie imagemagick jq libssl-dev lsb-release lua5.4 make ncurses-term openssl
-    p7zip-full pigz pv python3-dev python3-full python3-pip rename rhino ripgrep ruby
+    p7zip-full pigz pv python3 python3-dev python3-full python3-pip python3-neovim rename rhino ripgrep ruby
     ruby-dev sed shellcheck silversearcher-ag speedtest-cli ssh tcpdump testssl.sh tidy
     tree unison unzip vbindiff vim-gtk3 wget woff-tools woff2 xclip yamllint zsh locales
 )
