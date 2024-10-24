@@ -166,6 +166,9 @@ for package in "${npm_packages[@]}"; do
     install_npm_package "$package"
 done
 
+# Some package in npm installs packer. Fix packer conflict from cracklib-dicts
+sudo unlink /usr/sbin/packer || :
+
 # Python packages
 if [ ! -d "$HOME/.venv" ]; then
     python3 -m venv ~/.venv

@@ -53,6 +53,18 @@ install_or_update_neovim() {
             sudo $PKG_MANAGER remove cmake -y
             sudo $PKG_MANAGER install cmake3 -y
             sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
+            sudo yum install -y centos-release-scl
+            cat <<EOF | sudo tee /etc/yum.repos.d/CentOS-SCLo-scl.repo
+[centos-sclo-rh]
+name=CentOS-7 - SCLo rh
+baseurl=https://vault.centos.org/centos/7/sclo/x86_64/rh/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+EOF
+            sudo yum install -y devtoolset-11
+            sudo source /opt/rh/devtoolset-11/enable
+            gcc --version 
         fi
         rm -rf neovim && git clone https://github.com/neovim/neovim
         pushd neovim && git checkout stable
@@ -157,9 +169,6 @@ main() {
     install_github_cli
     install_or_update_neovim
     configure_selinux
-
-    # Fix packer conflict from cracklib-dicts
-    sudo unlink /usr/sbin/packer
 
     echo "Software updated ..."
 }
