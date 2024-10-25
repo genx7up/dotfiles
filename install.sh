@@ -195,7 +195,7 @@ install_tool "codiff" "" "curl -LO https://storage.googleapis.com/container-diff
 # Setup Minikube
 install_tool "minikube" "" "curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64"
 if ! minikube status | grep -q "Running"; then
-    minikube start
+    minikube start --force
     echo "minikube setup done"
 else
     echo "Minikube is already running"
