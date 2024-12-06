@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Virtual Env to PATH
+export PATH="$HOME/.venv/bin:$PATH"
+
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 GIT_PROMPT_ONLY_IN_REPO=1
  # GIT_PROMPT_FETCH_REMOTE_STATUS=0   # uncomment to avoid fetching remote status
