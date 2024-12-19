@@ -27,8 +27,7 @@ install_salt_centos_rocky() {
     BASEARCH=$(uname -m)
 
     # Setup Salt Repo
-    sudo rpm --import https://repo.saltproject.io/salt_rc/salt/py3/redhat/9/x86_64/latest/SALT-PROJECT-GPG-PUBKEY-2023.pub
-    curl -fsSL https://repo.saltproject.io/salt_rc/salt/py3/redhat/9/x86_64/latest.repo | sudo tee /etc/yum.repos.d/salt.repo
+    curl -fsSL https://github.com/saltstack/salt-install-guide/releases/latest/download/salt.repo | sudo tee /etc/yum.repos.d/salt.repo
 
     sudo yum clean expire-cache
     sudo yum -y install salt-minion at
@@ -36,17 +35,12 @@ install_salt_centos_rocky() {
 
 # Function to install Salt on Debian/Ubuntu
 install_salt_debian_ubuntu() {
+    # Ensure keyrings dir exists
     mkdir -p /etc/apt/keyrings
-    if [[ "$OS" == *"Ubuntu"* && "$VERSION_ID" == "22.04" ]]; then
-        SALT_URL="https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64"
-        DIST="jammy"
-    else
-        SALT_URL="https://repo.saltproject.io/salt/py3/debian/12/amd64"
-        DIST="bookworm"
-    fi
-
-    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg "${SALT_URL}/SALT-PROJECT-GPG-PUBKEY-2023.gpg"
-    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] ${SALT_URL}/latest ${DIST} main" | sudo tee /etc/apt/sources.list.d/salt.list
+    # Download public key
+    curl -fsSL https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public | sudo tee /etc/apt/keyrings/salt-archive-keyring.pgp
+    # Create apt repo target configuration
+    curl -fsSL https://github.com/saltstack/salt-install-guide/releases/latest/download/salt.sources | sudo tee /etc/apt/sources.list.d/salt.sources
 
     apt-get update
     apt-get install -y salt-minion at
