@@ -5,8 +5,8 @@ if [[ ${@: -1} == '--debug' ]];then
 	set -x
 fi
 
-TMATE_HOST=local.tio.mit.app
-TMATE_PORT=22822
+TMATE_HOST=${TMATE_HOST:-local.tio.mit.app}
+TMATE_PORT=${TMATE_PORT:-22822}
 TMATE_CONFIG=/etc/tmate
 
 #### prevent local tmate sessions from onerror trap in mono repo

@@ -197,8 +197,8 @@ alias dps="docker ps"
 alias dim="docker images"
 
 #Tmate
-alias tmate-server="~/.dotfiles/bin/tmate server"
-alias tmate-keys="~/.dotfiles/bin/tmate keys"
+alias tmate-server="TMATE_HOST=\$TMATE_HOST TMATE_PORT=\$TMATE_PORT ~/.dotfiles/bin/tmate server"
+alias tmate-keys="TMATE_HOST=\$TMATE_HOST TMATE_PORT=\$TMATE_PORT ~/.dotfiles/bin/tmate keys"
 
 # Minikube
 alias kubectl="minikube kubectl --"

@@ -497,6 +497,7 @@ call plug#begin('~/.config/nvim/plugged')
             autocmd!
             autocmd FileType nerdtree setlocal nolist " turn off whitespace characters
             autocmd FileType nerdtree setlocal nocursorline " turn off line highlighting for performance
+	    autocmd FileType nerdtree setlocal winfixwidth
         augroup END
 
         " Toggle NERDTree
