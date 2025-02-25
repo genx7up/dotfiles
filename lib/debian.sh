@@ -34,7 +34,7 @@ install_or_update_neovim() {
 }
 
 # No popup, use existing config
-echo 'DPkg::Options {"--force-confold";};' | sudo tee /etc/apt/apt.conf.d/99force-confold
+echo 'DPkg::Options {"--force-confdef"; "--force-confold";};' | sudo tee /etc/apt/apt.conf.d/99force-conf
 
 # Update package lists
 sudo apt-get update
