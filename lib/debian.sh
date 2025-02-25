@@ -33,6 +33,9 @@ install_or_update_neovim() {
     cd .. && rm -rf neovim
 }
 
+# No popup, use existing config
+echo 'DPkg::Options {"--force-confold";};' | sudo tee /etc/apt/apt.conf.d/99force-confold
+
 # Update package lists
 sudo apt-get update
 
