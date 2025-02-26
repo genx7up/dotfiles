@@ -36,6 +36,7 @@ install_or_update_neovim() {
 # No popup, use existing config
 echo 'DPkg::Options {"--force-confdef"; "--force-confold";};' | sudo tee /etc/apt/apt.conf.d/99force-conf
 export DEBIAN_FRONTEND=noninteractive
+export UCF_FORCE_CONFFOLD=1
 
 # Update package lists
 sudo apt-get update
