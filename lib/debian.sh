@@ -59,6 +59,7 @@ done
 locale_check=$(locale -a | grep -q en_US.utf8 && echo "found" || echo "")
 if [ -z "$locale_check" ]; then
     echo "en_US.UTF-8 locale not found, generating it..."
+    sudo sed -i '/^# *en_US\.UTF-8/s/^# *//' /etc/locale.gen
     sudo locale-gen en_US.UTF-8
 else
     echo "en_US.UTF-8 locale is already generated."
