@@ -8,7 +8,7 @@ set -e
 # Function to install a package if not already installed
 install_if_missing() {
     if ! dpkg -s "$1" &> /dev/null; then
-        sudo apt-get install -y "$1"
+        sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get install -y "$1"
     fi
 }
 
@@ -35,8 +35,6 @@ install_or_update_neovim() {
 
 # No popup, use existing config
 echo 'DPkg::Options {"--force-confdef"; "--force-confold";};' | sudo tee /etc/apt/apt.conf.d/99force-conf
-export DEBIAN_FRONTEND=noninteractive
-export UCF_FORCE_CONFFOLD=1
 
 # Update package lists
 sudo apt-get update
