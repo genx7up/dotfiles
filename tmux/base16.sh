@@ -15,63 +15,65 @@
 # base0D - Functions, Methods, Attribute IDs, Headings
 # base0E - Keywords, Storage, Selector, Markup Italic, Diff Changed
 
-base00=default  # #000000
-base01=colour18 # #282828
-base02=colour19 # #383838
-base03=colour8  # #585858
-base04=colour20 # #B8B8B8
-base05=colour7  # #D8D8D8
-base06=colour21 # #E8E8E8
-base07=colour15 # #F8F8F8
-base08=colour01 # #AB4642
-base09=colour16 # #DC9656
-base0A=colour3  # #F7CA88
-base0B=colour2  # #A1B56C
-base0C=colour6  # #86C1B9
-base0D=colour4  # #7CAFC2
-base0E=colour5  # #BA8BAF
-base0F=colour17 # #A16946
+set -g @base00 "default"   # #000000
+set -g @base01 "colour18"  # #282828
+set -g @base02 "colour19"  # #383838
+set -g @base03 "colour8"   # #585858
+set -g @base04 "colour20"  # #B8B8B8
+set -g @base05 "colour7"   # #D8D8D8
+set -g @base06 "colour21"  # #E8E8E8
+set -g @base07 "colour15"  # #F8F8F8
+set -g @base08 "colour1"   # #AB4642
+set -g @base09 "colour16"  # #DC9656
+set -g @base0A "colour3"   # #F7CA88
+set -g @base0B "colour2"   # #A1B56C
+set -g @base0C "colour6"   # #86C1B9
+set -g @base0D "colour4"   # #7CAFC2
+set -g @base0E "colour5"   # #BA8BAF
+set -g @base0F "colour17"  # #A16946
 
 set -g status-left-length 32
 set -g status-right-length 150
 set -g status-interval 5
 
-# default statusbar colors
-set-option -g status-fg $base02
-set-option -g status-bg $base01
-set-option -g status-attr default
+# Default statusbar colors
+set-option -g status-fg colour19  # base02
+set-option -g status-bg colour18  # base01
+set-option -g status-style fg=colour19,bg=colour18
 
-set-window-option -g window-status-fg $base04
-set-window-option -g window-status-bg $base00
+set-window-option -g window-status-style fg=colour20,bg=default  # base04
+  # base00
 set -g window-status-format " #I #W"
 
-# active window title colors
-set-window-option -g window-status-current-fg $base01
-set-window-option -g window-status-current-bg $base0C
-set-window-option -g  window-status-current-format " #[bold]#W "
+# Active window title colors
+set-window-option -g window-status-current-style fg=colour18,bg=colour6  # base01
+   # base0C
+set-window-option -g window-status-current-format " #[bold,fg=colour18,bg=colour6]#W "
 
-# pane border colors
-set-window-option -g pane-border-fg $base03
-set-window-option -g pane-active-border-fg $base0C
+# Pane border colors
+set-window-option -g pane-border-style fg=colour8   # base03
+set-window-option -g pane-active-border-style fg=colour6  # base0C
 
-# message text
-set-option -g message-bg $base00
-set-option -g message-fg $base0C
+# Message text
+set-option -g message-style fg=colour6,bg=default  # base00
+  # base0C
 
-# pane number display
-set-option -g display-panes-active-colour $base0C
-set-option -g display-panes-colour $base01
+# Pane number display
+set-option -g display-panes-active-colour colour6  # base0C
+set-option -g display-panes-colour colour18  # base01
 
-# clock
-set-window-option -g clock-mode-colour $base0C
+# Clock
+set-window-option -g clock-mode-colour colour6  # base0C
 
-tm_session_name="#[default,bg=$base0E,fg=$base01] #S "
-set -g status-left "$tm_session_name"
+# Status components
+set -g status-left "#[default,bg=colour5,fg=colour18] #S "  # base0E/base01
 
-tm_tunes="#[bg=$base0D,fg=$base01] ♫ #(osascript -l JavaScript ~/.dotfiles/applescripts/tunes.js)"
+tm_tunes="#(playerctl metadata --format '{{artist}} - {{title}}' 2>/dev/null || echo 'No Music')"
+tm_battery="#(acpi -b | awk '{print $4}' | tr -d ',')"
+tm_date="#[default,bg=colour19,fg=colour7] %R"  # base02/base05
+tm_host="#[fg=colour18,bg=colour5] #h "  # base01/base0E
+
+set -g status-right "#[bg=colour4,fg=colour18] ♫ $tm_tunes #[fg=colour18,bg=colour16] ♥ $tm_battery $tm_date $tm_host"
+
 # tm_tunes="#[fg=$tm_color_music]#(osascript ~/.dotfiles/applescripts/tunes.scpt | cut -c 1-50)"
 # tm_battery="#(~/.dotfiles/bin/battery_indicator.sh)"
-tm_battery="#[fg=$base01,bg=$base09] ♥ #(battery)"
-tm_date="#[default,bg=$base02,fg=$base05] %R"
-tm_host="#[fg=$base01,bg=$base0E] #h "
-set -g status-right "$tm_tunes $tm_battery $tm_date $tm_host"

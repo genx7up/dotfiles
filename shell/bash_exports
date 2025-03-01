@@ -7,7 +7,7 @@
 # application configuration
 export LSCOLORS="dxfxcxdxbxegedabagacad" # http://geoff.greer.fm/lscolors/
 #export GREP_OPTIONS="--color=auto"
-export GREP_COLOR="1;32"
+export GREP_COLOR="mt=1;32"
 export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 export EDITOR="nvim"
 export HOMEBREW_NO_ANALYTICS=1

@@ -134,3 +134,21 @@ source ~/.dotfiles/tmux/theme.sh
 if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux_osx.conf'
 if "[ -e ~/.tmux_local.conf ]" "source-file ~/.tmux_local.conf"
 
+set-option -g default-terminal "tmux-256color"
+set-option -ga terminal-overrides ',xterm-256color:Tc:smso=\E[3m:rmso=\E[23m'
+# Ensure correct terminal type
+set-option -g default-terminal "tmux-256color"
+
+# Enable 24-bit true color support
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+
+# Prevent Tmux from clearing the screen when switching
+set -ga terminal-overrides ",*:smcup@:rmcup@"
+
+# Fix redraw issues inside Neovim
+set-option -g escape-time 0
+set-option -sg repeat-time 0
+
+# Improve refresh rate
+set-option -g focus-events on
+

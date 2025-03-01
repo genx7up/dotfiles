@@ -108,7 +108,8 @@ call plug#begin('~/.config/nvim/plugged')
     endif
 
     " enable 24 bit color support if supported
-    if (has('mac') && empty($TMUX) && has("termguicolors"))
+    " if (has('mac') && empty($TMUX) && has("termguicolors"))
+    if (!empty($TMUX) && has("termguicolors"))
         set termguicolors
     endif
 

@@ -54,4 +54,4 @@ load_dotfiles
 unset load_dotfiles
 unset command_exists
 
-
+export TERM=xterm-256color
