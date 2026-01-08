@@ -1,5 +1,6 @@
 #!/bin/bash
 
+if [[ $- == *i* ]]; then
 
 # tells Readline to perform filename completion in a case-insensitive fashion
 bind "set completion-ignore-case on"
@@ -12,6 +13,8 @@ bind "set show-all-if-ambiguous on"
 
 # no bell sound on error
 bind "set bell-style none"
+
+fi
 
 # append to the history file, don't overwrite it
 shopt -s histappend
